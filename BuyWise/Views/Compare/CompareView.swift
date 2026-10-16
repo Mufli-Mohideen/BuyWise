@@ -1,0 +1,170 @@
+import SwiftUI
+
+struct CompareView: View {
+    @State private var selectedCategory: ProductCategory = .headphones
+    @State private var productA: Product = ProductCatalog.sonyWH1000XM5
+    @State private var productB: Product = ProductCatalog.boseQCUltra
+
+    private var categoryProducts: [Product] {
+        ProductCatalog.all.filter { $0.category == selectedCategory }
+    }
+
+    private var commonSpecLabels: [String] {
+        let labelsB = Set(productB.specifications.map(\.label))
+        return productA.specifications.map(\.label).filter { labelsB.contains($0) }
+    }
+
+    private var priceWinner: ComparisonWinner {
+        productA.startingPrice == productB.startingPrice ? .none : (productA.startingPrice < productB.startingPrice ? .first : .second)
+    }
+
+    private var valueWinner: ComparisonWinner {
+        productA.valueScore.overall == productB.valueScore.overall ? .none : (productA.valueScore.overall > productB.valueScore.overall ? .first : .second)
+    }
+
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 20) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Compare Products")
+                        .font(BuyWiseTypography.titleXL)
+                        .foregroundStyle(BuyWiseColors.textPrimary)
+                    Text("Products can only be compared within the same category.")
+                        .font(BuyWiseTypography.body)
+                        .foregroundStyle(BuyWiseColors.textSecondary)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+
+                UpgradeAnalysisEntryCard()
+
+                categorySelector
+                selectors
+
+                VStack(spacing: 12) {
+                    ComparisonRow(title: "Price", valueA: PriceFormatter.lkr(productA.startingPrice), valueB: PriceFormatter.lkr(productB.startingPrice), winner: priceWinner)
+
+                    ForEach(commonSpecLabels, id: \.self) { label in
+                        ComparisonRow(
+                            title: label,
+                            valueA: productA.specValue(for: label) ?? "—",
+                            valueB: productB.specValue(for: label) ?? "—"
+                        )
+                    }
+
+                    ComparisonRow(
+                        title: "Value",
+                        valueA: String(format: "%.1f", productA.valueScore.overall),
+                        valueB: String(format: "%.1f", productB.valueScore.overall),
+                        winner: valueWinner
+                    )
+                }
+
+                DemoDataBadge()
+            }
+            .padding(20)
+        }
+        .bwScreenBackground()
+        .navigationTitle("Compare")
+        .navigationBarTitleDisplayMode(.inline)
+        .onChange(of: selectedCategory) { _, newCategory in
+            let products = ProductCatalog.all.filter { $0.category == newCategory }
+            productA = products[0]
+            productB = products.count > 1 ? products[1] : products[0]
+        }
+    }
+
+    private var categorySelector: some View {
+        HStack(spacing: 8) {
+            ForEach(ProductCategory.allCases) { category in
+                Button {
+                    withAnimation(.easeInOut(duration: 0.15)) { selectedCategory = category }
+                } label: {
+                    Text(category.rawValue)
+                        .font(BuyWiseTypography.subheadline)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 9)
+                        .background(Capsule().fill(selectedCategory == category ? BuyWiseColors.brand : BuyWiseColors.surfaceSecondary))
+                        .foregroundStyle(selectedCategory == category ? .white : BuyWiseColors.textPrimary)
+                }
+                .buttonStyle(.plain)
+            }
+        }
+    }
+
+    private var selectors: some View {
+        HStack(spacing: 12) {
+            productPicker(selection: $productA)
+
+            ZStack {
+                Circle().fill(BuyWiseColors.brandSoft).frame(width: 30, height: 30)
+                Text("vs")
+                    .font(BuyWiseTypography.captionBold)
+                    .foregroundStyle(BuyWiseColors.brand)
+            }
+
+            productPicker(selection: $productB)
+        }
+    }
+
+    private func productPicker(selection: Binding<Product>) -> some View {
+        Menu {
+            ForEach(categoryProducts) { product in
+                Button("\(product.brand) \(product.name)") {
+                    selection.wrappedValue = product
+                }
+            }
+        } label: {
+            VStack(spacing: 8) {
+                ProductImageView(product: selection.wrappedValue, cornerRadius: BuyWiseTheme.smallRadius, emphasized: true)
+                    .frame(height: 76)
+                Text(selection.wrappedValue.name)
+                    .font(BuyWiseTypography.captionBold)
+                    .foregroundStyle(BuyWiseColors.textPrimary)
+                    .lineLimit(1)
+                Label("Change", systemImage: "chevron.up.chevron.down")
+                    .font(.system(size: 10, weight: .medium))
+                    .foregroundStyle(BuyWiseColors.textSecondary)
+            }
+            .frame(maxWidth: .infinity)
+            .padding(10)
+            .bwCard(radius: BuyWiseTheme.controlRadius)
+        }
+    }
+}
+
+/// Entry point to Upgrade Analysis from the Compare tab.
+struct UpgradeAnalysisEntryCard: View {
+    var preselectedNew: Product? = nil
+
+    var body: some View {
+        NavigationLink {
+            UpgradeAnalysisView(preselectedNew: preselectedNew)
+        } label: {
+            HStack(spacing: 14) {
+                Image(systemName: "arrow.up.forward.circle.fill")
+                    .font(.system(size: 22))
+                    .foregroundStyle(.white)
+                    .frame(width: 44, height: 44)
+                    .background(RoundedRectangle(cornerRadius: 12, style: .continuous).fill(BuyWiseColors.brand))
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(preselectedNew == nil ? "Upgrade analysis" : "Compare with what you own")
+                        .font(BuyWiseTypography.headline)
+                        .foregroundStyle(BuyWiseColors.textPrimary)
+                    Text(preselectedNew.map { "See what you'd gain upgrading to the \($0.name)." }
+                         ?? "See what you'd gain moving from your current product to a new one.")
+                        .font(BuyWiseTypography.caption)
+                        .foregroundStyle(BuyWiseColors.textSecondary)
+                        .multilineTextAlignment(.leading)
+                }
+                Spacer(minLength: 0)
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundStyle(BuyWiseColors.textSecondary)
+            }
+            .padding(14)
+            .background(RoundedRectangle(cornerRadius: BuyWiseTheme.cardRadius, style: .continuous).fill(BuyWiseColors.brandSoft))
+            .overlay(RoundedRectangle(cornerRadius: BuyWiseTheme.cardRadius, style: .continuous).strokeBorder(BuyWiseColors.brand.opacity(0.25), lineWidth: 1))
+        }
+        .buttonStyle(PressableButtonStyle())
+    }
+}
