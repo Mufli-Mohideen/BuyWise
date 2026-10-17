@@ -220,7 +220,8 @@ final class AppState: ObservableObject {
         userEmail = user.email ?? ""
         await CatalogStore.shared.loadIfNeeded()
         await loadUserData()
-        await listenForAlerts(userID: user.id)
+        // Connecting to Realtime can take several seconds; don't hold up launch or sign-in for it.
+        Task { await listenForAlerts(userID: user.id) }
     }
 
     private func clearUserState() {
