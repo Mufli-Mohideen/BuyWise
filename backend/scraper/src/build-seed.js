@@ -133,7 +133,12 @@ function mergeSpecs(product) {
   return [...byLabel].map(([label, value]) => ({ label, value }));
 }
 
-const productRows = products.map((product) => {
+// BuyWise is about comparing the two stores, so only products sold by both are published.
+// Set to false to publish the full catalogue, including single-retailer products.
+const SHARED_ONLY = true;
+const published = SHARED_ONLY ? products.filter((p) => p.celltronics.length && p.abans.length) : products;
+
+const productRows = published.map((product) => {
   const first = head(product);
   const { brand, brandKey, model, storage, ram } = first.parsed;
   const specs = mergeSpecs(product);
@@ -298,6 +303,6 @@ await writeFile(OUT, sql);
 const count = (category) => productRows.filter((row) => row.category === category).length;
 const both = products.filter((p) => p.celltronics.length && p.abans.length).length;
 console.log(`products: ${productRows.length} (smartphones ${count("smartphones")}, laptops ${count("laptops")}, headphones ${count("headphones")})`);
-console.log(`sold at both retailers: ${both} (cross-matched ${crossMatched}); celltronics only: ${products.filter((p) => !p.abans.length).length}; abans only: ${products.filter((p) => !p.celltronics.length).length}`);
+console.log(`sold at both retailers: ${both} (cross-matched ${crossMatched}); single-retailer products ${SHARED_ONLY ? "skipped" : "included"}: celltronics only ${products.filter((p) => !p.abans.length).length}, abans only ${products.filter((p) => !p.celltronics.length).length}`);
 console.log(`listings: ${listingValues.length}, price history rows: ${historyValues.length}, stores: ${storeValues.length}`);
 console.log(`wrote ${OUT.pathname} (${(sql.length / 1024).toFixed(0)} KB)`);

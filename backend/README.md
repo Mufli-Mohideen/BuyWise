@@ -36,7 +36,7 @@ Every user table is protected by row level security: users can only read and cha
 - Prices, specs, images and store locations are a **snapshot** of celltronics.lk and buyabans.com (date in `scraper/data/raw/meta.json`). There is no live scraping.
 - Celltronics is read through its public WooCommerce Store API. It has no spec tables, so specs (chip, display, battery, camera, weight) are extracted from its product descriptions.
 - Only the latest price point is real. Earlier price history is generated demo data and is stored with `source = 'simulated'`. The app labels the chart accordingly.
-- Celltronics and Abans overlap on about 95 products (mostly phones: Apple, vivo, Xiaomi, Realme, Motorola, Infinix; plus MacBooks, JBL and AirPods). The rest are sold by one retailer. Matching is automatic.
+- Only products sold by **both** Celltronics and Abans are published: 103 products (76 phones, 19 MacBooks, 8 headphones), so every product has a real side-by-side price. The scrape finds about 620 more single-retailer products; set `SHARED_ONLY = false` in `scraper/src/build-seed.js` to publish them too. Matching across retailers is automatic.
 - Singer was the original second retailer but was dropped: it shares only ~14 models with Abans because the two carry different brands.
 - `simulate_price_drop` and `reset_demo_prices` change the shared catalogue price. They exist for demonstrating alerts.
 
