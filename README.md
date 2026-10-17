@@ -1,6 +1,6 @@
 # BuyWise
 
-BuyWise is an iOS shopping companion that helps users compare electronics prices across Sri Lankan retailers (Singer and Abans), track price drops, and judge whether a product is good value before buying.
+BuyWise is an iOS shopping companion that helps users compare electronics prices across Sri Lankan retailers (Celltronics and Abans), track price drops, and judge whether a product is good value before buying.
 
 ## Features
 
@@ -10,13 +10,14 @@ BuyWise is an iOS shopping companion that helps users compare electronics prices
 - **Price tracking** — track products and get notified when prices drop
 - **Product identification** — find products by barcode scan, photo/price-tag scan, or pasting a retailer link
 - **Upgrade analysis** — compare a device you own with one you're considering
-- **Nearby retailers** — find the closest Singer and Abans branches on a map
+- **Nearby retailers** — find the closest Celltronics and Abans stores on a map
 - **Authentication** — email sign in, Sign in with Apple, Google sign in and Face ID
 - **Appearance** — light, dark and system themes
 
 ## Tech Stack
 
 - Swift / SwiftUI
+- Supabase (Postgres, Auth, Storage, Realtime): see [backend/README.md](backend/README.md)
 - Swift Charts
 - Vision & VisionKit (barcode and text recognition)
 - NaturalLanguage (retailer listing matching)
@@ -29,13 +30,15 @@ BuyWise is an iOS shopping companion that helps users compare electronics prices
 ```
 BuyWise/
 ├── BuyWiseApp.swift      # App entry point
+├── Backend/              # Supabase client, row types and the live catalogue store
 ├── Models/               # App state and data models
-├── MockData/             # Product catalog, store branches and price history
-├── Services/             # Pricing, value score, matching, scanning, location, notifications
+├── MockData/             # Reference devices for upgrade analysis
+├── Services/             # Value score, matching, product finder, scanning, location, notifications
 ├── Utilities/            # Colors, typography, theme and formatters
 ├── Views/                # SwiftUI screens grouped by feature
 │   └── Components/       # Reusable UI components
 └── Assets.xcassets/      # App icon, brand logos and product images
+backend/                  # Supabase migrations, seed data and the Celltronics/Abans scraper
 ```
 
 ## Requirements
@@ -52,4 +55,4 @@ BuyWise/
 2. Open `BuyWise.xcodeproj` in Xcode
 3. Select an iPhone simulator or device and press **Run** (⌘R)
 
-> The app currently runs on bundled demo data — product prices, retailers and store branches are mock data.
+> Prices, specs and store locations come from a snapshot of the Celltronics and Abans websites stored in Supabase. Earlier price history is simulated for the demo. See [backend/README.md](backend/README.md) to deploy the backend.
