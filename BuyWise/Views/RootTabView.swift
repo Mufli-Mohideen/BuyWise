@@ -60,6 +60,25 @@ struct RootTabView: View {
             }
         }
         .animation(.spring(response: 0.45, dampingFraction: 0.8), value: appState.inAppBanner)
+        .overlay(alignment: .bottom) {
+            if let message = appState.lastError {
+                Label(message, systemImage: "exclamationmark.triangle.fill")
+                    .font(BuyWiseTypography.caption)
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 10)
+                    .background(Capsule().fill(Color.black.opacity(0.85)))
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 96)
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                    .onTapGesture { appState.dismissError() }
+                    .task(id: message) {
+                        try? await Task.sleep(nanoseconds: 4_000_000_000)
+                        appState.dismissError()
+                    }
+            }
+        }
+        .animation(.easeInOut(duration: 0.25), value: appState.lastError)
         .sheet(item: $appState.deepLinkProduct) { product in
             NavigationStack {
                 ProductDetailView(product: product)

@@ -4,6 +4,7 @@ struct CompareView: View {
     @State private var selectedCategory: ProductCategory
     @State private var productA: Product
     @State private var productB: Product
+    @State private var summary: ProductSummarizer.Summary?
 
     init() {
         let category = ProductCategory.headphones
@@ -76,16 +77,60 @@ struct CompareView: View {
                     )
                 }
 
-                DemoDataBadge()
+                summaryCard
+
+                DemoDataBadge(text: "Celltronics & Abans prices")
             }
             .padding(20)
         }
         .bwScreenBackground()
         .navigationTitle("Compare")
         .navigationBarTitleDisplayMode(.inline)
+        .task(id: "\(productA.id)-\(productB.id)") {
+            summary = nil
+            summary = await ProductSummarizer.compare(productA, productB)
+        }
         .onChange(of: selectedCategory) { _, newCategory in
             (productA, productB) = Self.defaultPair(for: newCategory)
         }
+    }
+
+    private var summaryCard: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(alignment: .firstTextBaseline) {
+                Label("Summary", systemImage: "text.alignleft")
+                    .font(BuyWiseTypography.headline)
+                    .foregroundStyle(BuyWiseColors.textPrimary)
+                Spacer()
+                if let summary {
+                    Label(summary.source == .onDeviceModel ? "Apple Intelligence" : "From listed specs",
+                          systemImage: summary.source == .onDeviceModel ? "apple.intelligence" : "list.bullet.rectangle")
+                        .font(BuyWiseTypography.caption)
+                        .foregroundStyle(BuyWiseColors.textSecondary)
+                }
+            }
+            if let summary {
+                Text(summary.text)
+                    .font(BuyWiseTypography.body)
+                    .foregroundStyle(BuyWiseColors.textPrimary)
+                    .fixedSize(horizontal: false, vertical: true)
+                if summary.source == .onDeviceModel {
+                    Text("Written on your iPhone from the prices and specs above. Check details before buying.")
+                        .font(BuyWiseTypography.caption)
+                        .foregroundStyle(BuyWiseColors.textSecondary)
+                }
+            } else {
+                HStack(spacing: 8) {
+                    ProgressView()
+                    Text("Summarising…")
+                        .font(BuyWiseTypography.caption)
+                        .foregroundStyle(BuyWiseColors.textSecondary)
+                }
+            }
+        }
+        .padding(16)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .bwCard()
     }
 
     private var categorySelector: some View {

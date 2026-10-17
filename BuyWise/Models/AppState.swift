@@ -267,7 +267,6 @@ final class AppState: ObservableObject {
             recentSearches = searchRows.map(\.query)
             isApplyingRemoteState = false
             await refreshInbox(alertNew: false)
-            lastError = nil
         } catch {
             isApplyingRemoteState = false
             lastError = "Couldn't load your BuyWise data. Pull to refresh or try again later."
@@ -602,13 +601,19 @@ final class AppState: ObservableObject {
 
     // MARK: Helpers
 
-    /// Runs a backend write, surfacing a short message instead of failing silently.
+    /// Runs a backend write. On failure it shows a short message and reloads the user's data, so an
+    /// optimistic change on screen (e.g. "Tracking") is replaced by what was actually saved.
     private func write(_ operation: () async throws -> Void) async {
         do {
             try await operation()
         } catch {
             lastError = "Couldn't save that change. Check your connection and try again."
+            await loadUserData()
         }
+    }
+
+    func dismissError() {
+        lastError = nil
     }
 }
 
