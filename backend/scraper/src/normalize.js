@@ -186,6 +186,20 @@ export function parseTitle(title, category) {
   if (codes.length && !codes.some(displayHasCode)) {
     display = `${display} ${title.match(new RegExp(codes[0].split("").join("-?"), "i"))?.[0] ?? codes[0].toUpperCase()}`;
   }
+  // MacBooks: retailers word them differently ("Air M3 Chip 15 inch", "Air 15.3 Inch M3"), so rebuild the name
+  // from line + screen size + chip. Different chip generations must never merge.
+  if (brand.key === "apple" && category === "laptops") {
+    const line = title.match(/macbook\s+(air|pro|neo)/i)?.[1];
+    const size =
+      title.match(/\b(1[3-6])(?:\.\d)?\s*-?\s*(?:inch|"|”)/i)?.[1] ??
+      title.match(/\b(1[3-6])\b(?!\s*(?:gb|tb|-?core|c\b))/i)?.[1];
+    const chip = title.match(/\b(M[1-9](?:\s+(?:Pro|Max))?|A1\d\s+Pro)\b/i)?.[1]
+      ?.replace(/\b(pro|max)\b/gi, (w) => w[0].toUpperCase() + w.slice(1).toLowerCase())
+      .replace(/^[ma]/i, (c) => c.toUpperCase());
+    if (line) {
+      display = ["MacBook", line[0].toUpperCase() + line.slice(1).toLowerCase(), size, chip].filter(Boolean).join(" ");
+    }
+  }
   const key = words(display)
     .filter((token) => !FILLER_WORDS.has(token) && token !== brand.key)
     .join(" ");
@@ -291,8 +305,8 @@ export function specsFromText(text) {
   const weight = t.match(/(?:weigh(?:s|ing|t)?(?:\s+(?:of|is|just|only|about))*\s*)(\d+(?:\.\d+)?)\s*(kg|g)\b/i)
     ?? t.match(/(\d+(?:\.\d+)?)\s*(kg|g)\s+(?:weight|light)/i);
   if (weight) add("Weight", `${weight[1]} ${weight[2].toLowerCase()}`);
-  add("Bluetooth", group(/bluetooth\s*(?:v|version)?\s*(\d\.\d)/i));
-  const driver = group(/(\d{1,2}(?:\.\d)?)\s*mm\s+(?:\w+\s+)?drivers?/i);
+  add("Bluetooth", group(/bluetooth\s*(?:v|version)?\s*([456]\.\d)(?!\s*ghz)/i));
+  const driver = group(/(\d{1,2}(?:\.\d)?)\s*mm\s+(?:(?:dynamic|neodymium|full-range|graphene|custom|large)\s+)?drivers?/i);
   add("Driver Unit", driver && `${driver}mm`);
   if (/\b(active noise cancell?(?:ation|ing)|\banc\b|hybrid noise cancell?(?:ation|ing))/i.test(t)) add("Noise Cancelling", "Yes");
   return specs;
@@ -346,9 +360,10 @@ export function canonicalSpecs(category, specs, { ram, storage, title }) {
     add("Type", type ? type.split(/[,;]/)[0] : null);
     const playTime = hours(pick(specs, /play\s*time/i, /playback/i, /battery life/i, /^battery/i, /music/i));
     add("Battery", playTime ? `Up to ${playTime} hours` : null);
-    const driver = firstNumber((pick(specs, /driver/i) ?? "").match(/\d+(?:\.\d+)?\s*mm/i)?.[0]);
+    const driverMm = firstNumber((pick(specs, /driver/i) ?? "").match(/\d+(?:\.\d+)?\s*mm/i)?.[0]);
+    const driver = driverMm && driverMm >= 6 ? driverMm : null;
     add("Driver", driver ? `${driver}mm` : null);
-    const bluetooth = (pick(specs, /^bluetooth/i, /bluetooth version/i, /connectivity/i, /wireless/i) ?? "").match(/\d\.\d/)?.[0];
+    const bluetooth = (pick(specs, /^bluetooth/i, /bluetooth version/i, /connectivity/i, /wireless/i) ?? "").match(/\b[456]\.\d\b(?!\s*ghz)/i)?.[0];
     add("Connectivity", bluetooth ? `Bluetooth ${bluetooth}` : null);
     const anc = pick(specs, /noise cancel/i, /\banc\b/i);
     add("Noise Cancellation", anc ? (/^(yes|active|anc)/i.test(anc) || /active noise/i.test(anc) ? "Yes" : clean(anc).slice(0, 40)) : /\b(anc|noise cancel)/i.test(title) ? "Yes" : null);
