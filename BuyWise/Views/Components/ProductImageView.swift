@@ -1,12 +1,45 @@
 import SwiftUI
 
-/// Displays a real bundled product photo when one is available, falling back to a
-/// neutral tile with a product-accurate glyph (never an empty placeholder).
+/// The product's photo: the bundled image for reference devices, otherwise the retailer's
+/// product image. Shows the category glyph while loading or when there's no photo.
+struct ProductPhoto: View {
+    let product: Product?
+    var category: ProductCategory = .smartphones
+    var padding: CGFloat = 8
+    var placeholderTint: Color = BuyWiseColors.textSecondary
+
+    var body: some View {
+        if let assetName = product?.imageAssetName, UIImage(named: assetName) != nil {
+            Image(assetName)
+                .resizable()
+                .scaledToFit()
+                .padding(padding)
+        } else if let url = product?.imageURL {
+            AsyncImage(url: url, transaction: Transaction(animation: .easeOut(duration: 0.2))) { phase in
+                if let image = phase.image {
+                    image.resizable().scaledToFit().padding(padding)
+                } else {
+                    glyph
+                }
+            }
+        } else {
+            glyph
+        }
+    }
+
+    private var glyph: some View {
+        Image(systemName: product?.imageSymbolName ?? category.symbolName)
+            .font(.system(size: 34, weight: .medium))
+            .foregroundStyle(placeholderTint)
+    }
+}
+
+/// A rounded tile with the product's photo, falling back to a neutral tile with a
+/// product-accurate glyph (never an empty placeholder).
 struct ProductImageView: View {
     let category: ProductCategory
-    var symbolName: String? = nil
+    var product: Product? = nil
     var brand: String? = nil
-    var assetName: String? = nil
     var cornerRadius: CGFloat = BuyWiseTheme.cardRadius
     var emphasized: Bool = false
     /// Only enable where the surrounding layout has no brand text of its own —
@@ -15,9 +48,8 @@ struct ProductImageView: View {
 
     init(product: Product, cornerRadius: CGFloat = BuyWiseTheme.cardRadius, emphasized: Bool = false, showsBrandTag: Bool = false) {
         self.category = product.category
-        self.symbolName = product.imageSymbolName
+        self.product = product
         self.brand = product.brand
-        self.assetName = product.imageAssetName
         self.cornerRadius = cornerRadius
         self.emphasized = emphasized
         self.showsBrandTag = showsBrandTag
@@ -25,32 +57,20 @@ struct ProductImageView: View {
 
     init(category: ProductCategory, cornerRadius: CGFloat = BuyWiseTheme.cardRadius, emphasized: Bool = false) {
         self.category = category
-        self.symbolName = nil
-        self.brand = nil
-        self.assetName = nil
         self.cornerRadius = cornerRadius
         self.emphasized = emphasized
-        self.showsBrandTag = false
     }
 
     var body: some View {
         RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-            .fill(tileFill)
+            .fill(hasPhoto ? Color(white: 0.98) : BuyWiseColors.surfaceSecondary)
             .overlay(
                 RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                     .strokeBorder(BuyWiseColors.border, lineWidth: 1)
             )
             .overlay {
-                if let assetName, UIImage(named: assetName) != nil {
-                    Image(assetName)
-                        .resizable()
-                        .scaledToFit()
-                        .padding(8)
-                } else {
-                    Image(systemName: symbolName ?? category.symbolName)
-                        .font(.system(size: 34, weight: .medium))
-                        .foregroundStyle(emphasized ? BuyWiseColors.brand : BuyWiseColors.textSecondary)
-                }
+                ProductPhoto(product: product, category: category,
+                             placeholderTint: emphasized ? BuyWiseColors.brand : BuyWiseColors.textSecondary)
             }
             .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
             .overlay(alignment: .bottomLeading) {
@@ -68,9 +88,9 @@ struct ProductImageView: View {
             .accessibilityLabel(accessibilityLabelText)
     }
 
-    private var tileFill: Color {
-        guard let assetName else { return BuyWiseColors.surfaceSecondary }
-        return UIImage(named: assetName) != nil ? Color(white: 0.98) : BuyWiseColors.surfaceSecondary
+    private var hasPhoto: Bool {
+        if let assetName = product?.imageAssetName, UIImage(named: assetName) != nil { return true }
+        return product?.imageURL != nil
     }
 
     private var accessibilityLabelText: String {

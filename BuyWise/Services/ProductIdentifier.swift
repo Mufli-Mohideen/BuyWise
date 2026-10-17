@@ -1,4 +1,5 @@
 import Foundation
+import Supabase
 
 struct IdentificationResult {
     let product: Product
@@ -19,32 +20,34 @@ enum IdentificationError: LocalizedError {
     case notFound
     case noTextFound
     case noBarcodeFound
+    case offline
 
     var errorDescription: String? {
         switch self {
-        case .unsupportedRetailer: return "Only Singer and Abans product links are supported."
+        case .unsupportedRetailer: return "Only Celltronics and Abans product links are supported."
         case .notFound: return "We couldn't match this to a product in the catalogue."
         case .noTextFound: return "No readable text was found in this image."
         case .noBarcodeFound: return "No barcode was found in this image."
+        case .offline: return "Couldn't reach BuyWise. Check your connection and try again."
         }
     }
 }
 
-/// Maps free text (OCR output, URL slugs, typed names) and barcodes to catalogue products,
-/// using the same on-device listing matcher that compares Singer and Abans listings.
+/// The three-way product finder. The backend narrows the catalogue (fuzzy name search, listing URL,
+/// barcode or retailer item code); the on-device listing matcher makes the final call on free text.
 enum ProductIdentifier {
-    static func identify(text: String, method: IdentificationResult.Method) throws -> IdentificationResult {
-        let query = text.replacingOccurrences(of: "\n", with: " ")
-        guard !query.trimmingCharacters(in: .whitespaces).isEmpty else { throw IdentificationError.noTextFound }
+    static func identify(text: String, method: IdentificationResult.Method) async throws -> IdentificationResult {
+        let query = text.replacingOccurrences(of: "\n", with: " ").trimmingCharacters(in: .whitespaces)
+        guard !query.isEmpty else { throw IdentificationError.noTextFound }
+
+        let candidates: [ProductRow] = try await backend {
+            try await supabase.rpc("search_products", params: SearchParams(query: query, maxResults: 8)).execute().value
+        }
 
         var best: (Product, Double)?
-        for product in ProductCatalog.all {
-            let candidates = [
-                product.fullName,
-                CatalogMetadata.title(for: product, retailer: .singer),
-                CatalogMetadata.title(for: product, retailer: .abans)
-            ]
-            let score = candidates
+        for row in candidates {
+            guard let product = ProductCatalog.product(id: row.id) else { continue }
+            let score = ([product.fullName] + product.listings.map(\.title))
                 .map { ListingMatcher.shared.compare(query, $0) }
                 .filter { $0.conflictReason == nil && $0.modelMatched }
                 .map(\.confidence)
@@ -58,26 +61,42 @@ enum ProductIdentifier {
         return IdentificationResult(product: product, confidence: confidence, method: method, evidence: text)
     }
 
-    static func identify(barcode: String) throws -> IdentificationResult {
-        guard let product = CatalogMetadata.product(forBarcode: barcode) else { throw IdentificationError.notFound }
-        return IdentificationResult(product: product, confidence: 1, method: .barcode, evidence: barcode)
+    static func identify(barcode: String) async throws -> IdentificationResult {
+        let code = barcode.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !code.isEmpty else { throw IdentificationError.noBarcodeFound }
+        let rows: [ProductRow] = try await backend {
+            try await supabase.rpc("find_product_by_barcode", params: BarcodeParams(code: code)).execute().value
+        }
+        guard let row = rows.first, let product = ProductCatalog.product(id: row.id) else { throw IdentificationError.notFound }
+        return IdentificationResult(product: product, confidence: 1, method: .barcode, evidence: code)
     }
 
-    /// Parses Singer (singersl.com / singer.lk) and Abans (buyabans.com) product links only.
-    static func identify(url text: String) throws -> IdentificationResult {
-        guard let url = URL(string: text.trimmingCharacters(in: .whitespacesAndNewlines)),
-              let host = url.host?.lowercased() else {
+    /// Celltronics (celltronics.lk) and Abans (buyabans.com) product links only.
+    static func identify(url text: String) async throws -> IdentificationResult {
+        let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard let url = URL(string: trimmed), let host = url.host?.lowercased() else {
             throw IdentificationError.notFound
         }
-        let supported = ["singersl.com", "singer.lk", "buyabans.com"]
+        let supported = ["celltronics.lk", "buyabans.com"]
         guard supported.contains(where: { host == $0 || host.hasSuffix(".\($0)") }) else {
             throw IdentificationError.unsupportedRetailer
         }
-        let slug = url.pathComponents.last { $0 != "/" } ?? ""
-        let words = slug
-            .replacingOccurrences(of: #"\.html?$"#, with: "", options: .regularExpression)
-            .replacingOccurrences(of: #"[-_]+"#, with: " ", options: .regularExpression)
-        let result = try identify(text: words, method: .url)
-        return IdentificationResult(product: result.product, confidence: result.confidence, method: .url, evidence: host)
+
+        let matches: [URLMatchRow] = try await backend {
+            try await supabase.rpc("find_product_by_url", params: URLParams(productUrl: trimmed)).execute().value
+        }
+        guard let match = matches.first, match.confidence >= 0.45,
+              let product = ProductCatalog.product(id: match.productId) else {
+            throw IdentificationError.notFound
+        }
+        return IdentificationResult(product: product, confidence: match.confidence, method: .url, evidence: host)
+    }
+
+    private static func backend<T>(_ call: () async throws -> T) async throws -> T {
+        do {
+            return try await call()
+        } catch {
+            throw IdentificationError.offline
+        }
     }
 }

@@ -5,6 +5,10 @@ struct PersonalInformationView: View {
     @EnvironmentObject private var appState: AppState
     @State private var showSaved = false
     @State private var photoItem: PhotosPickerItem?
+    @State private var name = ""
+    @State private var email = ""
+    @State private var isSaving = false
+    @State private var message: String?
 
     var body: some View {
         ScrollView {
@@ -24,21 +28,30 @@ struct PersonalInformationView: View {
                 .frame(maxWidth: .infinity)
                 .padding(.bottom, 4)
 
-                field(title: "Full name", text: $appState.userName)
-                field(title: "Email", text: $appState.userEmail, keyboard: .emailAddress)
+                field(title: "Full name", text: $name)
+                if !appState.isGuest {
+                    field(title: "Email", text: $email, keyboard: .emailAddress)
+                }
 
-                PrimaryButton(title: showSaved ? "Saved" : "Save Changes", symbolName: showSaved ? "checkmark" : nil) {
-                    showSaved = true
-                    Task {
-                        try? await Task.sleep(nanoseconds: 1_500_000_000)
-                        showSaved = false
-                    }
+                if let message {
+                    Text(message)
+                        .font(BuyWiseTypography.caption)
+                        .foregroundStyle(BuyWiseColors.textSecondary)
+                }
+
+                PrimaryButton(title: showSaved ? "Saved" : "Save Changes", symbolName: showSaved ? "checkmark" : nil,
+                              isLoading: isSaving, isEnabled: !name.trimmingCharacters(in: .whitespaces).isEmpty) {
+                    save()
                 }
             }
             .padding(20)
         }
         .bwScreenBackground()
         .navigationTitle("Personal Information")
+        .onAppear {
+            name = appState.userName
+            email = appState.userEmail
+        }
         .onChange(of: photoItem) { _, item in
             guard let item else { return }
             Task {
@@ -49,6 +62,23 @@ struct PersonalInformationView: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
+    }
+
+    private func save() {
+        isSaving = true
+        message = nil
+        Task {
+            do {
+                let confirmationSent = try await appState.updatePersonalInformation(name: name, email: email)
+                message = confirmationSent ? "We've sent a confirmation link to \(email). Your email changes once you open it." : nil
+                showSaved = true
+                try? await Task.sleep(nanoseconds: 1_500_000_000)
+                showSaved = false
+            } catch {
+                message = error.localizedDescription
+            }
+            isSaving = false
+        }
     }
 
     private func field(title: String, text: Binding<String>, keyboard: UIKeyboardType = .default) -> some View {

@@ -71,15 +71,15 @@ struct ProfileView: View {
 
                 section("App") {
                     row(title: "About BuyWise", symbol: "info.circle") {
-                        LegalDetailView(title: "About BuyWise", bodyText: "BuyWise helps you compare consumer electronics across Singer and Abans, so you can make a confident purchase decision backed by transparent pricing and specification comparisons.")
+                        LegalDetailView(title: "About BuyWise", bodyText: "BuyWise helps you compare consumer electronics across Celltronics and Abans, so you can make a confident purchase decision backed by transparent pricing and specification comparisons.")
                     }
                     rowDivider
                     row(title: "Privacy", symbol: "hand.raised") {
-                        LegalDetailView(title: "Privacy", bodyText: "Product matching, barcode scanning and text recognition run entirely on your iPhone. Your location is only used to find nearby Singer and Abans stores and is never stored or shared. Price alerts are delivered as local notifications.")
+                        LegalDetailView(title: "Privacy", bodyText: "Your account, profile, tracked and saved products, search history and alerts are stored in BuyWise's Supabase backend so they follow you across devices, and only you can access them. Barcode scanning and text recognition run on your iPhone. Your location is only used to find nearby Celltronics and Abans stores and is never stored or shared.")
                     }
                     rowDivider
                     row(title: "Terms", symbol: "doc.text") {
-                        LegalDetailView(title: "Terms", bodyText: "BuyWise is a prototype built for evaluation. Prices, listings and store details come from a curated sample dataset of Singer and Abans products and are not live retailer data.")
+                        LegalDetailView(title: "Terms", bodyText: "BuyWise is a prototype built for evaluation. Prices, listings and store details are a snapshot taken from the Celltronics and Abans websites and may have changed since. Earlier price history is simulated for demonstration.")
                     }
                 }
 
@@ -104,14 +104,16 @@ struct ProfileView: View {
             Button("Log Out", role: .destructive, action: onLogOut)
             Button("Cancel", role: .cancel) {}
         }
-        .confirmationDialog("Reset demo data?", isPresented: $showResetConfirmation, titleVisibility: .visible) {
+        .confirmationDialog("Reset demo prices?", isPresented: $showResetConfirmation, titleVisibility: .visible) {
             Button("Reset", role: .destructive) {
-                appState.resetDemo()
-                flash("Demo data reset")
+                Task {
+                    await appState.resetDemo()
+                    flash("Prices restored")
+                }
             }
             Button("Cancel", role: .cancel) {}
         } message: {
-            Text("Prices, tracked products, saved items and alerts go back to the sample data.")
+            Text("Undoes simulated price drops so every product shows its real Celltronics and Abans price again.")
         }
         .onChange(of: photoItem) { _, item in
             guard let item else { return }
@@ -169,7 +171,8 @@ struct ProfileView: View {
                 Text(appState.userEmail)
                     .font(BuyWiseTypography.caption)
                     .foregroundStyle(.white.opacity(0.85))
-                Label("Signed in with \(appState.signInMethod)", systemImage: appState.signInMethod == "Apple ID" ? "apple.logo" : "envelope.fill")
+                Label(appState.isGuest ? "Guest account" : "Signed in with \(appState.signInMethod)",
+                      systemImage: appState.isGuest ? "person.fill" : appState.signInMethod == "Apple ID" ? "apple.logo" : "envelope.fill")
                     .font(BuyWiseTypography.captionBold)
                     .padding(.horizontal, 10)
                     .padding(.vertical, 5)
@@ -226,14 +229,15 @@ struct ProfileView: View {
                 .padding(.horizontal, 4)
             VStack(spacing: 0) {
                 demoButton(title: "Simulate a price drop", subtitle: "Sends a real price-drop alert for a tracked product", symbol: "arrow.down.right.circle.fill") {
-                    let product = appState.trackedProducts.first { appState.priceAlertsEnabled(for: $0) } ?? ProductCatalog.sonyWH1000XM5
+                    guard let product = appState.trackedProducts.first(where: { appState.priceAlertsEnabled(for: $0) })
+                            ?? ProductCatalog.featured(.headphones).first else { return }
                     Task {
                         await appState.simulatePriceDrop(for: product)
                         flash("Price dropped on \(product.name)")
                     }
                 }
                 rowDivider
-                demoButton(title: "Reset demo data", subtitle: "Restore sample prices, tracking and alerts", symbol: "arrow.counterclockwise.circle.fill") {
+                demoButton(title: "Reset demo prices", subtitle: "Restore the real scraped Celltronics and Abans prices", symbol: "arrow.counterclockwise.circle.fill") {
                     showResetConfirmation = true
                 }
             }

@@ -17,7 +17,9 @@ struct ImageScannerSheetView: View {
     @State private var showCamera = false
     @State private var scanLine: CGFloat = -1
 
-    private let samples = [ProductCatalog.sonyWH1000XM5, ProductCatalog.iPhone16Pro, ProductCatalog.macBookAirM3, ProductCatalog.galaxyS25]
+    private var samples: [Product] {
+        ProductCatalog.featuredTrio + ProductCatalog.featured(.smartphones, count: 2).dropFirst()
+    }
 
     var body: some View {
         NavigationStack {
@@ -191,7 +193,7 @@ struct ImageScannerSheetView: View {
         let started = Date()
         do {
             let lines = try await VisionScanner.recognizeText(in: image)
-            let result = try ProductIdentifier.identify(text: lines.joined(separator: " "), method: .text)
+            let result = try await ProductIdentifier.identify(text: lines.joined(separator: " "), method: .text)
             await minimumDelay(since: started)
             withAnimation(.spring(response: 0.45, dampingFraction: 0.85)) {
                 phase = .identified(result, image, lines)

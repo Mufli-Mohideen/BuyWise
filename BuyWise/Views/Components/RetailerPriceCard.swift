@@ -17,9 +17,10 @@ struct RetailerPriceCard: View {
                 .font(BuyWiseTypography.priceLarge)
                 .foregroundStyle(isLowest ? BuyWiseColors.textPrimary : BuyWiseColors.textSecondary)
 
-            Label(listing.isAvailable ? "Available" : "Unavailable", systemImage: listing.isAvailable ? "checkmark.circle.fill" : "xmark.circle")
+            Label(listing.isAvailable ? "Available" : listing.isPreorder ? "Pre-order" : "Unavailable",
+                  systemImage: listing.isAvailable ? "checkmark.circle.fill" : listing.isPreorder ? "clock" : "xmark.circle")
                 .font(BuyWiseTypography.caption)
-                .foregroundStyle(listing.isAvailable ? BuyWiseColors.success : BuyWiseColors.textSecondary)
+                .foregroundStyle(listing.isAvailable ? BuyWiseColors.success : listing.isPreorder ? BuyWiseColors.brand : BuyWiseColors.textSecondary)
         }
         .padding(14)
         .frame(maxWidth: .infinity, alignment: .leading)

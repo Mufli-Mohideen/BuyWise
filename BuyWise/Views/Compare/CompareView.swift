@@ -1,12 +1,29 @@
 import SwiftUI
 
 struct CompareView: View {
-    @State private var selectedCategory: ProductCategory = .headphones
-    @State private var productA: Product = ProductCatalog.sonyWH1000XM5
-    @State private var productB: Product = ProductCatalog.boseQCUltra
+    @State private var selectedCategory: ProductCategory
+    @State private var productA: Product
+    @State private var productB: Product
+
+    init() {
+        let category = ProductCategory.headphones
+        let (first, second) = Self.defaultPair(for: category)
+        _selectedCategory = State(initialValue: category)
+        _productA = State(initialValue: first)
+        _productB = State(initialValue: second)
+    }
 
     private var categoryProducts: [Product] {
-        ProductCatalog.all.filter { $0.category == selectedCategory }
+        ProductCatalog.products(in: selectedCategory).filter(\.isSold)
+    }
+
+    /// The two best-value products in the category that both retailers stock.
+    private static func defaultPair(for category: ProductCategory) -> (Product, Product) {
+        let featured = ProductCatalog.featured(category, count: 2)
+        let pool = featured.count == 2
+            ? featured
+            : ProductCatalog.products(in: category).filter(\.isSold) + ProductCatalog.referenceProducts.filter { $0.category == category }
+        return (pool[0], pool.count > 1 ? pool[1] : pool[0])
     }
 
     private var commonSpecLabels: [String] {
@@ -67,9 +84,7 @@ struct CompareView: View {
         .navigationTitle("Compare")
         .navigationBarTitleDisplayMode(.inline)
         .onChange(of: selectedCategory) { _, newCategory in
-            let products = ProductCatalog.all.filter { $0.category == newCategory }
-            productA = products[0]
-            productB = products.count > 1 ? products[1] : products[0]
+            (productA, productB) = Self.defaultPair(for: newCategory)
         }
     }
 

@@ -4,7 +4,7 @@ struct ShoppingPrioritiesView: View {
     @EnvironmentObject private var appState: AppState
     @Environment(\.dismiss) private var dismiss
 
-    private let preview = [ProductCatalog.sonyWH1000XM5, ProductCatalog.macBookAirM3, ProductCatalog.xiaomi14TPro]
+    private var preview: [Product] { ProductCatalog.featuredTrio }
 
     var body: some View {
         ScrollView {

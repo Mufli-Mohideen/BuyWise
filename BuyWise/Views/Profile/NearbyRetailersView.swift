@@ -214,7 +214,8 @@ private struct SelectedBranchCard: View {
             HStack(spacing: 10) {
                 metric(symbol: "location.north.line", title: "Distance", value: DistanceFormatter.string(LocationProvider.shared.distance(to: branch)))
                 metric(symbol: "car.fill", title: route == nil && !isRouting ? "Est. drive" : "Drive", value: driveText)
-                metric(symbol: "clock", title: branch.isOpenNow ? "Open" : "Closed", value: branch.shortHoursText, tint: branch.isOpenNow ? BuyWiseColors.success : BuyWiseColors.error)
+                metric(symbol: "clock", title: branch.statusText, value: branch.shortHoursText,
+                       tint: branch.isOpenNow ? BuyWiseColors.success : branch.hasHours ? BuyWiseColors.error : BuyWiseColors.textSecondary)
             }
 
             if let product, let listing = product.listing(for: branch.retailer) {
@@ -335,7 +336,7 @@ private struct StoreBranchRow: View {
                 Label(branch.hoursText, systemImage: "circle.fill")
                     .font(BuyWiseTypography.caption)
                     .labelStyle(StatusDotLabelStyle())
-                    .foregroundStyle(branch.isOpenNow ? BuyWiseColors.success : BuyWiseColors.error)
+                    .foregroundStyle(branch.isOpenNow ? BuyWiseColors.success : branch.hasHours ? BuyWiseColors.error : BuyWiseColors.textSecondary)
             }
 
             Spacer()

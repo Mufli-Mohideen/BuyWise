@@ -215,25 +215,38 @@ enum UpgradeAnalyzer {
 
     private static func definitions(for category: ProductCategory) -> [MetricDefinition] {
         let spec: (String) -> (Product) -> Double? = { label in { ValueScoreCalculator.number($0.specValue(for: label)) } }
+        // Only compare a measurement when both products state it in the same unit (e.g. mAh, not hours).
+        let measured: (String, String) -> (Product) -> Double? = { label, unit in
+            { product in
+                guard let text = product.specValue(for: label), text.localizedCaseInsensitiveContains(unit) else { return nil }
+                return ValueScoreCalculator.number(text)
+            }
+        }
+        let storage: (Product) -> Double? = { ValueScoreCalculator.gigabytes($0.specValue(for: "Storage")) }
+        let chipTier = MetricDefinition(title: "Chip tier (est.)", unit: "/10", specLabel: "Chip") {
+            $0.specValue(for: "Chip").map(ValueScoreCalculator.chipTier)
+        }
+
         switch category {
         case .smartphones:
             return [
-                MetricDefinition(title: "Performance", unit: "pts") { UpgradeReferenceData.entry(for: $0)?.performanceScore },
-                MetricDefinition(title: "Camera score", unit: "pts") { UpgradeReferenceData.entry(for: $0)?.cameraScore },
-                MetricDefinition(title: "Battery life", unit: "h", specLabel: "Battery", value: spec("Battery")),
-                MetricDefinition(title: "Storage", unit: "GB", specLabel: "Storage", value: spec("Storage"))
+                chipTier,
+                MetricDefinition(title: "Main camera", unit: "MP", specLabel: "Camera", value: spec("Camera")),
+                MetricDefinition(title: "Battery capacity", unit: "mAh", specLabel: "Battery", value: measured("Battery", "mAh")),
+                MetricDefinition(title: "Memory", unit: "GB", specLabel: "Memory", value: spec("Memory")),
+                MetricDefinition(title: "Storage", unit: "GB", specLabel: "Storage", value: storage)
             ]
         case .laptops:
             return [
-                MetricDefinition(title: "Performance", unit: "pts") { UpgradeReferenceData.entry(for: $0)?.performanceScore },
+                chipTier,
                 MetricDefinition(title: "Memory", unit: "GB", specLabel: "Memory", value: spec("Memory")),
-                MetricDefinition(title: "Storage", unit: "GB", specLabel: "Storage", value: spec("Storage")),
-                MetricDefinition(title: "Battery life", unit: "h", specLabel: "Battery", value: spec("Battery")),
-                MetricDefinition(title: "Weight", unit: "kg", lowerIsBetter: true, specLabel: "Weight", value: spec("Weight"))
+                MetricDefinition(title: "Storage", unit: "GB", specLabel: "Storage", value: storage),
+                MetricDefinition(title: "Battery capacity", unit: "Wh", specLabel: "Battery", value: measured("Battery", "Wh")),
+                MetricDefinition(title: "Weight", unit: "kg", lowerIsBetter: true, specLabel: "Weight", value: measured("Weight", "kg"))
             ]
         case .headphones:
             return [
-                MetricDefinition(title: "Battery life", unit: "h", specLabel: "Battery", value: spec("Battery")),
+                MetricDefinition(title: "Battery life", unit: "h", specLabel: "Battery", value: measured("Battery", "hour")),
                 MetricDefinition(title: "Weight", unit: "g", lowerIsBetter: true, specLabel: "Weight", value: spec("Weight")),
                 MetricDefinition(title: "Bluetooth version", unit: "", showsPercent: false, specLabel: "Connectivity", value: spec("Connectivity"))
             ]
@@ -241,8 +254,10 @@ enum UpgradeAnalyzer {
     }
 
     private static func featureChanges(current: Product, new: Product) -> FeatureChanges {
-        let a = UpgradeReferenceData.entry(for: current) ?? .init()
-        let b = UpgradeReferenceData.entry(for: new) ?? .init()
+        // Feature lists only exist for the bundled reference devices; without both, there's nothing honest to diff.
+        guard let a = UpgradeReferenceData.entry(for: current), let b = UpgradeReferenceData.entry(for: new) else {
+            return FeatureChanges(gained: [], lost: [], changed: [], unchanged: [])
+        }
 
         let oldSet = Set(a.features)
         var gained = b.features.filter { !oldSet.contains($0) }

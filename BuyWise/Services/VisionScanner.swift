@@ -58,8 +58,16 @@ enum SampleImages {
 
             draw("IN-STORE PRICE", at: CGPoint(x: card.minX + 36, y: card.minY + 26), font: .systemFont(ofSize: 32, weight: .heavy), color: .white)
             draw(product.brand.uppercased(), at: CGPoint(x: card.minX + 36, y: card.minY + 124), font: .systemFont(ofSize: 34, weight: .semibold), color: .darkGray)
-            draw(product.name, at: CGPoint(x: card.minX + 36, y: card.minY + 170), font: .systemFont(ofSize: 60, weight: .bold), color: .black)
-            draw(product.tagline, at: CGPoint(x: card.minX + 36, y: card.minY + 250), font: .systemFont(ofSize: 28, weight: .regular), color: .darkGray)
+            let textWidth = card.width - 72
+            let nameFont: UIFont = .systemFont(ofSize: product.name.count > 18 ? 42 : 60, weight: .bold)
+            (product.name as NSString).draw(
+                with: CGRect(x: card.minX + 36, y: card.minY + 168, width: textWidth, height: 104),
+                options: [.usesLineFragmentOrigin, .truncatesLastVisibleLine],
+                attributes: [.font: nameFont, .foregroundColor: UIColor.black],
+                context: nil
+            )
+            draw(product.tagline.isEmpty ? product.keySpec : product.tagline, at: CGPoint(x: card.minX + 36, y: card.minY + 276),
+                 font: .systemFont(ofSize: 26, weight: .regular), color: .darkGray)
             draw(PriceFormatter.lkr(product.highestListing.price), at: CGPoint(x: card.minX + 36, y: card.minY + 318), font: .systemFont(ofSize: 72, weight: .heavy), color: .black)
         }
     }

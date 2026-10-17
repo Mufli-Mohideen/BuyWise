@@ -9,13 +9,28 @@ struct SignUpView: View {
     @State private var password = ""
     @State private var confirmPassword = ""
     @State private var isPasswordVisible = false
+    @State private var isWorking = false
+    @State private var message: String?
+    @EnvironmentObject private var appState: AppState
     @Environment(\.dismiss) private var dismiss
+
+    private static let minimumPasswordLength = 6
 
     private var canCreateAccount: Bool {
         !fullName.trimmingCharacters(in: .whitespaces).isEmpty
-            && !email.trimmingCharacters(in: .whitespaces).isEmpty
-            && !password.isEmpty
+            && email.contains("@")
+            && password.count >= Self.minimumPasswordLength
             && password == confirmPassword
+    }
+
+    private var passwordHint: String? {
+        if !password.isEmpty && password.count < Self.minimumPasswordLength {
+            return "Use at least \(Self.minimumPasswordLength) characters."
+        }
+        if !confirmPassword.isEmpty && password != confirmPassword {
+            return "Passwords don't match."
+        }
+        return nil
     }
 
     var body: some View {
@@ -64,6 +79,12 @@ struct SignUpView: View {
                         labeledField(title: "Confirm password") {
                             SecureField("Confirm password", text: $confirmPassword)
                         }
+                        if let hint = passwordHint ?? message {
+                            Text(hint)
+                                .font(BuyWiseTypography.caption)
+                                .foregroundStyle(passwordHint != nil ? BuyWiseColors.error : BuyWiseColors.textSecondary)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
                     }
 
                     Text("By creating an account, you agree to BuyWise's Terms of Service and Privacy Policy.")
@@ -71,7 +92,7 @@ struct SignUpView: View {
                         .foregroundStyle(BuyWiseColors.textSecondary)
                         .multilineTextAlignment(.center)
 
-                    PrimaryButton(title: "Create Account", isEnabled: canCreateAccount, action: onAccountCreated)
+                    PrimaryButton(title: "Create Account", isLoading: isWorking, isEnabled: canCreateAccount && !isWorking, action: createAccount)
 
                     HStack(spacing: 4) {
                         Text("Already have an account?")
@@ -95,6 +116,23 @@ struct SignUpView: View {
                         .foregroundStyle(BuyWiseColors.textSecondary)
                 }
             }
+        }
+    }
+
+    private func createAccount() {
+        isWorking = true
+        message = nil
+        Task {
+            do {
+                if try await appState.signUp(name: fullName, email: email, password: password) {
+                    onAccountCreated()
+                } else {
+                    message = "Check \(email) for a confirmation link, then sign in."
+                }
+            } catch {
+                message = error.userFacingMessage
+            }
+            isWorking = false
         }
     }
 

@@ -2,6 +2,7 @@ import Foundation
 import Combine
 import SwiftUI
 import UserNotifications
+import Supabase
 
 enum AppearanceMode: String, CaseIterable, Identifiable {
     case system = "System Default"
@@ -9,6 +10,18 @@ enum AppearanceMode: String, CaseIterable, Identifiable {
     case dark = "Dark"
 
     var id: String { rawValue }
+
+    var databaseValue: String {
+        switch self {
+        case .system: return "system"
+        case .light: return "light"
+        case .dark: return "dark"
+        }
+    }
+
+    init(databaseValue: String) {
+        self = Self.allCases.first { $0.databaseValue == databaseValue } ?? .light
+    }
 
     var colorScheme: ColorScheme? {
         switch self {
@@ -27,7 +40,22 @@ enum AppearanceMode: String, CaseIterable, Identifiable {
     }
 }
 
-struct NotificationSettings {
+extension ShoppingPriority {
+    var databaseValue: String {
+        switch self {
+        case .balanced: return "balanced"
+        case .battery: return "battery"
+        case .performance: return "performance"
+        case .portability: return "portability"
+        }
+    }
+
+    init(databaseValue: String) {
+        self = Self.allCases.first { $0.databaseValue == databaseValue } ?? .balanced
+    }
+}
+
+struct NotificationSettings: Equatable {
     var priceDropAlerts = true
     var productTracking = true
     var shoppingInsights = true
@@ -45,6 +73,15 @@ struct AppNotification: Identifiable, Hashable {
     enum Kind {
         case priceDrop, betterPrice, trackingStarted, tip
 
+        init(databaseValue: String) {
+            switch databaseValue {
+            case "price_drop": self = .priceDrop
+            case "better_price": self = .betterPrice
+            case "tracking_started": self = .trackingStarted
+            default: self = .tip
+            }
+        }
+
         var symbolName: String {
             switch self {
             case .priceDrop: return "arrow.down.right.circle.fill"
@@ -55,7 +92,7 @@ struct AppNotification: Identifiable, Hashable {
         }
     }
 
-    let id = UUID()
+    let id: UUID
     let kind: Kind
     let productID: UUID?
     let title: String
@@ -64,20 +101,31 @@ struct AppNotification: Identifiable, Hashable {
     var isRead: Bool
 }
 
+/// The signed-in user's data, kept in sync with Supabase. Every change is applied locally first
+/// so the UI stays instant, then written to the backend.
 @MainActor
 final class AppState: ObservableObject {
+    @Published private(set) var userID: UUID?
+    @Published private(set) var isGuest = false
+
     @Published private(set) var trackedEntries: [UUID: TrackedEntry] = [:]
-    @Published var savedProductIDs: Set<UUID> = []
-    @Published var recentSearches: [String] = ["iPhone 16 Pro", "Sony WH-1000XM5", "MacBook Air"]
+    @Published private(set) var savedProductIDs: Set<UUID> = []
+    @Published private(set) var recentSearches: [String] = []
     @Published private(set) var recentlyViewedProductIDs: [UUID] = []
-    @Published var appearanceMode: AppearanceMode = .light
-    @Published var isFaceIDEnabled = false
-    @Published var notificationSettings = NotificationSettings()
-    @Published var userName: String = "Mufli"
-    @Published var userEmail: String = "mufli@buywise.app"
-    @Published var signInMethod: String = "Email"
+    @Published var appearanceMode: AppearanceMode = .light { didSet { saveProfileIfNeeded() } }
+    @Published var isFaceIDEnabled = UserDefaults.standard.bool(forKey: AppState.faceIDKey) {
+        didSet {
+            UserDefaults.standard.set(isFaceIDEnabled, forKey: Self.faceIDKey)
+            saveProfileIfNeeded()
+        }
+    }
+    @Published var notificationSettings = NotificationSettings() { didSet { saveProfileIfNeeded() } }
+    @Published private(set) var userName = ""
+    @Published private(set) var userEmail = ""
+    @Published private(set) var signInMethod = "Email"
     @Published private(set) var profileImageData: Data?
     @Published private(set) var inbox: [AppNotification] = []
+    @Published private(set) var lastError: String?
 
     /// Set to open a product from anywhere (e.g. tapping a notification).
     @Published var deepLinkProduct: Product?
@@ -85,109 +133,323 @@ final class AppState: ObservableObject {
     @Published var inAppBanner: AppNotification?
 
     @Published var shoppingPriority: ShoppingPriority = .balanced {
-        didSet { ValueScoreCalculator.shared.priority = shoppingPriority }
+        didSet {
+            ValueScoreCalculator.shared.priority = shoppingPriority
+            saveProfileIfNeeded()
+        }
     }
 
+    var isSignedIn: Bool { userID != nil }
+
+    private static let faceIDKey = "faceIDEnabled"
+    private var isApplyingRemoteState = false
+    private var alertedNotificationIDs: Set<UUID> = []
+    private var alertsChannel: RealtimeChannelV2?
+    private var alertsTask: Task<Void, Never>?
+
     init() {
-        seedDemoData()
-        profileImageData = try? Data(contentsOf: Self.profileImageURL)
         NotificationManager.shared.onOpenProduct = { [weak self] id in
             guard let self else { return }
             self.markRead(productID: id)
-            self.deepLinkProduct = ProductCatalog.all.first { $0.id == id }
+            self.deepLinkProduct = ProductCatalog.product(id: id)
         }
     }
 
-    // MARK: Demo data
+    // MARK: Session
 
-    private func seedDemoData() {
-        let calendar = Calendar.current
-        let day: (Int) -> Date = { calendar.date(byAdding: .day, value: -$0, to: .now) ?? .now }
-
-        trackedEntries = [
-            ProductCatalog.sonyWH1000XM5.id: TrackedEntry(productID: ProductCatalog.sonyWH1000XM5.id, previousPrice: 94_990, priceAlertsEnabled: true, dropThresholdPercent: 5, dateTracked: day(6)),
-            ProductCatalog.iPhone16Pro.id: TrackedEntry(productID: ProductCatalog.iPhone16Pro.id, previousPrice: 359_900, priceAlertsEnabled: true, dropThresholdPercent: 5, dateTracked: day(3)),
-            ProductCatalog.macBookAirM3.id: TrackedEntry(productID: ProductCatalog.macBookAirM3.id, previousPrice: 389_900, priceAlertsEnabled: false, dropThresholdPercent: 10, dateTracked: day(1))
-        ]
-
-        savedProductIDs = [ProductCatalog.boseQCUltra.id, ProductCatalog.galaxyS25.id, ProductCatalog.asusVivobook15.id]
-        recentlyViewedProductIDs = [ProductCatalog.xiaomi14TPro.id, ProductCatalog.jblLive770NC.id, ProductCatalog.pixel9.id]
-
-        let hour: (Double) -> Date = { Date().addingTimeInterval(-$0 * 3600) }
-        inbox = [
-            AppNotification(kind: .priceDrop, productID: ProductCatalog.sonyWH1000XM5.id,
-                            title: "Price dropped on WH-1000XM5",
-                            message: "Now LKR 89,990 at Abans, 5.3% lower. You save LKR 5,000.",
-                            date: hour(20), isRead: false),
-            AppNotification(kind: .betterPrice, productID: ProductCatalog.jblLive770NC.id,
-                            title: "Better price at Abans",
-                            message: "JBL Live 770NC is LKR 2,000 cheaper at Abans than Singer.",
-                            date: hour(46), isRead: false),
-            AppNotification(kind: .trackingStarted, productID: ProductCatalog.macBookAirM3.id,
-                            title: "Tracking MacBook Air M3",
-                            message: "We'll let you know when the price drops by 10% or more.",
-                            date: hour(24), isRead: true),
-            AppNotification(kind: .tip, productID: nil,
-                            title: "Compare before you buy",
-                            message: "Singer and Abans prices can differ by thousands of rupees on the same model.",
-                            date: hour(96), isRead: true)
-        ].sorted { $0.date > $1.date }
+    /// Restores a saved session on launch. Returns true when a user is still signed in.
+    func restoreSession() async -> Bool {
+        // `session` refreshes an expired access token when the refresh token is still valid.
+        guard supabase.auth.currentSession != nil, let session = try? await supabase.auth.session else { return false }
+        await didSignIn(session.user)
+        return true
     }
 
-    func resetDemo() {
-        PriceBook.shared.reset()
-        seedDemoData()
-        inAppBanner = nil
+    func signIn(email: String, password: String) async throws {
+        let session = try await supabase.auth.signIn(email: email.trimmingCharacters(in: .whitespaces), password: password)
+        await didSignIn(session.user)
     }
 
-    // MARK: Price-drop scenario
-
-    /// Mock-API price change: drops the product's lowest retailer price and raises an alert,
-    /// exactly as a real price feed update would.
-    func simulatePriceDrop(for product: Product) async {
-        let listing = product.lowestListing
-        let oldPrice = listing.price
-        let percent = Double.random(in: 0.06...0.09)
-        let newPrice = max(((oldPrice * (1 - percent)) / 1000).rounded(.down) * 1000 - 10, 990)
-
-        PriceBook.shared.setPrice(newPrice, for: product, at: listing.retailer)
-
-        if trackedEntries[product.id] == nil {
-            trackedEntries[product.id] = TrackedEntry(productID: product.id, previousPrice: oldPrice, priceAlertsEnabled: true, dropThresholdPercent: 5, dateTracked: .now)
-        } else {
-            trackedEntries[product.id]?.previousPrice = oldPrice
-        }
-
-        let dropPercent = (oldPrice - newPrice) / oldPrice * 100
-        let alert = AppNotification(
-            kind: .priceDrop,
-            productID: product.id,
-            title: "Price dropped on \(product.name)",
-            message: "Now \(PriceFormatter.lkr(newPrice)) at \(listing.retailer.rawValue), \(PriceFormatter.percent(dropPercent)) lower. You save \(PriceFormatter.lkr(oldPrice - newPrice)).",
-            date: .now,
-            isRead: false
+    /// Returns false when the project requires email confirmation before the first sign-in.
+    func signUp(name: String, email: String, password: String) async throws -> Bool {
+        let response = try await supabase.auth.signUp(
+            email: email.trimmingCharacters(in: .whitespaces),
+            password: password,
+            data: ["full_name": .string(name.trimmingCharacters(in: .whitespaces))]
         )
-        inbox.insert(alert, at: 0)
+        guard case .session(let session) = response else { return false }
+        await didSignIn(session.user)
+        return true
+    }
 
-        guard notificationSettings.priceDropAlerts, priceAlertsEnabled(for: product) else { return }
+    func signInWithApple(idToken: String, nonce: String, fullName: String?) async throws {
+        let session = try await supabase.auth.signInWithIdToken(
+            credentials: OpenIDConnectCredentials(provider: .apple, idToken: idToken, nonce: nonce)
+        )
+        // Apple only shares the name on the very first sign-in, so store it straight away.
+        if let fullName, !fullName.isEmpty {
+            _ = try? await supabase.auth.update(user: UserAttributes(data: ["full_name": .string(fullName)]))
+            _ = try? await supabase.from("profiles").update(["full_name": fullName]).eq("id", value: session.user.id).execute()
+        }
+        await didSignIn(session.user)
+    }
 
-        let status = await NotificationManager.shared.authorizationStatus()
-        let allowed: Bool
-        if status == .notDetermined {
-            allowed = await NotificationManager.shared.requestAuthorization()
-        } else {
-            allowed = status == .authorized || status == .provisional || status == .ephemeral
+    /// "Continue as Demo User": a real, anonymous Supabase account so every feature works without signing up.
+    func continueAsGuest() async throws {
+        let session = try await supabase.auth.signInAnonymously()
+        await didSignIn(session.user)
+    }
+
+    func sendPasswordReset(email: String) async throws {
+        try await supabase.auth.resetPasswordForEmail(email.trimmingCharacters(in: .whitespaces))
+    }
+
+    func changePassword(_ password: String) async throws {
+        _ = try await supabase.auth.update(user: UserAttributes(password: password))
+    }
+
+    func signOut() async {
+        await stopListeningForAlerts()
+        try? await supabase.auth.signOut()
+        clearUserState()
+    }
+
+    private func didSignIn(_ user: User) async {
+        userID = user.id
+        isGuest = user.isAnonymous
+        userEmail = user.email ?? ""
+        await CatalogStore.shared.loadIfNeeded()
+        await loadUserData()
+        await listenForAlerts(userID: user.id)
+    }
+
+    private func clearUserState() {
+        isApplyingRemoteState = true
+        userID = nil
+        isGuest = false
+        trackedEntries = [:]
+        savedProductIDs = []
+        recentSearches = []
+        recentlyViewedProductIDs = []
+        inbox = []
+        userName = ""
+        userEmail = ""
+        signInMethod = "Email"
+        profileImageData = nil
+        notificationSettings = NotificationSettings()
+        shoppingPriority = .balanced
+        appearanceMode = .light
+        isFaceIDEnabled = false
+        inAppBanner = nil
+        alertedNotificationIDs = []
+        isApplyingRemoteState = false
+    }
+
+    // MARK: Loading
+
+    func loadUserData() async {
+        guard let userID else { return }
+        do {
+            async let profile: ProfileRow = supabase.from("profiles").select().eq("id", value: userID).single().execute().value
+            async let tracked: [TrackedRow] = supabase.from("tracked_products").select().execute().value
+            async let saved: [ProductRefRow] = supabase.from("saved_products").select("product_id").execute().value
+            async let recent: [RecentlyViewedRow] = supabase.from("recently_viewed").select()
+                .order("viewed_at", ascending: false).limit(8).execute().value
+            async let searches: [SearchHistoryRow] = supabase.from("search_history").select()
+                .order("searched_at", ascending: false).limit(6).execute().value
+
+            let (profileRow, trackedRows, savedRows, recentRows, searchRows) = try await (profile, tracked, saved, recent, searches)
+            isApplyingRemoteState = true
+            apply(profileRow)
+            trackedEntries = Dictionary(uniqueKeysWithValues: trackedRows.map { ($0.productId, Self.entry($0)) })
+            savedProductIDs = Set(savedRows.map(\.productId))
+            recentlyViewedProductIDs = recentRows.map(\.productId)
+            recentSearches = searchRows.map(\.query)
+            isApplyingRemoteState = false
+            await refreshInbox(alertNew: false)
+            lastError = nil
+        } catch {
+            isApplyingRemoteState = false
+            lastError = "Couldn't load your BuyWise data. Pull to refresh or try again later."
+        }
+    }
+
+    private func apply(_ profile: ProfileRow) {
+        userName = profile.fullName?.isEmpty == false ? profile.fullName! : (isGuest ? "Guest" : userEmail.components(separatedBy: "@").first ?? "")
+        signInMethod = isGuest ? "Guest" : Self.displayName(forProvider: profile.signInMethod)
+        appearanceMode = AppearanceMode(databaseValue: profile.appearanceMode)
+        shoppingPriority = ShoppingPriority(databaseValue: profile.shoppingPriority)
+        isFaceIDEnabled = profile.faceIdEnabled
+        notificationSettings = NotificationSettings(
+            priceDropAlerts: profile.notifyPriceDrops,
+            productTracking: profile.notifyTracking,
+            shoppingInsights: profile.notifyInsights
+        )
+        if let avatar = profile.avatarUrl.flatMap(URL.init(string:)) {
+            Task { await loadAvatar(from: avatar) }
+        }
+    }
+
+    private static func displayName(forProvider provider: String) -> String {
+        switch provider {
+        case "apple": return "Apple ID"
+        case "google": return "Google"
+        case "anonymous": return "Guest"
+        default: return "Email"
+        }
+    }
+
+    private static func entry(_ row: TrackedRow) -> TrackedEntry {
+        TrackedEntry(
+            productID: row.productId,
+            previousPrice: row.previousPrice,
+            priceAlertsEnabled: row.alertsEnabled,
+            dropThresholdPercent: row.dropThresholdPercent,
+            dateTracked: row.trackedAt ?? .now
+        )
+    }
+
+    // MARK: Profile
+
+    private func saveProfileIfNeeded() {
+        guard !isApplyingRemoteState, let userID else { return }
+        let changes: [String: AnyJSON] = [
+            "appearance_mode": .string(appearanceMode.databaseValue),
+            "shopping_priority": .string(shoppingPriority.databaseValue),
+            "face_id_enabled": .bool(isFaceIDEnabled),
+            "notify_price_drops": .bool(notificationSettings.priceDropAlerts),
+            "notify_tracking": .bool(notificationSettings.productTracking),
+            "notify_insights": .bool(notificationSettings.shoppingInsights)
+        ]
+        Task { await write { try await supabase.from("profiles").update(changes).eq("id", value: userID).execute() } }
+    }
+
+    /// Saves the name, and starts Supabase's confirm-new-email flow when the email changed.
+    /// Returns true when a confirmation email was sent.
+    func updatePersonalInformation(name: String, email: String) async throws -> Bool {
+        guard let userID else { return false }
+        let trimmedName = name.trimmingCharacters(in: .whitespaces)
+        try await supabase.from("profiles").update(["full_name": trimmedName]).eq("id", value: userID).execute()
+        userName = trimmedName
+
+        let trimmedEmail = email.trimmingCharacters(in: .whitespaces)
+        guard !trimmedEmail.isEmpty, trimmedEmail.caseInsensitiveCompare(userEmail) != .orderedSame else { return false }
+        _ = try await supabase.auth.update(user: UserAttributes(email: trimmedEmail))
+        return true
+    }
+
+    // MARK: Profile photo
+
+    func setProfileImage(_ data: Data?) {
+        profileImageData = data
+        guard let userID else { return }
+        let path = "\(userID.uuidString.lowercased())/avatar.jpg"
+        Task {
+            await write {
+                let bucket = supabase.storage.from("avatars")
+                var avatarURL: String?
+                if let data {
+                    try await bucket.upload(path, data: data, options: FileOptions(contentType: "image/jpeg", upsert: true))
+                    // Cache-busting suffix so other devices fetch the new photo, not a cached copy.
+                    avatarURL = try bucket.getPublicURL(path: path).absoluteString + "?v=\(Int(Date().timeIntervalSince1970))"
+                } else {
+                    _ = try await bucket.remove(paths: [path])
+                }
+                try await supabase.from("profiles").update(["avatar_url": avatarURL]).eq("id", value: userID).execute()
+            }
+        }
+    }
+
+    private func loadAvatar(from url: URL) async {
+        if let (data, _) = try? await URLSession.shared.data(from: url) {
+            profileImageData = data
+        }
+    }
+
+    // MARK: Alerts (Realtime)
+
+    private func listenForAlerts(userID: UUID) async {
+        await stopListeningForAlerts()
+        let channel = supabase.channel("alerts-\(userID.uuidString.lowercased())")
+        let inserts = channel.postgresChange(InsertAction.self, schema: "public", table: "notifications", filter: .eq("user_id", value: userID))
+        alertsTask = Task { [weak self] in
+            for await insert in inserts {
+                guard insert.record["id"]?.stringValue != nil else { continue }
+                await self?.refreshInbox(alertNew: true)
+            }
+        }
+        try? await channel.subscribeWithError()
+        alertsChannel = channel
+    }
+
+    private func stopListeningForAlerts() async {
+        alertsTask?.cancel()
+        alertsTask = nil
+        if let alertsChannel {
+            await supabase.removeChannel(alertsChannel)
+        }
+        alertsChannel = nil
+    }
+
+    /// Reloads the inbox. With `alertNew`, unread price drops that weren't there before are shown as
+    /// a notification (or an in-app banner when notifications aren't allowed).
+    func refreshInbox(alertNew: Bool) async {
+        guard isSignedIn else { return }
+        guard let rows: [NotificationRecord] = try? await supabase.from("notifications").select()
+            .order("created_at", ascending: false).limit(50).execute().value else { return }
+
+        let known = Set(inbox.map(\.id))
+        inbox = rows.map { row in
+            AppNotification(id: row.id, kind: .init(databaseValue: row.kind), productID: row.productId,
+                            title: row.title, message: row.message, date: row.createdAt, isRead: row.isRead)
         }
 
-        if allowed {
-            await NotificationManager.shared.schedulePriceDrop(
-                productID: product.id, productName: product.name,
-                newPrice: newPrice, oldPrice: oldPrice, retailer: listing.retailer
-            )
+        let fresh = inbox.filter { !known.contains($0.id) }
+        for productID in Set(fresh.compactMap(\.productID)) {
+            await CatalogStore.shared.refresh(productID: productID)
+        }
+        guard alertNew else {
+            alertedNotificationIDs.formUnion(inbox.map(\.id))
+            return
+        }
+        for alert in fresh where alert.kind == .priceDrop && !alert.isRead && !alertedNotificationIDs.contains(alert.id) {
+            alertedNotificationIDs.insert(alert.id)
+            await present(alert)
+        }
+    }
+
+    private func present(_ alert: AppNotification) async {
+        let status = await NotificationManager.shared.authorizationStatus()
+        if status == .authorized || status == .provisional || status == .ephemeral {
+            await NotificationManager.shared.showAlert(id: alert.id, title: alert.title, message: alert.message, productID: alert.productID)
         } else {
-            try? await Task.sleep(nanoseconds: 800_000_000)
             inAppBanner = alert
         }
+    }
+
+    // MARK: Demo price feed
+
+    /// Asks the backend to drop the product's price. The database trigger records the change and creates
+    /// the alert; it reaches the app over Realtime (with a re-fetch as a fallback).
+    func simulatePriceDrop(for product: Product) async {
+        if await NotificationManager.shared.authorizationStatus() == .notDetermined {
+            await NotificationManager.shared.requestAuthorization()
+        }
+        await write {
+            try await supabase.rpc("simulate_price_drop", params: ProductIDParams(targetProduct: product.id)).execute()
+        }
+        await CatalogStore.shared.refresh(productID: product.id)
+        if trackedEntries[product.id] == nil {
+            await reloadTracked()
+        }
+        try? await Task.sleep(nanoseconds: 1_500_000_000)
+        await refreshInbox(alertNew: true)
+    }
+
+    func resetDemo() async {
+        await write { try await supabase.rpc("reset_demo_prices").execute() }
+        await CatalogStore.shared.load()
+        inAppBanner = nil
     }
 
     // MARK: Inbox
@@ -195,37 +457,29 @@ final class AppState: ObservableObject {
     var unreadCount: Int { inbox.filter { !$0.isRead }.count }
 
     func markRead(_ notification: AppNotification) {
-        guard let index = inbox.firstIndex(where: { $0.id == notification.id }) else { return }
+        guard let index = inbox.firstIndex(where: { $0.id == notification.id }), !inbox[index].isRead else { return }
         inbox[index].isRead = true
+        Task { await write { try await supabase.from("notifications").update(["is_read": true]).eq("id", value: notification.id).execute() } }
     }
 
     func markRead(productID: UUID) {
+        guard inbox.contains(where: { $0.productID == productID && !$0.isRead }) else { return }
         for index in inbox.indices where inbox[index].productID == productID {
             inbox[index].isRead = true
         }
+        Task { await write { try await supabase.from("notifications").update(["is_read": true]).eq("product_id", value: productID).execute() } }
     }
 
     func markAllRead() {
+        guard let userID else { return }
         for index in inbox.indices { inbox[index].isRead = true }
+        Task { await write { try await supabase.from("notifications").update(["is_read": true]).eq("user_id", value: userID).execute() } }
     }
 
     func clearInbox() {
+        guard let userID else { return }
         inbox.removeAll()
-    }
-
-    // MARK: Profile photo
-
-    private static var profileImageURL: URL {
-        URL.documentsDirectory.appending(path: "profile-photo.jpg")
-    }
-
-    func setProfileImage(_ data: Data?) {
-        profileImageData = data
-        if let data {
-            try? data.write(to: Self.profileImageURL, options: .atomic)
-        } else {
-            try? FileManager.default.removeItem(at: Self.profileImageURL)
-        }
+        Task { await write { try await supabase.from("notifications").delete().eq("user_id", value: userID).execute() } }
     }
 
     // MARK: Tracking
@@ -235,19 +489,14 @@ final class AppState: ObservableObject {
     }
 
     func startTracking(_ product: Product, dropThresholdPercent: Double = 5, alertsEnabled: Bool = true) {
-        trackedEntries[product.id] = TrackedEntry(
-            productID: product.id,
-            previousPrice: product.startingPrice,
-            priceAlertsEnabled: alertsEnabled,
-            dropThresholdPercent: dropThresholdPercent,
-            dateTracked: .now
-        )
-        inbox.insert(AppNotification(
-            kind: .trackingStarted, productID: product.id,
-            title: "Tracking \(product.name)",
-            message: "We'll let you know when the price drops by \(Int(dropThresholdPercent))% or more.",
-            date: .now, isRead: true
-        ), at: 0)
+        let row = TrackedRow(productId: product.id, previousPrice: product.startingPrice, alertsEnabled: alertsEnabled,
+                             dropThresholdPercent: dropThresholdPercent, trackedAt: nil)
+        trackedEntries[product.id] = TrackedEntry(productID: product.id, previousPrice: product.startingPrice,
+                                                  priceAlertsEnabled: alertsEnabled, dropThresholdPercent: dropThresholdPercent, dateTracked: .now)
+        Task {
+            await write { try await supabase.from("tracked_products").upsert(row, onConflict: "user_id,product_id").execute() }
+            await refreshInbox(alertNew: false)
+        }
         if alertsEnabled {
             Task { await NotificationManager.shared.requestAuthorization() }
         }
@@ -255,6 +504,7 @@ final class AppState: ObservableObject {
 
     func stopTracking(_ product: Product) {
         trackedEntries[product.id] = nil
+        Task { await write { try await supabase.from("tracked_products").delete().eq("product_id", value: product.id).execute() } }
     }
 
     func priceAlertsEnabled(for product: Product) -> Bool {
@@ -262,7 +512,9 @@ final class AppState: ObservableObject {
     }
 
     func setPriceAlerts(_ enabled: Bool, for product: Product) {
+        guard trackedEntries[product.id] != nil else { return }
         trackedEntries[product.id]?.priceAlertsEnabled = enabled
+        Task { await write { try await supabase.from("tracked_products").update(["alerts_enabled": enabled]).eq("product_id", value: product.id).execute() } }
     }
 
     func previousPrice(for product: Product) -> Double? {
@@ -273,10 +525,15 @@ final class AppState: ObservableObject {
         trackedEntries[product.id]?.dropThresholdPercent ?? 5
     }
 
+    private func reloadTracked() async {
+        guard let rows: [TrackedRow] = try? await supabase.from("tracked_products").select().execute().value else { return }
+        trackedEntries = Dictionary(uniqueKeysWithValues: rows.map { ($0.productId, Self.entry($0)) })
+    }
+
     var trackedProducts: [Product] {
-        ProductCatalog.all
-            .filter { trackedEntries[$0.id] != nil }
-            .sorted { (trackedEntries[$0.id]?.dateTracked ?? .distantPast) > (trackedEntries[$1.id]?.dateTracked ?? .distantPast) }
+        trackedEntries.values
+            .sorted { $0.dateTracked > $1.dateTracked }
+            .compactMap { ProductCatalog.product(id: $0.productID) }
     }
 
     /// Total saved across tracked products versus the price when tracking started.
@@ -295,8 +552,10 @@ final class AppState: ObservableObject {
     func toggleSaved(_ product: Product) {
         if savedProductIDs.contains(product.id) {
             savedProductIDs.remove(product.id)
+            Task { await write { try await supabase.from("saved_products").delete().eq("product_id", value: product.id).execute() } }
         } else {
             savedProductIDs.insert(product.id)
+            Task { await write { try await supabase.from("saved_products").upsert(ProductRefRow(productId: product.id), onConflict: "user_id,product_id").execute() } }
         }
     }
 
@@ -314,10 +573,14 @@ final class AppState: ObservableObject {
         if recentSearches.count > 6 {
             recentSearches.removeLast(recentSearches.count - 6)
         }
+        let row = SearchHistoryRow(query: trimmed, searchedAt: .now)
+        Task { await write { try await supabase.from("search_history").upsert(row, onConflict: "user_id,query_key").execute() } }
     }
 
     func clearRecentSearches() {
+        guard let userID else { return }
         recentSearches.removeAll()
+        Task { await write { try await supabase.from("search_history").delete().eq("user_id", value: userID).execute() } }
     }
 
     // MARK: Recently viewed
@@ -328,21 +591,36 @@ final class AppState: ObservableObject {
         if recentlyViewedProductIDs.count > 8 {
             recentlyViewedProductIDs.removeLast(recentlyViewedProductIDs.count - 8)
         }
+        guard isSignedIn else { return }
+        let row = RecentlyViewedRow(productId: product.id, viewedAt: .now)
+        Task { await write { try await supabase.from("recently_viewed").upsert(row, onConflict: "user_id,product_id").execute() } }
     }
 
     var recentlyViewedProducts: [Product] {
-        recentlyViewedProductIDs.compactMap { id in ProductCatalog.all.first { $0.id == id } }
+        recentlyViewedProductIDs.compactMap { ProductCatalog.product(id: $0) }
+    }
+
+    // MARK: Helpers
+
+    /// Runs a backend write, surfacing a short message instead of failing silently.
+    private func write(_ operation: () async throws -> Void) async {
+        do {
+            try await operation()
+        } catch {
+            lastError = "Couldn't save that change. Check your connection and try again."
+        }
     }
 }
 
 extension ProductCatalog {
-    /// Products whose current price is below their price a month ago, biggest drop first.
+    /// In-stock products the retailer itself has marked down (a crossed-out regular price on its site), biggest discount first.
+    /// Uses real retailer prices only, never the simulated part of the price history.
     static var priceDrops: [(product: Product, previousPrice: Double)] {
         all.compactMap { product -> (Product, Double)? in
-            let cutoff = Calendar.current.date(byAdding: .day, value: -30, to: .now) ?? .now
-            guard let earlier = product.priceHistory.last(where: { $0.date <= cutoff })?.price,
-                  earlier > product.startingPrice else { return nil }
-            return (product, earlier)
+            guard product.isSold else { return nil }
+            let listing = product.lowestListing
+            guard listing.isAvailable, let regular = listing.originalPrice, regular > listing.price else { return nil }
+            return (product, regular)
         }
         .sorted { ($0.1 - $0.0.startingPrice) / $0.1 > ($1.1 - $1.0.startingPrice) / $1.1 }
     }

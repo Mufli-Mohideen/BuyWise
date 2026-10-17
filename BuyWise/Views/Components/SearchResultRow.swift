@@ -33,7 +33,7 @@ struct SearchResultRow: View {
                 }
 
                 HStack(spacing: 14) {
-                    retailerPrice("Singer", listing: product.listings.first { $0.retailer == .singer })
+                    retailerPrice("Celltronics", listing: product.listings.first { $0.retailer == .celltronics })
                     retailerPrice("Abans", listing: product.listings.first { $0.retailer == .abans })
                 }
 

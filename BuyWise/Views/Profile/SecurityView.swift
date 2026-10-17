@@ -4,6 +4,9 @@ struct SecurityView: View {
     @EnvironmentObject private var appState: AppState
     @State private var twoFactorEnabled = false
     @State private var showChangePassword = false
+    @State private var newPassword = ""
+    @State private var confirmPassword = ""
+    @State private var passwordResult: String?
 
     var body: some View {
         ScrollView {
@@ -53,10 +56,47 @@ struct SecurityView: View {
         .navigationTitle("Security")
         .navigationBarTitleDisplayMode(.inline)
         .alert("Change password", isPresented: $showChangePassword) {
+            if appState.isGuest {
+                Button("OK", role: .cancel) {}
+            } else {
+                SecureField("New password", text: $newPassword)
+                SecureField("Confirm new password", text: $confirmPassword)
+                Button("Update", action: updatePassword)
+                Button("Cancel", role: .cancel) { clearPasswordFields() }
+            }
+        } message: {
+            Text(appState.isGuest
+                 ? "You're using a guest account. Create an account from the login screen to set a password."
+                 : "Use at least 6 characters.")
+        }
+        .alert("Change password", isPresented: Binding(get: { passwordResult != nil }, set: { if !$0 { passwordResult = nil } })) {
             Button("OK", role: .cancel) {}
         } message: {
-            Text("This is a demo prototype — password changes aren't available.")
+            Text(passwordResult ?? "")
         }
+    }
+
+    private func updatePassword() {
+        let password = newPassword
+        let matches = password == confirmPassword
+        clearPasswordFields()
+        guard password.count >= 6, matches else {
+            passwordResult = matches ? "Use at least 6 characters." : "The passwords didn't match."
+            return
+        }
+        Task {
+            do {
+                try await appState.changePassword(password)
+                passwordResult = "Your password has been updated."
+            } catch {
+                passwordResult = error.userFacingMessage
+            }
+        }
+    }
+
+    private func clearPasswordFields() {
+        newPassword = ""
+        confirmPassword = ""
     }
 
     private func iconTile(_ symbol: String) -> some View {

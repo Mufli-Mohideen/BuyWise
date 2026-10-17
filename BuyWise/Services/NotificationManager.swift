@@ -1,7 +1,7 @@
 import Foundation
 import UserNotifications
 
-/// Local price-drop notifications (no server push, per the MVP scope).
+/// Shows backend alerts (delivered to the app over Supabase Realtime) as local notifications.
 final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
     static let shared = NotificationManager()
 
@@ -26,18 +26,18 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         (try? await center.requestAuthorization(options: [.alert, .sound, .badge])) ?? false
     }
 
-    func schedulePriceDrop(productID: UUID, productName: String, newPrice: Double, oldPrice: Double, retailer: Retailer, delay: TimeInterval = 1.5) async {
+    /// Delivers an alert immediately; the title and message were written by the backend price-drop trigger.
+    func showAlert(id: UUID, title: String, message: String, productID: UUID?) async {
         let content = UNMutableNotificationContent()
-        content.title = "Price dropped on \(productName)"
-        let percent = (oldPrice - newPrice) / oldPrice * 100
-        content.body = "Now \(PriceFormatter.lkr(newPrice)) at \(retailer.rawValue), \(PriceFormatter.percent(percent)) lower. You save \(PriceFormatter.lkr(oldPrice - newPrice))."
+        content.title = title
+        content.body = message
         content.sound = .default
         content.categoryIdentifier = "PRICE_DROP"
-        content.userInfo = ["productID": productID.uuidString]
         content.threadIdentifier = "price-drops"
-
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: delay, repeats: false)
-        let request = UNNotificationRequest(identifier: "price-drop-\(productID.uuidString)-\(Date().timeIntervalSince1970)", content: content, trigger: trigger)
+        if let productID {
+            content.userInfo = ["productID": productID.uuidString]
+        }
+        let request = UNNotificationRequest(identifier: "alert-\(id.uuidString)", content: content, trigger: nil)
         try? await center.add(request)
     }
 

@@ -30,7 +30,9 @@ struct ProductDetailView: View {
                         }
                     }
                     retailerComparison
-                    ListingMatchCard(category: product.category, match: product.listingMatch)
+                    if product.listings.count > 1 {
+                        ListingMatchCard(category: product.category, match: product.listingMatch)
+                    }
                     ValueScoreCard(valueScore: product.valueScore)
                     PriceHistoryChart(fullHistory: product.priceHistory)
                     UpgradeAnalysisEntryCard(preselectedNew: product)
@@ -72,8 +74,10 @@ struct ProductDetailView: View {
                     } label: {
                         Label("Simulate a price drop", systemImage: "arrow.down.right.circle")
                     }
-                    ShareLink(item: CatalogMetadata.sampleURL(for: product, retailer: product.lowestListing.retailer)) {
-                        Label("Share product", systemImage: "square.and.arrow.up")
+                    if let link = product.lowestListing.url {
+                        ShareLink(item: link) {
+                            Label("Share product", systemImage: "square.and.arrow.up")
+                        }
                     }
                 } label: {
                     Image(systemName: "ellipsis.circle")
@@ -110,13 +114,8 @@ struct ProductDetailView: View {
                     .fill(BuyWiseColors.brand.opacity(0.10))
                     .frame(width: 220, height: 220)
                     .blur(radius: 30)
-                if let asset = product.imageAssetName {
-                    Image(asset)
-                        .resizable()
-                        .scaledToFit()
-                        .padding(24)
-                        .accessibilityLabel("\(product.fullName) product photo")
-                }
+                ProductPhoto(product: product, padding: 24)
+                    .accessibilityLabel("\(product.fullName) product photo")
             }
             .frame(height: 260)
             .overlay(RoundedRectangle(cornerRadius: 24, style: .continuous).strokeBorder(BuyWiseColors.border, lineWidth: 1))
@@ -139,33 +138,41 @@ struct ProductDetailView: View {
                 Text(product.name)
                     .font(BuyWiseTypography.display)
                     .foregroundStyle(BuyWiseColors.textPrimary)
-                Text(product.tagline)
-                    .font(BuyWiseTypography.body)
-                    .foregroundStyle(BuyWiseColors.textSecondary)
+                if !product.tagline.isEmpty {
+                    Text(product.tagline)
+                        .font(BuyWiseTypography.body)
+                        .foregroundStyle(BuyWiseColors.textSecondary)
+                } else if !product.keySpec.isEmpty {
+                    Text(product.keySpec)
+                        .font(BuyWiseTypography.body)
+                        .foregroundStyle(BuyWiseColors.textSecondary)
+                }
             }
 
             HStack(spacing: 12) {
-                HStack(spacing: 2) {
-                    ForEach(0..<5) { index in
-                        Image(systemName: starSymbol(for: index))
-                            .font(.system(size: 13))
-                            .foregroundStyle(BuyWiseColors.brand)
+                if let rating = product.rating {
+                    HStack(spacing: 2) {
+                        ForEach(0..<5) { index in
+                            Image(systemName: starSymbol(for: index, rating: rating))
+                                .font(.system(size: 13))
+                                .foregroundStyle(BuyWiseColors.brand)
+                        }
                     }
+                    Text(String(format: "%.1f", rating))
+                        .font(BuyWiseTypography.captionBold)
+                        .foregroundStyle(BuyWiseColors.textSecondary)
                 }
-                Text(String(format: "%.1f", product.rating))
-                    .font(BuyWiseTypography.captionBold)
-                    .foregroundStyle(BuyWiseColors.textSecondary)
                 ValueScoreBadge(score: product.valueScore.overall)
                 Spacer()
-                DemoDataBadge(text: "Sample prices")
+                DemoDataBadge(text: "Retailer prices")
             }
         }
     }
 
-    private func starSymbol(for index: Int) -> String {
+    private func starSymbol(for index: Int, rating: Double) -> String {
         let filled = Double(index) + 1
-        if product.rating >= filled { return "star.fill" }
-        if product.rating >= filled - 0.5 { return "star.leadinghalf.filled" }
+        if rating >= filled { return "star.fill" }
+        if rating >= filled - 0.5 { return "star.leadinghalf.filled" }
         return "star"
     }
 
@@ -227,6 +234,11 @@ struct ProductDetailView: View {
                     RetailerPriceCard(listing: listing, isLowest: listing.id == product.lowestListing.id)
                 }
             }
+            if product.listings.count == 1, let only = product.listings.first {
+                Label("Only \(only.retailer.rawValue) stocks this model right now.", systemImage: "info.circle")
+                    .font(BuyWiseTypography.caption)
+                    .foregroundStyle(BuyWiseColors.textSecondary)
+            }
         }
     }
 
@@ -249,7 +261,7 @@ struct ProductDetailView: View {
                                         .foregroundStyle(BuyWiseColors.textPrimary)
                                     Text("\(DistanceFormatter.string(LocationProvider.shared.distance(to: branch))) · \(branch.shortHoursText)")
                                         .font(BuyWiseTypography.caption)
-                                        .foregroundStyle(branch.isOpenNow ? BuyWiseColors.textSecondary : BuyWiseColors.error)
+                                        .foregroundStyle(branch.hasHours && !branch.isOpenNow ? BuyWiseColors.error : BuyWiseColors.textSecondary)
                                 }
                                 Spacer()
                                 VStack(alignment: .trailing, spacing: 2) {

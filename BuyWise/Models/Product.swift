@@ -7,6 +7,14 @@ enum ProductCategory: String, CaseIterable, Identifiable, Hashable {
 
     var id: String { rawValue }
 
+    /// Value stored in the database `product_category` enum.
+    var databaseValue: String { rawValue.lowercased() }
+
+    init?(databaseValue: String) {
+        guard let match = Self.allCases.first(where: { $0.databaseValue == databaseValue }) else { return nil }
+        self = match
+    }
+
     var symbolName: String {
         switch self {
         case .smartphones: return "iphone.gen3"
@@ -17,21 +25,29 @@ enum ProductCategory: String, CaseIterable, Identifiable, Hashable {
 }
 
 enum Retailer: String, CaseIterable, Identifiable, Hashable {
-    case singer = "Singer"
+    case celltronics = "Celltronics"
     case abans = "Abans"
 
     var id: String { rawValue }
 
+    /// Primary key in the `retailers` table.
+    var databaseID: String { rawValue.lowercased() }
+
+    init?(databaseID: String) {
+        guard let match = Self.allCases.first(where: { $0.databaseID == databaseID }) else { return nil }
+        self = match
+    }
+
     var logoAssetName: String {
         switch self {
-        case .singer: return "SingerLogo"
+        case .celltronics: return "CelltronicsLogo"
         case .abans: return "AbansLogo"
         }
     }
 
     var website: String {
         switch self {
-        case .singer: return "singersl.com"
+        case .celltronics: return "celltronics.lk"
         case .abans: return "buyabans.com"
         }
     }
@@ -42,14 +58,23 @@ struct RetailerListing: Identifiable, Hashable {
     let price: Double
     let isAvailable: Bool
     var title: String = ""
+    var url: URL?
+    var sku: String?
+    var originalPrice: Double?
+    var isPreorder = false
 
     var id: Retailer { retailer }
 
-    init(retailer: Retailer, price: Double, isAvailable: Bool = true, title: String = "") {
+    init(retailer: Retailer, price: Double, isAvailable: Bool = true, title: String = "", url: URL? = nil,
+         sku: String? = nil, originalPrice: Double? = nil, isPreorder: Bool = false) {
         self.retailer = retailer
         self.price = price
         self.isAvailable = isAvailable
         self.title = title
+        self.url = url
+        self.sku = sku
+        self.originalPrice = originalPrice
+        self.isPreorder = isPreorder
     }
 }
 
@@ -74,29 +99,40 @@ struct PricePoint: Identifiable, Hashable {
 
 struct Product: Identifiable, Hashable {
     let id: UUID
+    let slug: String
     let name: String
     let brand: String
     let category: ProductCategory
     let tagline: String
-    let rating: Double
+    /// Retailers don't publish ratings, so this is only set for the bundled reference devices.
+    let rating: Double?
     let baseListings: [RetailerListing]
     let specifications: [Specification]
     let basePriceHistory: [PricePoint]
     let keySpec: String
+    let imageURL: URL?
+    /// Bundled photo for the reference devices used in upgrade analysis.
+    let imageAssetName: String?
+    let barcodes: [String]
 
     init(
         id: UUID,
+        slug: String = "",
         name: String,
         brand: String,
         category: ProductCategory,
-        tagline: String,
-        rating: Double,
+        tagline: String = "",
+        rating: Double? = nil,
         listings: [RetailerListing],
         specifications: [Specification],
         priceHistory: [PricePoint],
-        keySpec: String
+        keySpec: String,
+        imageURL: URL? = nil,
+        imageAssetName: String? = nil,
+        barcodes: [String] = []
     ) {
         self.id = id
+        self.slug = slug
         self.name = name
         self.brand = brand
         self.category = category
@@ -106,6 +142,9 @@ struct Product: Identifiable, Hashable {
         self.specifications = specifications
         self.basePriceHistory = priceHistory
         self.keySpec = keySpec
+        self.imageURL = imageURL
+        self.imageAssetName = imageAssetName
+        self.barcodes = barcodes
     }
 
     static func == (lhs: Product, rhs: Product) -> Bool { lhs.id == rhs.id }
@@ -113,57 +152,38 @@ struct Product: Identifiable, Hashable {
 
     var fullName: String { "\(brand) \(name)" }
 
-    /// False for older reference models that Singer and Abans no longer list.
-    var isSold: Bool { !baseListings.isEmpty }
+    /// False for older reference models that Celltronics and Abans no longer list.
+    var isSold: Bool { !listings.isEmpty }
 
-    // Live values: read through the observable price book, so any view showing
-    // a price re-renders automatically when a price changes.
-    var listings: [RetailerListing] { PriceBook.shared.listings(for: self) }
-    var priceHistory: [PricePoint] { PriceBook.shared.history(for: self) }
+    // Live values: read through the catalogue store, so any view showing a price
+    // re-renders automatically when the backend reports a price change.
+    var listings: [RetailerListing] { CatalogStore.shared.listings(for: self) }
+    var priceHistory: [PricePoint] { CatalogStore.shared.history(for: self) }
 
     var valueScore: ValueScore { ValueScoreCalculator.shared.score(for: self) }
     var listingMatch: ListingMatch { ListingMatcher.shared.match(for: self) }
 
-    var barcode: String { CatalogMetadata.barcode(for: self) }
+    /// Manufacturer EAN when known, otherwise the retailer item code printed on shelf tags.
+    var barcode: String { barcodes.first ?? listings.compactMap(\.sku).first ?? "" }
 
     var imageSymbolName: String {
-        switch (brand, name) {
-        case ("Apple", "AirPods Max"): return "airpodsmax"
-        case ("Apple", "MacBook Air M3"): return "macbook"
+        switch (brand, category) {
+        case ("Apple", .headphones) where name.localizedCaseInsensitiveContains("max"): return "airpodsmax"
+        case ("Apple", .laptops): return "macbook"
         default: return category.symbolName
         }
     }
 
-    var imageAssetName: String? {
-        switch (brand, name) {
-        case ("Apple", "iPhone 16 Pro"): return "iphone16pro"
-        case ("Samsung", "Galaxy S25"): return "galaxys25"
-        case ("Google", "Pixel 9"): return "pixel9"
-        case ("Xiaomi", "14T Pro"): return "xiaomi14tpro"
-        case ("Apple", "MacBook Air M3"): return "macbookairm3"
-        case ("ASUS", "Vivobook 15"): return "asusvivobook15"
-        case ("Lenovo", "IdeaPad Slim 5"): return "ideapadslim5"
-        case ("HP", "Pavilion 14"): return "hppavilion14"
-        case ("Sony", "WH-1000XM5"): return "sonywh1000xm5"
-        case ("Bose", "QuietComfort Ultra"): return "boseqcultra"
-        case ("Apple", "AirPods Max"): return "airpodsmax"
-        case ("JBL", "Live 770NC"): return "jbllive770nc"
-        case ("Apple", "iPhone 13"): return "iphone13"
-        case ("Samsung", "Galaxy S23"): return "galaxys23"
-        case ("Apple", "MacBook Air M1"): return "macbookairm1"
-        case ("Sony", "WH-1000XM4"): return "sonywh1000xm4"
-        case ("Bose", "QuietComfort 45"): return "boseqc45"
-        default: return nil
-        }
-    }
-
     var lowestListing: RetailerListing {
-        listings.min { $0.price < $1.price } ?? listings[0]
+        listings.min { $0.price < $1.price } ?? Self.unavailable
     }
 
     var highestListing: RetailerListing {
-        listings.max { $0.price < $1.price } ?? listings[0]
+        listings.max { $0.price < $1.price } ?? Self.unavailable
     }
+
+    /// Stand-in for reference devices that no retailer sells any more.
+    private static let unavailable = RetailerListing(retailer: .celltronics, price: 0, isAvailable: false)
 
     var startingPrice: Double { lowestListing.price }
 

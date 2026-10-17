@@ -29,7 +29,7 @@ struct ListingMatchCard: View {
             }
 
             VStack(spacing: 0) {
-                listingRow(.singer, title: match.singerTitle)
+                listingRow(.celltronics, title: match.celltronicsTitle)
                 HStack(spacing: 8) {
                     Rectangle().fill(BuyWiseColors.border).frame(height: 1)
                     Image(systemName: match.comparison.isMatch ? "equal.circle.fill" : "xmark.circle.fill")
@@ -53,7 +53,7 @@ struct ListingMatchCard: View {
             }
 
             Text(match.comparison.isMatch
-                 ? "Matched across Singer and Abans, so these prices are for the same product."
+                 ? "Matched across Celltronics and Abans, so these prices are for the same product."
                  : "These listings may not be the same product, so compare carefully.")
                 .font(BuyWiseTypography.caption)
                 .foregroundStyle(BuyWiseColors.textSecondary)

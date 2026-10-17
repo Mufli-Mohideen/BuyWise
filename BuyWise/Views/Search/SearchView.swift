@@ -21,10 +21,9 @@ struct SearchView: View {
     private var results: [Product] {
         var products = ProductCatalog.all.filter { product in
             let matchesCategory = selectedCategory == nil || product.category == selectedCategory
+            let haystack = "\(product.fullName) \(product.category.rawValue)"
             let matchesText = !isSearching
-                || product.name.localizedCaseInsensitiveContains(searchText)
-                || product.brand.localizedCaseInsensitiveContains(searchText)
-                || product.category.rawValue.localizedCaseInsensitiveContains(searchText)
+                || searchText.split(separator: " ").allSatisfy { haystack.localizedCaseInsensitiveContains($0) }
             return matchesCategory && matchesText
         }
         switch sortOption {

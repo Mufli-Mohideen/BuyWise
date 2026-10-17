@@ -18,7 +18,10 @@ struct BarcodeScannerSheetView: View {
     @State private var photoItem: PhotosPickerItem?
     @State private var scanLineOffset: CGFloat = -70
 
-    private let samples = [ProductCatalog.jblLive770NC, ProductCatalog.pixel9, ProductCatalog.boseQCUltra, ProductCatalog.pavilion14]
+    /// Featured products whose barcode (EAN or retailer item code) is on file.
+    private var samples: [Product] {
+        (ProductCatalog.featuredTrio + ProductCatalog.featured(.smartphones, count: 2).dropFirst()).filter { !$0.barcode.isEmpty }
+    }
     private var liveScanningSupported: Bool { DataScannerViewController.isSupported && DataScannerViewController.isAvailable }
 
     var body: some View {
@@ -172,10 +175,12 @@ struct BarcodeScannerSheetView: View {
 
     private func identify(payload: String, image: UIImage?) async {
         do {
-            let result = try ProductIdentifier.identify(barcode: payload)
+            let result = try await ProductIdentifier.identify(barcode: payload)
             withAnimation(.spring(response: 0.45, dampingFraction: 0.85)) { phase = .identified(result, image) }
+        } catch IdentificationError.offline {
+            withAnimation { phase = .failed(IdentificationError.offline.errorDescription ?? "") }
         } catch {
-            withAnimation { phase = .failed("Barcode \(payload) isn't in the Singer or Abans catalogue yet.") }
+            withAnimation { phase = .failed("Barcode \(payload) isn't in the Celltronics or Abans catalogue yet.") }
         }
     }
 }

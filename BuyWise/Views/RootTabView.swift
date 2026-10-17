@@ -50,7 +50,7 @@ struct RootTabView: View {
                     appState.inAppBanner = nil
                     if let id = banner.productID {
                         appState.markRead(productID: id)
-                        appState.deepLinkProduct = ProductCatalog.all.first { $0.id == id }
+                        appState.deepLinkProduct = ProductCatalog.product(id: id)
                     }
                 } onDismiss: {
                     appState.inAppBanner = nil

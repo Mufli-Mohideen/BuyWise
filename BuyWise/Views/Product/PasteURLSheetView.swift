@@ -10,11 +10,15 @@ struct PasteURLSheetView: View {
     @State private var isWorking = false
     @FocusState private var fieldFocused: Bool
 
-    private let examples: [(label: String, url: String)] = [
-        ("Singer · WH-1000XM5", CatalogMetadata.sampleURL(for: ProductCatalog.sonyWH1000XM5, retailer: .singer)),
-        ("Abans · iPhone 16 Pro", CatalogMetadata.sampleURL(for: ProductCatalog.iPhone16Pro, retailer: .abans)),
-        ("Abans · MacBook Air M3", CatalogMetadata.sampleURL(for: ProductCatalog.macBookAirM3, retailer: .abans))
-    ]
+    /// Real product links from the catalogue, alternating Celltronics and Abans.
+    private var examples: [(label: String, url: String)] {
+        ProductCatalog.featuredTrio.enumerated().compactMap { index, product in
+            let preferred: Retailer = index.isMultiple(of: 2) ? .celltronics : .abans
+            guard let listing = product.listing(for: preferred) ?? product.listings.first,
+                  let url = listing.url else { return nil }
+            return ("\(listing.retailer.rawValue) · \(product.name)", url.absoluteString)
+        }
+    }
 
     var body: some View {
         NavigationStack {
@@ -24,7 +28,7 @@ struct PasteURLSheetView: View {
                         Text("Paste a product link")
                             .font(BuyWiseTypography.titleXL)
                             .foregroundStyle(BuyWiseColors.textPrimary)
-                        Text("Paste a Singer or Abans product link and we'll compare it across both stores.")
+                        Text("Paste a Celltronics or Abans product link and we'll compare it across both stores.")
                             .font(BuyWiseTypography.body)
                             .foregroundStyle(BuyWiseColors.textSecondary)
                     }
@@ -32,7 +36,7 @@ struct PasteURLSheetView: View {
                     HStack(spacing: 10) {
                         Image(systemName: "link")
                             .foregroundStyle(BuyWiseColors.textSecondary)
-                        TextField("https://www.singersl.com/product/…", text: $urlText, axis: .vertical)
+                        TextField("https://celltronics.lk/product/…", text: $urlText, axis: .vertical)
                             .lineLimit(1...3)
                             .textInputAutocapitalization(.never)
                             .autocorrectionDisabled()
@@ -126,7 +130,7 @@ struct PasteURLSheetView: View {
         Task {
             try? await Task.sleep(nanoseconds: 600_000_000)
             do {
-                let found = try ProductIdentifier.identify(url: urlText)
+                let found = try await ProductIdentifier.identify(url: urlText)
                 withAnimation(.spring(response: 0.45, dampingFraction: 0.85)) { result = found }
             } catch {
                 errorMessage = (error as? LocalizedError)?.errorDescription ?? "That link couldn't be read."

@@ -19,7 +19,7 @@ struct HomeView: View {
     private let dealTimer = Timer.publish(every: 4.5, on: .main, in: .common).autoconnect()
 
     private var popularProducts: [Product] {
-        ProductCatalog.all.sorted { $0.valueScore.overall > $1.valueScore.overall }
+        Array(ProductCatalog.all.filter(\.isSold).sorted { $0.valueScore.overall > $1.valueScore.overall }.prefix(12))
     }
 
     private var deals: [(product: Product, previousPrice: Double)] {
@@ -92,7 +92,7 @@ struct HomeView: View {
                     NotificationBellButton { path.append(HomeRoute.alerts) }
                 }
 
-                Text("Compare Singer\n& Abans in seconds")
+                Text("Compare Abans\n& Celltronics")
                     .font(.system(.largeTitle, design: .rounded).weight(.heavy))
                     .foregroundStyle(.white)
                     .fixedSize(horizontal: false, vertical: true)
@@ -122,19 +122,17 @@ struct HomeView: View {
 
     private var productCollage: some View {
         ZStack {
-            collageTile(ProductCatalog.macBookAirM3, size: 76).rotationEffect(.degrees(-10)).offset(x: -34, y: 14)
-            collageTile(ProductCatalog.iPhone16Pro, size: 70).rotationEffect(.degrees(9)).offset(x: 30, y: -22)
-            collageTile(ProductCatalog.sonyWH1000XM5, size: 72).rotationEffect(.degrees(-4)).offset(x: 36, y: 34)
+            let featured = ProductCatalog.featuredTrio
+            collageTile(featured.first { $0.category == .laptops }, size: 76).rotationEffect(.degrees(-10)).offset(x: -34, y: 14)
+            collageTile(featured.first { $0.category == .smartphones }, size: 70).rotationEffect(.degrees(9)).offset(x: 30, y: -22)
+            collageTile(featured.first { $0.category == .headphones }, size: 72).rotationEffect(.degrees(-4)).offset(x: 36, y: 34)
         }
         .opacity(0.97)
         .accessibilityHidden(true)
     }
 
-    private func collageTile(_ product: Product, size: CGFloat) -> some View {
-        Image(product.imageAssetName ?? "")
-            .resizable()
-            .scaledToFit()
-            .padding(8)
+    private func collageTile(_ product: Product?, size: CGFloat) -> some View {
+        ProductPhoto(product: product)
             .frame(width: size, height: size)
             .background(RoundedRectangle(cornerRadius: 18, style: .continuous).fill(Color.white))
             .shadow(color: .black.opacity(0.22), radius: 10, y: 6)
@@ -243,7 +241,7 @@ struct HomeView: View {
 
     private var dealsCarousel: some View {
         VStack(alignment: .leading, spacing: 14) {
-            SectionHeader(title: "Recent price drops", actionTitle: "See alerts") { path.append(HomeRoute.alerts) }
+            SectionHeader(title: "On sale now", actionTitle: "See alerts") { path.append(HomeRoute.alerts) }
             TabView(selection: $dealIndex) {
                 ForEach(Array(deals.enumerated()), id: \.element.product.id) { index, deal in
                     Button { path.append(deal.product) } label: {
@@ -300,7 +298,7 @@ struct HomeView: View {
                             Circle().fill(BuyWiseColors.brand).frame(width: 12, height: 12)
                                 .overlay(Circle().stroke(.white, lineWidth: 2))
                         }
-                        ForEach(StoreBranches.all) { branch in
+                        ForEach(StoreBranches.sortedByDistance().prefix(12)) { branch in
                             Annotation(branch.branchName, coordinate: branch.coordinate) {
                                 RetailerMapPin(retailer: branch.retailer)
                                     .scaleEffect(0.8)
@@ -323,7 +321,7 @@ struct HomeView: View {
                                             .font(BuyWiseTypography.captionBold)
                                             .foregroundStyle(BuyWiseColors.textPrimary)
                                             .lineLimit(1)
-                                        Text("\(DistanceFormatter.string(LocationProvider.shared.distance(to: branch))) · \(branch.isOpenNow ? "Open" : "Closed")")
+                                        Text("\(DistanceFormatter.string(LocationProvider.shared.distance(to: branch))) · \(branch.hasHours ? branch.statusText : "Hours not listed")")
                                             .font(BuyWiseTypography.caption)
                                             .foregroundStyle(branch.isOpenNow ? BuyWiseColors.success : BuyWiseColors.textSecondary)
                                     }
@@ -405,10 +403,7 @@ private struct DealCard: View {
 
             Circle().fill(BuyWiseColors.brand.opacity(0.28)).frame(width: 190, height: 190).blur(radius: 40).offset(x: 40, y: 10)
 
-            Image(product.imageAssetName ?? "")
-                .resizable()
-                .scaledToFit()
-                .padding(12)
+            ProductPhoto(product: product, padding: 12)
                 .frame(width: 140, height: 140)
                 .background(RoundedRectangle(cornerRadius: 22, style: .continuous).fill(Color.white))
                 .rotationEffect(.degrees(-5))
@@ -452,16 +447,14 @@ private struct DealCard: View {
 private struct CategoryTile: View {
     let category: ProductCategory
 
-    private var hero: Product? { ProductCatalog.all.first { $0.category == category } }
+    private var hero: Product? { ProductCatalog.featured(category).first }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             ZStack {
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
                     .fill(Color.white)
-                if let hero, let asset = hero.imageAssetName {
-                    Image(asset).resizable().scaledToFit().padding(10)
-                }
+                ProductPhoto(product: hero, category: category, padding: 10)
             }
             .frame(height: 88)
             .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).strokeBorder(BuyWiseColors.border, lineWidth: 1))
@@ -472,7 +465,7 @@ private struct CategoryTile: View {
                     .foregroundStyle(BuyWiseColors.textPrimary)
                     .lineLimit(1)
                     .minimumScaleFactor(0.85)
-                Text("\(ProductCatalog.all.filter { $0.category == category }.count) products")
+                Text("\(ProductCatalog.products(in: category).count) products")
                     .font(BuyWiseTypography.caption)
                     .foregroundStyle(BuyWiseColors.textSecondary)
             }

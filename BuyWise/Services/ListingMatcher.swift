@@ -21,7 +21,7 @@ struct ListingComparison: Hashable {
 }
 
 struct ListingMatch: Hashable {
-    let singerTitle: String
+    let celltronicsTitle: String
     let abansTitle: String
     let comparison: ListingComparison
     let rejected: [RejectedListing]
@@ -48,19 +48,19 @@ final class ListingMatcher {
     func match(for product: Product) -> ListingMatch {
         if let cached = matchCache[product.id] { return cached }
 
-        let singer = CatalogMetadata.title(for: product, retailer: .singer)
-        let abans = CatalogMetadata.title(for: product, retailer: .abans)
-        let comparison = compare(singer, abans)
+        let celltronics = product.listing(for: .celltronics)?.title ?? product.fullName
+        let abans = product.listing(for: .abans)?.title ?? product.fullName
+        let comparison = compare(celltronics, abans)
 
-        let rejected: [RejectedListing] = (CatalogMetadata.entry(for: product)?.lookalikes ?? []).compactMap { retailer, title in
-            let reference = retailer == .singer ? abans : singer
+        let rejected: [RejectedListing] = lookalikes(for: product).compactMap { retailer, title in
+            let reference = retailer == .celltronics ? abans : celltronics
             let result = compare(reference, title)
             guard !result.isMatch else { return nil }
             return RejectedListing(retailer: retailer, title: title, reason: result.conflictReason ?? "Different product")
         }
 
         let match = ListingMatch(
-            singerTitle: singer,
+            celltronicsTitle: celltronics,
             abansTitle: abans,
             comparison: comparison,
             rejected: rejected,
@@ -68,6 +68,24 @@ final class ListingMatcher {
         )
         matchCache[product.id] = match
         return match
+    }
+
+    /// The closest-looking listings from other products of the same brand: storage variants, Pro/Max
+    /// siblings and so on. These are what a naive title match would confuse with this product.
+    private func lookalikes(for product: Product, limit: Int = 2) -> [(Retailer, String)] {
+        let words: (String) -> Set<String> = { Set($0.lowercased().split { !$0.isLetter && !$0.isNumber }.map(String.init)) }
+        let reference = words(product.listings.first?.title ?? product.fullName)
+        return ProductCatalog.products(in: product.category)
+            .filter { $0.id != product.id && $0.brand == product.brand }
+            .flatMap { other in other.listings.map { ($0.retailer, $0.title) } }
+            .map { candidate -> ((Retailer, String), Double) in
+                let other = words(candidate.1)
+                let overlap = Double(reference.intersection(other).count) / Double(max(reference.union(other).count, 1))
+                return (candidate, overlap)
+            }
+            .sorted { $0.1 > $1.1 }
+            .prefix(limit)
+            .map(\.0)
     }
 
     func compare(_ first: String, _ second: String) -> ListingComparison {

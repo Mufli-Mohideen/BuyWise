@@ -79,7 +79,7 @@ struct NotificationsInboxView: View {
                 .foregroundStyle(BuyWiseColors.textSecondary)
             VStack(spacing: 10) {
                 ForEach(items) { item in
-                    if let product = item.productID.flatMap({ id in ProductCatalog.all.first { $0.id == id } }) {
+                    if let product = item.productID.flatMap({ ProductCatalog.product(id: $0) }) {
                         NavigationLink(value: product) {
                             NotificationRow(notification: item, product: product)
                         }

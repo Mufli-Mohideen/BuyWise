@@ -7,7 +7,7 @@ private struct OnboardingPage: Identifiable {
 }
 
 private let onboardingPages: [OnboardingPage] = [
-    OnboardingPage(id: 0, title: "Compare before you buy", subtitle: "See prices from Singer and Abans in one place."),
+    OnboardingPage(id: 0, title: "Compare before you buy", subtitle: "See prices from Celltronics and Abans in one place."),
     OnboardingPage(id: 1, title: "Know the real value", subtitle: "Go beyond price with specifications, price history and BuyWise value scores."),
     OnboardingPage(id: 2, title: "Track better prices", subtitle: "Keep an eye on products and discover when prices drop.")
 ]
@@ -93,7 +93,7 @@ struct OnboardingView: View {
         switch pageIndex {
         case 0:
             HStack(spacing: 14) {
-                RetailerPriceCard(listing: RetailerListing(retailer: .singer, price: 94_990), isLowest: false)
+                RetailerPriceCard(listing: RetailerListing(retailer: .celltronics, price: 94_990), isLowest: false)
                 RetailerPriceCard(listing: RetailerListing(retailer: .abans, price: 89_990), isLowest: true)
             }
             .padding(.horizontal, 28)
@@ -107,7 +107,7 @@ struct OnboardingView: View {
         default:
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
-                    ProductImageView(product: ProductCatalog.sonyWH1000XM5, cornerRadius: BuyWiseTheme.smallRadius, emphasized: true)
+                    ProductImageView(category: .headphones, cornerRadius: BuyWiseTheme.smallRadius, emphasized: true)
                         .frame(width: 56, height: 56)
                     VStack(alignment: .leading, spacing: 4) {
                         Text("WH-1000XM5")

@@ -49,7 +49,7 @@ struct UpgradeAnalysisView: View {
                     showResult = true
                 }
 
-                Label("Older models no longer sold by Singer or Abans can still be chosen as the product you own.", systemImage: "info.circle")
+                Label("Older models no longer sold by Celltronics or Abans can still be chosen as the product you own.", systemImage: "info.circle")
                     .font(BuyWiseTypography.caption)
                     .foregroundStyle(BuyWiseColors.textSecondary)
             }
@@ -85,12 +85,14 @@ struct UpgradeAnalysisView: View {
         }
     }
 
+    /// Prefer a newer model from the same brand as the reference device people are likely to own.
     private static func defaultCandidate(for category: ProductCategory) -> Product {
-        switch category {
-        case .smartphones: return ProductCatalog.iPhone16Pro
-        case .laptops: return ProductCatalog.macBookAirM3
-        case .headphones: return ProductCatalog.sonyWH1000XM5
-        }
+        let owned = ProductCatalog.referenceProducts.first { $0.category == category }
+        let sold = ProductCatalog.products(in: category).filter(\.isSold)
+        return sold.filter { $0.brand == owned?.brand }.max { $0.valueScore.overall < $1.valueScore.overall }
+            ?? ProductCatalog.featured(category).first
+            ?? sold.first
+            ?? ProductCatalog.ownableProducts.first { $0.category == category }!
     }
 
     /// Prefer an older reference model of the same category, so the default comparison is a real upgrade.

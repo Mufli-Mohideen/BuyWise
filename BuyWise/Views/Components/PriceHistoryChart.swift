@@ -100,6 +100,10 @@ struct PriceHistoryChart: View {
                     .font(BuyWiseTypography.caption)
                     .foregroundStyle(BuyWiseColors.textSecondary)
             }
+
+            Text("Latest price is from Celltronics and Abans; earlier history is simulated for this demo.")
+                .font(BuyWiseTypography.caption)
+                .foregroundStyle(BuyWiseColors.textSecondary.opacity(0.8))
         }
         .padding(18)
         .bwCard()
