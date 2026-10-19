@@ -18,7 +18,7 @@ struct CompareView: View {
         ProductCatalog.products(in: selectedCategory).filter(\.isSold)
     }
 
-    /// The two best-value products in the category that both retailers stock.
+    /// The two best-value products in the category that more than one retailer stocks.
     private static func defaultPair(for category: ProductCategory) -> (Product, Product) {
         let featured = ProductCatalog.featured(category, count: 2)
         let pool = featured.count == 2
@@ -79,7 +79,7 @@ struct CompareView: View {
 
                 summaryCard
 
-                DemoDataBadge(text: "Celltronics & Abans prices")
+                DemoDataBadge(text: "Celltronics, Abans & Singer prices")
             }
             .padding(20)
         }

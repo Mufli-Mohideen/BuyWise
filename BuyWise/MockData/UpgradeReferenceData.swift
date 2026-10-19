@@ -2,7 +2,7 @@ import Foundation
 
 // MARK: - Older reference products
 
-/// Models a user may already own. They are no longer sold by Celltronics or Abans, so they have
+/// Models a user may already own. They are no longer sold by Celltronics, Abans or Singer, so they have
 /// no listings and only appear as the "current product" in Upgrade Analysis.
 extension ProductCatalog {
     static let iPhone13 = Product(

@@ -3,7 +3,7 @@ import CoreLocation
 import Observation
 import Supabase
 
-/// The live Celltronics/Abans catalogue from Supabase. Products are loaded once; offers and price
+/// The live Celltronics/Abans/Singer catalogue from Supabase. Products are loaded once; offers and price
 /// history refresh per product after a price change so open screens update in place.
 @Observable
 final class CatalogStore {

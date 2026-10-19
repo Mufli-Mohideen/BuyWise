@@ -20,9 +20,15 @@ struct ListingComparison: Hashable {
     var isMatch: Bool { conflictReason == nil && modelMatched && confidence >= 0.6 }
 }
 
+struct RetailerTitle: Hashable {
+    let retailer: Retailer
+    let title: String
+}
+
 struct ListingMatch: Hashable {
-    let celltronicsTitle: String
-    let abansTitle: String
+    /// One listing title per retailer selling the product, in `Retailer.allCases` order.
+    let titles: [RetailerTitle]
+    /// The weakest pairwise comparison against the first title, so one mismatched store isn't hidden.
     let comparison: ListingComparison
     let rejected: [RejectedListing]
     let usedLanguageModel: Bool
@@ -48,20 +54,27 @@ final class ListingMatcher {
     func match(for product: Product) -> ListingMatch {
         if let cached = matchCache[product.id] { return cached }
 
-        let celltronics = product.listing(for: .celltronics)?.title ?? product.fullName
-        let abans = product.listing(for: .abans)?.title ?? product.fullName
-        let comparison = compare(celltronics, abans)
+        var titles = Retailer.allCases.compactMap { retailer in
+            product.listing(for: retailer).map { RetailerTitle(retailer: retailer, title: $0.title) }
+        }
+        if titles.isEmpty {
+            titles = [RetailerTitle(retailer: .celltronics, title: product.fullName)]
+        }
+        let reference = titles[0].title
+        let comparison = titles.count > 1
+            ? titles.dropFirst().map { compare(reference, $0.title) }.min { $0.confidence < $1.confidence }!
+            : compare(reference, product.fullName)
 
         let rejected: [RejectedListing] = lookalikes(for: product).compactMap { retailer, title in
-            let reference = retailer == .celltronics ? abans : celltronics
-            let result = compare(reference, title)
+            // Compare against another store's title, the way a shopper would cross-check the listing.
+            let other = titles.first { $0.retailer != retailer }?.title ?? reference
+            let result = compare(other, title)
             guard !result.isMatch else { return nil }
             return RejectedListing(retailer: retailer, title: title, reason: result.conflictReason ?? "Different product")
         }
 
         let match = ListingMatch(
-            celltronicsTitle: celltronics,
-            abansTitle: abans,
+            titles: titles,
             comparison: comparison,
             rejected: rejected,
             usedLanguageModel: isUsingLanguageModel

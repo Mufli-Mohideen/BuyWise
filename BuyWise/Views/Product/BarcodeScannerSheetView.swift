@@ -180,7 +180,7 @@ struct BarcodeScannerSheetView: View {
         } catch IdentificationError.offline {
             withAnimation { phase = .failed(IdentificationError.offline.errorDescription ?? "") }
         } catch {
-            withAnimation { phase = .failed("Barcode \(payload) isn't in the Celltronics or Abans catalogue yet.") }
+            withAnimation { phase = .failed("Barcode \(payload) isn't in the Celltronics, Abans or Singer catalogue yet.") }
         }
     }
 }

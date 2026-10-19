@@ -67,12 +67,15 @@ struct NearbyRetailersView: View {
     }
 
     private var filterBar: some View {
-        HStack(spacing: 8) {
-            filterChip(title: "All stores", retailer: nil)
-            ForEach(Retailer.allCases) { retailer in
-                filterChip(title: retailer.rawValue, retailer: retailer)
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 8) {
+                filterChip(title: "All stores", retailer: nil)
+                ForEach(Retailer.allCases) { retailer in
+                    filterChip(title: retailer.rawValue, retailer: retailer)
+                }
             }
         }
+        .scrollClipDisabled()
     }
 
     private func filterChip(title: String, retailer: Retailer?) -> some View {

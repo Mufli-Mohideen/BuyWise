@@ -115,7 +115,7 @@ private struct CatalogUnavailableView: View {
             EmptyStateView(
                 symbolName: "wifi.exclamationmark",
                 title: "Couldn't load prices",
-                subtitle: "BuyWise needs a connection to fetch the latest Celltronics and Abans prices.\n\(message)",
+                subtitle: "BuyWise needs a connection to fetch the latest Celltronics, Abans and Singer prices.\n\(message)",
                 actionTitle: "Try again",
                 action: retry
             )

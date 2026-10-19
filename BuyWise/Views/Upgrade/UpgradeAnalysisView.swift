@@ -49,7 +49,7 @@ struct UpgradeAnalysisView: View {
                     showResult = true
                 }
 
-                Label("Older models no longer sold by Celltronics or Abans can still be chosen as the product you own.", systemImage: "info.circle")
+                Label("Older models no longer sold by Celltronics, Abans or Singer can still be chosen as the product you own.", systemImage: "info.circle")
                     .font(BuyWiseTypography.caption)
                     .foregroundStyle(BuyWiseColors.textSecondary)
             }

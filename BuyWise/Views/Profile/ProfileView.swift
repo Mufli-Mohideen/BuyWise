@@ -71,15 +71,15 @@ struct ProfileView: View {
 
                 section("App") {
                     row(title: "About BuyWise", symbol: "info.circle") {
-                        LegalDetailView(title: "About BuyWise", bodyText: "BuyWise helps you compare consumer electronics across Celltronics and Abans, so you can make a confident purchase decision backed by transparent pricing and specification comparisons.")
+                        LegalDetailView(title: "About BuyWise", bodyText: "BuyWise helps you compare consumer electronics across Celltronics, Abans and Singer, so you can make a confident purchase decision backed by transparent pricing and specification comparisons.")
                     }
                     rowDivider
                     row(title: "Privacy", symbol: "hand.raised") {
-                        LegalDetailView(title: "Privacy", bodyText: "Your account, profile, tracked and saved products, search history and alerts are stored in BuyWise's Supabase backend so they follow you across devices, and only you can access them. Barcode scanning and text recognition run on your iPhone. Your location is only used to find nearby Celltronics and Abans stores and is never stored or shared.")
+                        LegalDetailView(title: "Privacy", bodyText: "Your account, profile, tracked and saved products, search history and alerts are stored in BuyWise's Supabase backend so they follow you across devices, and only you can access them. Barcode scanning and text recognition run on your iPhone. Your location is only used to find nearby Celltronics, Abans and Singer stores and is never stored or shared.")
                     }
                     rowDivider
                     row(title: "Terms", symbol: "doc.text") {
-                        LegalDetailView(title: "Terms", bodyText: "BuyWise is a prototype built for evaluation. Prices, listings and store details are a snapshot taken from the Celltronics and Abans websites and may have changed since. Earlier price history is simulated for demonstration.")
+                        LegalDetailView(title: "Terms", bodyText: "BuyWise is a prototype built for evaluation. Prices, listings and store details are a snapshot taken from the Celltronics, Abans and Singer websites and may have changed since. Earlier price history is simulated for demonstration.")
                     }
                 }
 
@@ -113,7 +113,7 @@ struct ProfileView: View {
             }
             Button("Cancel", role: .cancel) {}
         } message: {
-            Text("Undoes simulated price drops so every product shows its real Celltronics and Abans price again.")
+            Text("Undoes simulated price drops so every product shows its real Celltronics, Abans and Singer price again.")
         }
         .onChange(of: photoItem) { _, item in
             guard let item else { return }
@@ -237,7 +237,7 @@ struct ProfileView: View {
                     }
                 }
                 rowDivider
-                demoButton(title: "Reset demo prices", subtitle: "Restore the real scraped Celltronics and Abans prices", symbol: "arrow.counterclockwise.circle.fill") {
+                demoButton(title: "Reset demo prices", subtitle: "Restore the real scraped retailer prices", symbol: "arrow.counterclockwise.circle.fill") {
                     showResetConfirmation = true
                 }
             }

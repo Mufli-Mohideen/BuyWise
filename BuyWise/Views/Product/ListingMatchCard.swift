@@ -29,15 +29,18 @@ struct ListingMatchCard: View {
             }
 
             VStack(spacing: 0) {
-                listingRow(.celltronics, title: match.celltronicsTitle)
-                HStack(spacing: 8) {
-                    Rectangle().fill(BuyWiseColors.border).frame(height: 1)
-                    Image(systemName: match.comparison.isMatch ? "equal.circle.fill" : "xmark.circle.fill")
-                        .foregroundStyle(match.comparison.isMatch ? BuyWiseColors.success : BuyWiseColors.error)
-                    Rectangle().fill(BuyWiseColors.border).frame(height: 1)
+                ForEach(Array(match.titles.enumerated()), id: \.element.retailer) { index, item in
+                    if index > 0 {
+                        HStack(spacing: 8) {
+                            Rectangle().fill(BuyWiseColors.border).frame(height: 1)
+                            Image(systemName: match.comparison.isMatch ? "equal.circle.fill" : "xmark.circle.fill")
+                                .foregroundStyle(match.comparison.isMatch ? BuyWiseColors.success : BuyWiseColors.error)
+                            Rectangle().fill(BuyWiseColors.border).frame(height: 1)
+                        }
+                        .padding(.vertical, 6)
+                    }
+                    listingRow(item.retailer, title: item.title)
                 }
-                .padding(.vertical, 6)
-                listingRow(.abans, title: match.abansTitle)
             }
 
             FlowLayout(spacing: 8) {
@@ -53,7 +56,7 @@ struct ListingMatchCard: View {
             }
 
             Text(match.comparison.isMatch
-                 ? "Matched across Celltronics and Abans, so these prices are for the same product."
+                 ? "Matched across \(storeNames), so these prices are for the same product."
                  : "These listings may not be the same product, so compare carefully.")
                 .font(BuyWiseTypography.caption)
                 .foregroundStyle(BuyWiseColors.textSecondary)
@@ -107,6 +110,10 @@ struct ListingMatchCard: View {
         }
         .padding(18)
         .bwCard()
+    }
+
+    private var storeNames: String {
+        ListFormatter.localizedString(byJoining: match.titles.map(\.retailer.rawValue))
     }
 
     private func listingRow(_ retailer: Retailer, title: String) -> some View {

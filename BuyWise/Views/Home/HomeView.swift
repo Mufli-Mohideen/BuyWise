@@ -92,7 +92,7 @@ struct HomeView: View {
                     NotificationBellButton { path.append(HomeRoute.alerts) }
                 }
 
-                Text("Compare Abans\n& Celltronics")
+                Text("Compare Abans,\nCelltronics & Singer")
                     .font(.system(.largeTitle, design: .rounded).weight(.heavy))
                     .foregroundStyle(.white)
                     .fixedSize(horizontal: false, vertical: true)
@@ -309,7 +309,8 @@ struct HomeView: View {
                     .frame(height: 150)
                     .allowsHitTesting(false)
 
-                    HStack(spacing: 0) {
+                    // One row per retailer: three side-by-side columns are too narrow for branch names.
+                    VStack(spacing: 10) {
                         ForEach(Retailer.allCases) { retailer in
                             if let branch = StoreBranches.nearest(retailer) {
                                 HStack(spacing: 10) {

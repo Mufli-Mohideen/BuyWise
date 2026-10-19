@@ -41,7 +41,7 @@ struct IdentifyProductView: View {
                 .buttonStyle(PressableButtonStyle())
 
                 Button { activeSheet = .url } label: {
-                    IdentifyOptionRow(title: "Paste a product link", subtitle: "From Celltronics or Abans", symbolName: "link")
+                    IdentifyOptionRow(title: "Paste a product link", subtitle: "From Celltronics, Abans or Singer", symbolName: "link")
                 }
                 .buttonStyle(PressableButtonStyle())
             }

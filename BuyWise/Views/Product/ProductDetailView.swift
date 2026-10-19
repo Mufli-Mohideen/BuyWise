@@ -229,9 +229,17 @@ struct ProductDetailView: View {
     private var retailerComparison: some View {
         VStack(alignment: .leading, spacing: 14) {
             SectionHeader(title: "Compare retailers")
-            HStack(spacing: 12) {
-                ForEach(product.listings) { listing in
-                    RetailerPriceCard(listing: listing, isLowest: listing.id == product.lowestListing.id)
+            // Side by side when the prices fit, otherwise one row per retailer (three stores, seven-digit prices).
+            ViewThatFits(in: .horizontal) {
+                HStack(spacing: 12) {
+                    ForEach(product.listings) { listing in
+                        RetailerPriceCard(listing: listing, isLowest: listing.id == product.lowestListing.id)
+                    }
+                }
+                VStack(spacing: 10) {
+                    ForEach(product.listings) { listing in
+                        RetailerPriceCard(listing: listing, isLowest: listing.id == product.lowestListing.id, isCompact: true)
+                    }
                 }
             }
             if product.listings.count == 1, let only = product.listings.first {

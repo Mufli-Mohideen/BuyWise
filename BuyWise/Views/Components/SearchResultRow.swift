@@ -32,9 +32,13 @@ struct SearchResultRow: View {
                         .foregroundStyle(BuyWiseColors.textSecondary)
                 }
 
-                HStack(spacing: 14) {
-                    retailerPrice("Celltronics", listing: product.listings.first { $0.retailer == .celltronics })
-                    retailerPrice("Abans", listing: product.listings.first { $0.retailer == .abans })
+                // Wraps when three stores' seven-digit prices don't fit on one line.
+                FlowLayout(spacing: 14) {
+                    ForEach(Retailer.allCases) { retailer in
+                        if let listing = product.listing(for: retailer) {
+                            retailerPrice(retailer.rawValue, listing: listing)
+                        }
+                    }
                 }
 
                 HStack(spacing: 6) {

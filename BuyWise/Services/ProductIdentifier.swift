@@ -24,7 +24,7 @@ enum IdentificationError: LocalizedError {
 
     var errorDescription: String? {
         switch self {
-        case .unsupportedRetailer: return "Only Celltronics and Abans product links are supported."
+        case .unsupportedRetailer: return "Only Celltronics, Abans and Singer product links are supported."
         case .notFound: return "We couldn't match this to a product in the catalogue."
         case .noTextFound: return "No readable text was found in this image."
         case .noBarcodeFound: return "No barcode was found in this image."
@@ -71,13 +71,13 @@ enum ProductIdentifier {
         return IdentificationResult(product: product, confidence: 1, method: .barcode, evidence: code)
     }
 
-    /// Celltronics (celltronics.lk) and Abans (buyabans.com) product links only.
+    /// Celltronics (celltronics.lk), Abans (buyabans.com) and Singer (singersl.com) product links only.
     static func identify(url text: String) async throws -> IdentificationResult {
         let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
         guard let url = URL(string: trimmed), let host = url.host?.lowercased() else {
             throw IdentificationError.notFound
         }
-        let supported = ["celltronics.lk", "buyabans.com"]
+        let supported = Retailer.allCases.map(\.website)
         guard supported.contains(where: { host == $0 || host.hasSuffix(".\($0)") }) else {
             throw IdentificationError.unsupportedRetailer
         }

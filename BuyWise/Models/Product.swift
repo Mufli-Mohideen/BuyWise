@@ -27,6 +27,7 @@ enum ProductCategory: String, CaseIterable, Identifiable, Hashable {
 enum Retailer: String, CaseIterable, Identifiable, Hashable {
     case celltronics = "Celltronics"
     case abans = "Abans"
+    case singer = "Singer"
 
     var id: String { rawValue }
 
@@ -42,6 +43,7 @@ enum Retailer: String, CaseIterable, Identifiable, Hashable {
         switch self {
         case .celltronics: return "CelltronicsLogo"
         case .abans: return "AbansLogo"
+        case .singer: return "SingerLogo"
         }
     }
 
@@ -49,6 +51,7 @@ enum Retailer: String, CaseIterable, Identifiable, Hashable {
         switch self {
         case .celltronics: return "celltronics.lk"
         case .abans: return "buyabans.com"
+        case .singer: return "singersl.com"
         }
     }
 }
@@ -152,7 +155,7 @@ struct Product: Identifiable, Hashable {
 
     var fullName: String { "\(brand) \(name)" }
 
-    /// False for older reference models that Celltronics and Abans no longer list.
+    /// False for older reference models that none of the retailers list any more.
     var isSold: Bool { !listings.isEmpty }
 
     // Live values: read through the catalogue store, so any view showing a price

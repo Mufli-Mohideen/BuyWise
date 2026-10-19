@@ -10,10 +10,10 @@ struct PasteURLSheetView: View {
     @State private var isWorking = false
     @FocusState private var fieldFocused: Bool
 
-    /// Real product links from the catalogue, alternating Celltronics and Abans.
+    /// Real product links from the catalogue, cycling through the retailers.
     private var examples: [(label: String, url: String)] {
         ProductCatalog.featuredTrio.enumerated().compactMap { index, product in
-            let preferred: Retailer = index.isMultiple(of: 2) ? .celltronics : .abans
+            let preferred = Retailer.allCases[index % Retailer.allCases.count]
             guard let listing = product.listing(for: preferred) ?? product.listings.first,
                   let url = listing.url else { return nil }
             return ("\(listing.retailer.rawValue) · \(product.name)", url.absoluteString)
@@ -28,7 +28,7 @@ struct PasteURLSheetView: View {
                         Text("Paste a product link")
                             .font(BuyWiseTypography.titleXL)
                             .foregroundStyle(BuyWiseColors.textPrimary)
-                        Text("Paste a Celltronics or Abans product link and we'll compare it across both stores.")
+                        Text("Paste a Celltronics, Abans or Singer product link and we'll compare it across the stores.")
                             .font(BuyWiseTypography.body)
                             .foregroundStyle(BuyWiseColors.textSecondary)
                     }
