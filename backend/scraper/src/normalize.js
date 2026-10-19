@@ -208,6 +208,35 @@ export function parseTitle(title, category) {
   return { brand: brand.name, brandKey: brand.key, model: display, modelKey: key, codes, ram, storage };
 }
 
+// One tidy product name whichever retailer's title it came from: "Honor 400 lite" and "HONOR 400 Lite" both
+// become "HONOR 400 Lite", "Redmi Note 14 5G Genxt warranty" becomes "Redmi Note 14 5G".
+const LOWERCASE_WORDS = new Set(["with", "and", "for", "of", "the"]);
+
+export function productName(model, brand, category) {
+  let name = clean(model)
+    .replace(/\b(?:genxt|company|official|local|agent)?\s*warranty\b/gi, " ")
+    .replace(/\bnew\b|\b20[12]\d\b/gi, " ");
+  if (category === "headphones") {
+    name = name.replace(/\b(?:wireless|bluetooth|true wireless|noise[- ]cancel+ing|over[- ]ear|on[- ]ear|in[- ]ear)\b/gi, " ");
+    // "Tune 670NC Headphones": the model number already says what it is.
+    if (/\d/.test(name)) name = name.replace(/\bhead(?:phones?|set)\b/gi, " ");
+  }
+  name = name
+    .replace(/\s+/g, " ")
+    .trim()
+    .split(" ")
+    .map((word) => {
+      if (/^[A-Z]{4,}$/.test(word)) return word[0] + word.slice(1).toLowerCase(); // REDMI, CHOICE
+      if (/^[a-z]{2,}$/.test(word) && !LOWERCASE_WORDS.has(word)) return word[0].toUpperCase() + word.slice(1); // lite
+      // HONOR writes its series in lower case: X5c, X7d, X9c.
+      if (brand === "HONOR" && /^[A-Z]\d+[A-Z]$/i.test(word)) return word.slice(0, -1).toUpperCase() + word.slice(-1).toLowerCase();
+      return word;
+    })
+    .join(" ");
+  // "400 256GB" means nothing on its own; numbered models carry the brand ("HONOR 400", "Xiaomi 17T").
+  return /^\d/.test(name) ? `${brand} ${name}` : name;
+}
+
 // ---------- specs ----------
 
 const firstNumber = (text) => {
@@ -247,26 +276,44 @@ function weightText(text, unitHint) {
   return null;
 }
 
-function chipName(text) {
+const CHIP_WORDS = { snapdragon: "Snapdragon", dimensity: "Dimensity", helio: "Helio", exynos: "Exynos", unisoc: "Unisoc",
+  tiger: "Tiger", tensor: "Tensor", kirin: "Kirin", gen: "Gen", elite: "Elite", ultra: "Ultra", ultimate: "Ultimate",
+  extreme: "Extreme", turbo: "Turbo", pro: "Pro", max: "Max", bionic: "Bionic", apple: "Apple" };
+
+/// One spelling per chip, whatever the retailer wrote: "Qualcomm SM6225 Snapdragon 685", "Snapdragon 685 Mobile
+/// Platform" → "Snapdragon 685"; "A19 Pro", "Apple A19 Pro chip" → "Apple A19 Pro". Falls back to the title.
+function chipName(text, title = "") {
+  for (const source of [text, title]) {
+    const found = clean(source).match(CHIP_PATTERN)?.[0];
+    if (!found) continue;
+    const name = found
+      .replace(/-/g, " ")
+      .replace(/\s+/g, " ")
+      .split(" ")
+      .map((word) => CHIP_WORDS[word.toLowerCase()] ?? (/^\d+s$/i.test(word) ? word.toLowerCase() : /\d/.test(word) ? word.toUpperCase() : word))
+      .join(" ");
+    return /^[AM]\d/.test(name) ? `Apple ${name}` : name;
+  }
   if (!text) return null;
-  return clean(text)
+  const fallback = clean(text)
     .replace(/\s*\([^)]*\)/g, "")
-    .replace(/\bprocessor\b/gi, "")
-    .replace(/\s*,.*$/, "")
+    .split(/processor|cpu|octa-?core|,/i)[0]
     .replace(/\s+/g, " ")
-    .trim() || null;
+    .trim();
+  return fallback && !/^\d+-core$/i.test(fallback) ? fallback : null;
 }
 
 const CHIP_PATTERN = new RegExp(
   [
     String.raw`snapdragon\s+(?:8\s+elite(?:\s+gen\s*\d)?|x\s+(?:elite|plus)|\d{1,3}s?\+?\s*gen\s*\d|\d{3,4}\w?)`,
-    String.raw`dimensity\s+\d{3,4}\w*(?:\s+ultra|\+)?`,
-    String.raw`helio\s+[a-z]?\d{2,3}\w*`,
+    String.raw`dimensity\s+\d{3,4}\w*(?:[-\s](?:ultra|ultimate|turbo|extreme)|\+)?`,
+    String.raw`helio\s+[a-z]?\d{2,3}\w*(?:[-\s](?:ultra|ultimate|extreme))?`,
     String.raw`exynos\s+\d{3,4}`,
     String.raw`tensor\s+g\d`,
-    String.raw`unisoc\s+[a-z]?\d{3,4}\w*`,
+    String.raw`unisoc\s+(?:tiger\s+)?[a-z]{0,2}\d{3,4}\w*`,
     String.raw`kirin\s+\d{3,4}\w*`,
     String.raw`apple\s+m\d(?:\s+(?:pro|max))?`,
+    String.raw`apple\s+a\d{2}(?:\s+(?:pro|bionic))?`,
     String.raw`\bm\d(?:\s+(?:pro|max))?(?=\s+chip)`,
     String.raw`\ba\d{2}\s+(?:pro|bionic)`,
     String.raw`\ba\d{2}(?=\s+(?:\d+nm\s+)?chip)`,
@@ -325,7 +372,7 @@ export function canonicalSpecs(category, specs, { ram, storage, title }) {
       .replace(/^(inner|main):\s*/i, "")
       .split(/[,;]/)[0];
     add("Display", size ? `${size}"${type ? ` ${type}` : ""}` : type || null);
-    add("Chip", chipName(pick(specs, /^chipset$/i, /chip/i, /processor/i, /^cpu$/i)));
+    add("Chip", chipName(pick(specs, /^chipset$/i, /chip/i, /processor/i, /^cpu$/i), title));
     if (ram) add("Memory", `${ram}GB`);
     if (storage) add("Storage", formatGB(storage));
     const camera = firstNumber((pick(specs, /main camera.*type/i, /rear camera/i, /main camera/i, /back camera/i, /^camera/i) ?? "").match(/\d+(?:\.\d+)?\s*MP/i)?.[0]);
@@ -339,7 +386,7 @@ export function canonicalSpecs(category, specs, { ram, storage, title }) {
   }
 
   if (category === "laptops") {
-    add("Chip", chipName(pick(specs, /^processor$/i, /processor/i, /^cpu/i, /chip/i)));
+    add("Chip", chipName(pick(specs, /^processor$/i, /processor/i, /^cpu/i, /chip/i), title));
     const memory = pick(specs, /^memory$/i, /^ram$/i, /memory size|installed memory|ram/i);
     add("Memory", ram ? `${ram}GB` : firstNumber(memory) ? `${firstNumber(memory)}GB` : null);
     if (storage) add("Storage", `${formatGB(storage)} SSD`);

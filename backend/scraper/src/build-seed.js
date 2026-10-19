@@ -2,7 +2,7 @@
 // Celltronics, Abans and Singer, maps specs onto the app's labels and backfills a clearly flagged demo price history.
 import { createHash } from "node:crypto";
 import { readFile, writeFile } from "node:fs/promises";
-import { canonicalSpecs, formatGB, keySpec, parseTitle, specsFromText } from "./normalize.js";
+import { canonicalSpecs, formatGB, keySpec, parseTitle, productName, specsFromText } from "./normalize.js";
 
 const RAW = new URL("../data/raw/", import.meta.url);
 const OUT = new URL("../../supabase/seed.sql", import.meta.url);
@@ -168,7 +168,8 @@ const productRows = published.map((product) => {
   const first = head(product);
   const { brand, brandKey, model, storage, ram } = first.parsed;
   const specs = mergeSpecs(product);
-  const name = first.category === "headphones" || !storage ? model : `${model} ${formatGB(storage)}`;
+  const base = productName(model, brand, first.category);
+  const name = first.category === "headphones" || !storage ? base : `${base} ${formatGB(storage)}`;
   const searchKey = `${brandKey}|${first.parsed.modelKey}`;
   return {
     product,
@@ -199,8 +200,9 @@ for (const row of productRows) {
 }
 const slugs = new Set();
 for (const row of productRows) {
-  let slug = slugify(`${row.brand} ${row.name}`);
-  for (let n = 2; slugs.has(slug); n++) slug = `${slugify(`${row.brand} ${row.name}`)}-${n}`;
+  const label = row.name.startsWith(`${row.brand} `) ? row.name : `${row.brand} ${row.name}`;
+  let slug = slugify(label);
+  for (let n = 2; slugs.has(slug); n++) slug = `${slugify(label)}-${n}`;
   slugs.add(slug);
   row.slug = slug;
   row.id = uuid(`product:${slug}`);
