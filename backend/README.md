@@ -1,6 +1,6 @@
 # BuyWise Backend
 
-Supabase (Postgres, Auth, Storage, Realtime) plus a one-time scraper that snapshots the current Celltronics and Abans catalogues.
+Supabase (Postgres, Auth, Storage, Realtime) plus a one-time scraper that snapshots the current Celltronics, Abans and Singer catalogues.
 
 ```
 backend/
@@ -33,11 +33,12 @@ Every user table is protected by row level security: users can only read and cha
 
 ## Data notes
 
-- Prices, specs, images and store locations are a **snapshot** of celltronics.lk and buyabans.com (date in `scraper/data/raw/meta.json`). There is no live scraping.
+- Prices, specs, images and store locations are a **snapshot** of celltronics.lk, buyabans.com and singersl.com (date in `scraper/data/raw/meta.json`). There is no live scraping.
 - Celltronics is read through its public WooCommerce Store API. It has no spec tables, so specs (chip, display, battery, camera, weight) are extracted from its product descriptions.
 - Only the latest price point is real. Earlier price history is generated demo data and is stored with `source = 'simulated'`. The app labels the chart accordingly.
-- Only products sold by **both** Celltronics and Abans are published: 103 products (76 phones, 19 MacBooks, 8 headphones), so every product has a real side-by-side price. The scrape finds about 620 more single-retailer products; set `SHARED_ONLY = false` in `scraper/src/build-seed.js` to publish them too. Matching across retailers is automatic.
-- Singer was the original second retailer but was dropped: it shares only ~14 models with Abans because the two carry different brands.
+- Only products sold by **at least two** of the three retailers are published, so every product has a real side-by-side price: 130 products (106 phones, 13 MacBooks, 11 headphones). 84 are at Celltronics and Abans, 32 at Celltronics and Singer, 3 at Abans and Singer, and 11 at all three. The scrape finds about 700 more single-retailer products; set `MIN_RETAILERS = 1` in `scraper/src/build-seed.js` to publish them too.
+- Matching across retailers is automatic. Listings only merge when brand, storage, RAM, model number and tier (Pro, Max, Plus, Lite…) agree, and earbuds never merge with over-ear headphones.
+- Singer carries different brands from Abans (mostly HONOR and Samsung), so it adds products through Celltronics. It also adds about 470 stores across the island; Abans has 366 and Celltronics one Colombo showroom.
 - `simulate_price_drop` and `reset_demo_prices` change the shared catalogue price. They exist for demonstrating alerts.
 
 ## Deploy to a Supabase project
@@ -59,4 +60,14 @@ cd backend/scraper
 npm install
 npm run scrape        # ~15 min, one request at a time; responses cached in data/cache/
 npm run build-seed    # regenerates ../supabase/seed.sql
+```
+
+Then apply it to the live database. `supabase db push --include-seed` only runs a seed the first time (afterwards it just records the new file), so re-apply it with `psql`. The seed is a single transaction that updates products in place, so users' tracked and saved items are kept:
+
+```bash
+cd backend
+read -s PGPASSWORD && export PGPASSWORD    # your database password
+psql "host=aws-0-ap-northeast-1.pooler.supabase.com port=5432 dbname=postgres user=postgres.<project-ref> sslmode=require" \
+  -v ON_ERROR_STOP=1 -f supabase/seed.sql
+unset PGPASSWORD
 ```

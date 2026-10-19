@@ -8,10 +8,13 @@ const CACHE_DIR = new URL("../data/cache/", import.meta.url);
 
 let lastRequestAt = 0;
 let networkRequests = 0;
+let freshResponses = 0;
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const requestCount = () => networkRequests;
+// Responses actually downloaded this run (not served from the cache, not 404s).
+export const freshCount = () => freshResponses;
 
 // Responses are cached on disk so re-running the parser never re-hits the retailer sites.
 export async function get(url, { json = false, headers = {} } = {}) {
@@ -44,6 +47,7 @@ export async function get(url, { json = false, headers = {} } = {}) {
       const parsed = json ? JSON.parse(body) : body;
       await mkdir(CACHE_DIR, { recursive: true });
       await writeFile(file, body);
+      freshResponses++;
       return parsed;
     } catch (error) {
       if (error.notFound) throw error;

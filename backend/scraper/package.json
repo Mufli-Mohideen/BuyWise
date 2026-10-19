@@ -2,7 +2,7 @@
   "name": "buywise-scraper",
   "version": "1.0.0",
   "private": true,
-  "description": "One-time snapshot scraper for Celltronics and Abans product listings and store locations",
+  "description": "One-time snapshot scraper for Celltronics, Abans and Singer product listings and store locations",
   "type": "module",
   "scripts": {
     "scrape": "node src/scrape.js",

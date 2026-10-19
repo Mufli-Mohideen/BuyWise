@@ -1,5 +1,5 @@
 // Builds supabase/seed.sql from the raw scrape: groups colour variants, matches the same product across
-// Celltronics and Abans, maps specs onto the app's labels and backfills a clearly flagged demo price history.
+// Celltronics, Abans and Singer, maps specs onto the app's labels and backfills a clearly flagged demo price history.
 import { createHash } from "node:crypto";
 import { readFile, writeFile } from "node:fs/promises";
 import { canonicalSpecs, formatGB, keySpec, parseTitle, specsFromText } from "./normalize.js";
@@ -8,8 +8,9 @@ const RAW = new URL("../data/raw/", import.meta.url);
 const OUT = new URL("../../supabase/seed.sql", import.meta.url);
 const load = async (name) => JSON.parse(await readFile(new URL(name, RAW), "utf8"));
 
-const celltronics = await load("celltronics-listings.json");
-const abans = await load("abans-listings.json");
+// Matching order: earlier retailers seed the product list, later ones are matched onto it.
+const RETAILERS = ["celltronics", "abans", "singer"];
+const raw = Object.fromEntries(await Promise.all(RETAILERS.map(async (r) => [r, await load(`${r}-listings.json`)])));
 const stores = await load("stores.json");
 const { scrapedAt } = await load("meta.json");
 
@@ -43,7 +44,7 @@ function dice(a, b) {
 // ---------- parse + group ----------
 
 const seen = new Set();
-const listings = [...celltronics, ...abans]
+const listings = RETAILERS.flatMap((r) => raw[r])
   .filter((listing) => listing.price && listing.title)
   .filter((listing) => {
     const key = `${listing.retailer}|${listing.url}|${listing.sku ?? ""}`;
@@ -54,15 +55,23 @@ const listings = [...celltronics, ...abans]
   // Strip a retailer item code appended to the title, which would otherwise split colours into separate products.
   .map((listing) => {
     const title = listing.sku ? listing.title.replace(new RegExp(`\\s*-?\\s*${listing.sku.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s*$`, "i"), "") : listing.title;
-    return { ...listing, parsed: parseTitle(title, listing.category) };
+    return { ...listing, parsed: parseTitle(title, listing.category), form: formFactor(listing) };
   })
   .filter(({ parsed, category }) => parsed.modelKey && (category === "headphones" || parsed.storage));
+
+// Earbuds and over-ear headphones often share a model name ("QuietComfort"), so keep them apart when the title says.
+function formFactor({ category, title }) {
+  if (category !== "headphones") return "";
+  if (/\b(ear ?buds?|buds|in-?ear|tws|earphones?)\b/i.test(title)) return "earbuds";
+  if (/\b(headphones?|over-?ear|on-?ear)\b/i.test(title)) return "headphones";
+  return "";
+}
 
 const modelId = ({ category, parsed }) =>
   category === "laptops" && parsed.codes[0] ? parsed.codes[0] : parsed.modelKey;
 
 const groupKey = (listing) =>
-  [listing.category, listing.parsed.brandKey, modelId(listing), listing.parsed.storage ?? "", listing.parsed.ram ?? ""].join("|");
+  [listing.category, listing.parsed.brandKey, modelId(listing), listing.parsed.storage ?? "", listing.parsed.ram ?? "", listing.form].join("|");
 
 function groupByKey(items) {
   const groups = new Map();
@@ -74,15 +83,18 @@ function groupByKey(items) {
   return [...groups.values()];
 }
 
-const products = groupByKey(listings.filter((l) => l.retailer === "celltronics")).map((group) => ({ celltronics: group, abans: [] }));
-const abansGroups = groupByKey(listings.filter((l) => l.retailer === "abans"));
+const head = (product) => RETAILERS.map((r) => product[r][0]).find(Boolean);
+const retailersOf = (product) => RETAILERS.filter((r) => product[r].length);
+const listingsOf = (product, order = RETAILERS) => order.flatMap((r) => product[r]);
 
-const head = (product) => (product.celltronics[0] ?? product.abans[0]);
+// Words that mark a different model in the same line: "iPhone 18 Pro" is not "iPhone 18 Pro Max".
+const TIER_WORDS = new Set("pro max plus ultra mini lite fe neo air smart prime edge fold flip foldable power turbo".split(" "));
 
 function matchScore(product, group) {
   const a = head(product);
   const b = group[0];
   if (a.category !== b.category || a.parsed.brandKey !== b.parsed.brandKey) return 0;
+  if (a.form && b.form && a.form !== b.form) return 0;
   if ((a.parsed.storage ?? 0) !== (b.parsed.storage ?? 0)) return 0;
   if (a.parsed.ram && b.parsed.ram && a.parsed.ram !== b.parsed.ram) return 0;
 
@@ -92,27 +104,40 @@ function matchScore(product, group) {
     if (codesA.some((code) => codesB.includes(code))) return 1;
     if (codesA.some((x) => codesB.some((y) => x.length >= 7 && y.length >= 7 && (x.startsWith(y.slice(0, 7)) || y.startsWith(x.slice(0, 7)))))) return 0.9;
   }
+  // Chip names ("A18 Pro", "M4 Max") are not model tiers; some retailers leave the chip out of the title.
+  const tierWords = (key) => tokens(key.replace(/\b([am]\d{1,2})\s+(pro|max)\b/g, "$1"));
+  const wordsA = tierWords(a.parsed.modelKey);
+  const wordsB = tierWords(b.parsed.modelKey);
+  const differing = [...wordsA].filter((w) => !wordsB.has(w)).concat([...wordsB].filter((w) => !wordsA.has(w)));
+  if (differing.some((w) => TIER_WORDS.has(w))) return 0;
+  // Each side naming a different model number ("17" vs "18", "x9c" vs "x9d") means different generations.
+  const numbered = (set, other) => [...set].some((w) => /\d/.test(w) && !other.has(w));
+  if (numbered(wordsA, wordsB) && numbered(wordsB, wordsA)) return 0;
   const similarity = dice(a.parsed.modelKey, b.parsed.modelKey);
   return similarity >= 0.75 ? similarity : 0;
 }
 
+// Each retailer's groups attach to the best existing product it isn't on yet, or start a new one.
+const products = [];
 let crossMatched = 0;
-for (const group of abansGroups) {
-  let best = null;
-  let bestScore = 0;
-  for (const product of products) {
-    if (product.abans.length) continue;
-    const score = matchScore(product, group);
-    if (score > bestScore) {
-      best = product;
-      bestScore = score;
+for (const retailer of RETAILERS) {
+  for (const group of groupByKey(listings.filter((l) => l.retailer === retailer))) {
+    let best = null;
+    let bestScore = 0;
+    for (const product of products) {
+      if (product[retailer].length) continue;
+      const score = matchScore(product, group);
+      if (score > bestScore) {
+        best = product;
+        bestScore = score;
+      }
     }
-  }
-  if (best) {
-    best.abans = group;
-    crossMatched++;
-  } else {
-    products.push({ celltronics: [], abans: group });
+    if (best) {
+      best[retailer] = group;
+      crossMatched++;
+    } else {
+      products.push({ ...Object.fromEntries(RETAILERS.map((r) => [r, []])), [retailer]: group });
+    }
   }
 }
 
@@ -120,7 +145,8 @@ for (const group of abansGroups) {
 
 function mergeSpecs(product) {
   const first = head(product);
-  const all = [...product.abans, ...product.celltronics];
+  // Retailers with real spec tables first; Celltronics specs come from description text.
+  const all = listingsOf(product, ["abans", "singer", "celltronics"]);
   const byLabel = new Map();
   const ram = all.map((l) => l.parsed.ram).find(Boolean) ?? null;
   const storage = first.parsed.storage ?? null;
@@ -133,10 +159,10 @@ function mergeSpecs(product) {
   return [...byLabel].map(([label, value]) => ({ label, value }));
 }
 
-// BuyWise is about comparing the two stores, so only products sold by both are published.
-// Set to false to publish the full catalogue, including single-retailer products.
-const SHARED_ONLY = true;
-const published = SHARED_ONLY ? products.filter((p) => p.celltronics.length && p.abans.length) : products;
+// BuyWise is about comparing stores, so only products sold by at least two of them are published.
+// Set to 1 to publish the full catalogue, including single-retailer products.
+const MIN_RETAILERS = 2;
+const published = products.filter((p) => retailersOf(p).length >= MIN_RETAILERS);
 
 const productRows = published.map((product) => {
   const first = head(product);
@@ -150,11 +176,11 @@ const productRows = published.map((product) => {
     name,
     brand,
     category: first.category,
-    memoryGb: product.celltronics.concat(product.abans).map((l) => l.parsed.ram).find(Boolean) ?? ram ?? null,
+    memoryGb: listingsOf(product).map((l) => l.parsed.ram).find(Boolean) ?? ram ?? null,
     storageGb: storage ?? null,
     specs,
     keySpec: keySpec(first.category, specs),
-    imageUrl: product.celltronics[0]?.imageUrl ?? product.abans[0]?.imageUrl ?? null,
+    imageUrl: listingsOf(product).map((l) => l.imageUrl).find(Boolean) ?? null,
     tagline: product.celltronics.map((l) => l.tagline).find(Boolean) ?? null,
     barcodes: KNOWN_BARCODES.filter(([pattern]) => pattern.test(searchKey)).map(([, code]) => code),
   };
@@ -237,7 +263,7 @@ const productValues = productRows.map((row) => [
 const listingValues = [];
 const historyValues = [];
 for (const row of productRows) {
-  for (const retailer of ["celltronics", "abans"]) {
+  for (const retailer of RETAILERS) {
     const group = row.product[retailer];
     const ratios = backfillRatios(`${row.id}:${retailer}`);
     for (const listing of group) {
@@ -273,7 +299,7 @@ const idList = (values) => `array[${values.map((row) => row[0]).join(", ")}]::uu
 // A sync, not just an insert: re-running it after a new scrape updates existing rows in place (so users'
 // tracked and saved products keep pointing at them), removes products that are no longer listed, and
 // replaces the scraped and simulated price history. Demo price changes ('manual') are left alone.
-const sql = `-- Generated by backend/scraper (npm run build-seed) from the Celltronics and Abans snapshot taken ${scrapedAt}.
+const sql = `-- Generated by backend/scraper (npm run build-seed) from the Celltronics, Abans and Singer snapshot taken ${scrapedAt}.
 -- Do not edit by hand. Price history rows marked 'simulated' are demo backfill; 'scrape' rows are real prices.
 
 begin;
@@ -301,8 +327,13 @@ commit;
 await writeFile(OUT, sql);
 
 const count = (category) => productRows.filter((row) => row.category === category).length;
-const both = products.filter((p) => p.celltronics.length && p.abans.length).length;
-console.log(`products: ${productRows.length} (smartphones ${count("smartphones")}, laptops ${count("laptops")}, headphones ${count("headphones")})`);
-console.log(`sold at both retailers: ${both} (cross-matched ${crossMatched}); single-retailer products ${SHARED_ONLY ? "skipped" : "included"}: celltronics only ${products.filter((p) => !p.abans.length).length}, abans only ${products.filter((p) => !p.celltronics.length).length}`);
+const combos = new Map();
+for (const product of products) {
+  const key = retailersOf(product).join(" + ");
+  combos.set(key, (combos.get(key) ?? 0) + 1);
+}
+console.log(`products: ${productRows.length} (smartphones ${count("smartphones")}, laptops ${count("laptops")}, headphones ${count("headphones")}), sold by ${MIN_RETAILERS}+ retailers`);
+console.log(`cross-matched groups: ${crossMatched}; all products by retailer set:`);
+for (const [key, n] of [...combos].sort((a, b) => b[1] - a[1])) console.log(`  ${key}: ${n}`);
 console.log(`listings: ${listingValues.length}, price history rows: ${historyValues.length}, stores: ${storeValues.length}`);
 console.log(`wrote ${OUT.pathname} (${(sql.length / 1024).toFixed(0)} KB)`);

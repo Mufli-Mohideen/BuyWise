@@ -1,6 +1,6 @@
 # BuyWise
 
-BuyWise is an iOS shopping companion that helps users compare electronics prices across Sri Lankan retailers (Celltronics and Abans), track price drops, and judge whether a product is good value before buying.
+BuyWise is an iOS shopping companion that helps users compare electronics prices across Sri Lankan retailers (Celltronics, Abans and Singer), track price drops, and judge whether a product is good value before buying.
 
 ## Features
 
@@ -10,7 +10,7 @@ BuyWise is an iOS shopping companion that helps users compare electronics prices
 - **Price tracking** — track products and get notified when prices drop
 - **Product identification** — find products by barcode scan, photo/price-tag scan, or pasting a retailer link
 - **Upgrade analysis** — compare a device you own with one you're considering
-- **Nearby retailers** — find the closest Celltronics and Abans stores on a map
+- **Nearby retailers** — find the closest Celltronics, Abans and Singer stores on a map
 - **Authentication** — email sign in, Sign in with Apple, Google sign in and Face ID
 - **Appearance** — light, dark and system themes
 
@@ -38,7 +38,7 @@ BuyWise/
 ├── Views/                # SwiftUI screens grouped by feature
 │   └── Components/       # Reusable UI components
 └── Assets.xcassets/      # App icon, brand logos and product images
-backend/                  # Supabase migrations, seed data and the Celltronics/Abans scraper
+backend/                  # Supabase migrations, seed data and the Celltronics/Abans/Singer scraper
 ```
 
 ## Requirements
@@ -55,4 +55,4 @@ backend/                  # Supabase migrations, seed data and the Celltronics/A
 2. Open `BuyWise.xcodeproj` in Xcode
 3. Select an iPhone simulator or device and press **Run** (⌘R)
 
-> Prices, specs and store locations come from a snapshot of the Celltronics and Abans websites stored in Supabase. Earlier price history is simulated for the demo. See [backend/README.md](backend/README.md) to deploy the backend.
+> Prices, specs and store locations come from a snapshot of the Celltronics, Abans and Singer websites stored in Supabase. Earlier price history is simulated for the demo. See [backend/README.md](backend/README.md) to deploy the backend.

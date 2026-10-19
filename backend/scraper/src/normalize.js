@@ -42,7 +42,7 @@ const COLOR_WORDS = new Set(
 );
 
 const FILLER_WORDS = new Set(
-  ("5g 4g lte smartphone smart phone phones mobile dual sim ds global version laptop notebook wireless headphones " +
+  ("5g 4g lte smartphone phone phones mobile dual sim ds global version laptop notebook wireless headphones " +
    "headphone headset earphones earphone earbuds earbud tws true bluetooth over ear on ear in ear over-ear " +
    "on-ear in-ear noise cancelling canceling cancellation anc adaptive active with mic microphone and the " +
    "new edition gaming ultra-thin thin light series generation gen nfc ram rom storage ssd hdd emmc nvme " +
@@ -200,7 +200,8 @@ export function parseTitle(title, category) {
       display = ["MacBook", line[0].toUpperCase() + line.slice(1).toLowerCase(), size, chip].filter(Boolean).join(" ");
     }
   }
-  const key = words(display)
+  // "Smart" is filler only in "smart phone"; otherwise it names a model ("Honor X9C Smart").
+  const key = words(display.replace(/\bsmart\s+phones?\b/gi, " "))
     .filter((token) => !FILLER_WORDS.has(token) && token !== brand.key)
     .join(" ");
 
