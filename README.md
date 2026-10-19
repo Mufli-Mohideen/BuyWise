@@ -10,6 +10,7 @@ BuyWise is an iOS shopping companion that helps users compare electronics prices
 - **Price tracking** — track products and get notified when prices drop
 - **Product identification** — find products by barcode scan, photo/price-tag scan, or pasting a retailer link
 - **Upgrade analysis** — compare a device you own with one you're considering
+- **Comparison summary** — a T5 model fine-tuned for BuyWise runs on the iPhone with Core ML: see [ml/summarizer/README.md](ml/summarizer/README.md)
 - **Nearby retailers** — find the closest Celltronics, Abans and Singer stores on a map
 - **Authentication** — email sign in, Sign in with Apple, Google sign in and Face ID
 - **Appearance** — light, dark and system themes
@@ -18,6 +19,7 @@ BuyWise is an iOS shopping companion that helps users compare electronics prices
 
 - Swift / SwiftUI
 - Supabase (Postgres, Auth, Storage, Realtime): see [backend/README.md](backend/README.md)
+- Core ML (fine-tuned T5-small summariser), Vision, Natural Language
 - Swift Charts
 - Vision & VisionKit (barcode and text recognition)
 - NaturalLanguage (retailer listing matching)
@@ -37,8 +39,10 @@ BuyWise/
 ├── Utilities/            # Colors, typography, theme and formatters
 ├── Views/                # SwiftUI screens grouped by feature
 │   └── Components/       # Reusable UI components
+├── Resources/            # Core ML summary models and tokenizer vocabulary
 └── Assets.xcassets/      # App icon, brand logos and product images
 backend/                  # Supabase migrations, seed data and the Celltronics/Abans/Singer scraper
+ml/summarizer/            # Training data, fine-tuning, evaluation and Core ML conversion for the summary model
 ```
 
 ## Requirements

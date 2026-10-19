@@ -1,0 +1,7129 @@
+	Ø
+
+	input_ids*	
+Ä†Ä
+
+attention_mask*	
+Ä†ÄR
+hidden_states*
+ÄÄ†Ä¢“
+FReads a product comparison (T5-small encoder, fine-tuned for BuyWise).1.0BuyWise"Apache-2.0 (T5 base weights)¢:
+,com.github.apple.coremltools.conversion_date
+2026-10-19¢:
++com.github.apple.coremltools.source_dialectTorchScript¢+
+$com.github.apple.coremltools.version9.0¢3
+#com.github.apple.coremltools.sourcetorch==2.7.0≤âèÉè
+main˘é
+ 
+	input_ids
+
+
+Ä
+%
+attention_mask
+
+
+ÄCoreML8£é
+CoreML8ñéhidden_statesØ
+constexpr_blockwise_shift_scaleG
+data?
+=;
+
+Ä˚
+Ä*"
+@model_path/weights/weight.bin@J
+scaleA
+?=
+
+Ä˚
+*%
+@model_path/weights/weight.binÄÅÏ<
+#stack_embed_tokens_weight_quantized
+
+Ä˚
+Ä*9
+name1
+)
+'"%
+#stack_embed_tokens_weight_quantizedø
+const8
+'stack_block_0_layer_0_layer_norm_weight
+
+Ä*=
+val6
+
+Ä*%
+@model_path/weights/weight.bin¿ÌÛ*=
+name5
+-
++")
+'stack_block_0_layer_0_layer_norm_weight’
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.binÄ˛ÛI
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.bin¿˛ÉN
+6stack_block_0_layer_0_SelfAttention_q_weight_quantized
+
+Ä
+Ä*L
+nameD
+<
+:"8
+6stack_block_0_layer_0_SelfAttention_q_weight_quantized’
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.binÄèÑI
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.bin¿èîN
+6stack_block_0_layer_0_SelfAttention_k_weight_quantized
+
+Ä
+Ä*L
+nameD
+<
+:"8
+6stack_block_0_layer_0_SelfAttention_k_weight_quantized’
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.binÄ†îI
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.bin¿†§N
+6stack_block_0_layer_0_SelfAttention_v_weight_quantized
+
+Ä
+Ä*L
+nameD
+<
+:"8
+6stack_block_0_layer_0_SelfAttention_v_weight_quantized’
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.binÄ±§I
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.bin¿±¥N
+6stack_block_0_layer_0_SelfAttention_o_weight_quantized
+
+Ä
+Ä*L
+nameD
+<
+:"8
+6stack_block_0_layer_0_SelfAttention_o_weight_quantizedø
+const8
+'stack_block_0_layer_1_layer_norm_weight
+
+Ä*=
+val6
+
+Ä*%
+@model_path/weights/weight.binÄ¬¥*=
+name5
+-
++")
+'stack_block_0_layer_1_layer_norm_weightŸ
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.bin¿“¥I
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.binÄ”ÙP
+8stack_block_0_layer_1_DenseReluDense_wi_weight_quantized
+
+Ä
+Ä*N
+nameF
+>
+<":
+8stack_block_0_layer_1_DenseReluDense_wi_weight_quantizedŸ
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.bin¿ìıI
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.binÄîµ	P
+8stack_block_0_layer_1_DenseReluDense_wo_weight_quantized
+
+Ä
+Ä*N
+nameF
+>
+<":
+8stack_block_0_layer_1_DenseReluDense_wo_weight_quantizedø
+const8
+'stack_block_1_layer_0_layer_norm_weight
+
+Ä*=
+val6
+
+Ä*%
+@model_path/weights/weight.bin¿§µ	*=
+name5
+-
++")
+'stack_block_1_layer_0_layer_norm_weight’
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.binÄµµ	I
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.bin¿µ≈	N
+6stack_block_1_layer_0_SelfAttention_q_weight_quantized
+
+Ä
+Ä*L
+nameD
+<
+:"8
+6stack_block_1_layer_0_SelfAttention_q_weight_quantized’
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.binÄ∆≈	I
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.bin¿∆’	N
+6stack_block_1_layer_0_SelfAttention_k_weight_quantized
+
+Ä
+Ä*L
+nameD
+<
+:"8
+6stack_block_1_layer_0_SelfAttention_k_weight_quantized’
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.binÄ◊’	I
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.bin¿◊Â	N
+6stack_block_1_layer_0_SelfAttention_v_weight_quantized
+
+Ä
+Ä*L
+nameD
+<
+:"8
+6stack_block_1_layer_0_SelfAttention_v_weight_quantized’
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.binÄËÂ	I
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.bin¿Ëı	N
+6stack_block_1_layer_0_SelfAttention_o_weight_quantized
+
+Ä
+Ä*L
+nameD
+<
+:"8
+6stack_block_1_layer_0_SelfAttention_o_weight_quantizedø
+const8
+'stack_block_1_layer_1_layer_norm_weight
+
+Ä*=
+val6
+
+Ä*%
+@model_path/weights/weight.binÄ˘ı	*=
+name5
+-
++")
+'stack_block_1_layer_1_layer_norm_weightŸ
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.bin¿âˆ	I
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.binÄä∂
+P
+8stack_block_1_layer_1_DenseReluDense_wi_weight_quantized
+
+Ä
+Ä*N
+nameF
+>
+<":
+8stack_block_1_layer_1_DenseReluDense_wi_weight_quantizedŸ
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.bin¿ ∂
+I
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.binÄÀˆ
+P
+8stack_block_1_layer_1_DenseReluDense_wo_weight_quantized
+
+Ä
+Ä*N
+nameF
+>
+<":
+8stack_block_1_layer_1_DenseReluDense_wo_weight_quantizedø
+const8
+'stack_block_2_layer_0_layer_norm_weight
+
+Ä*=
+val6
+
+Ä*%
+@model_path/weights/weight.bin¿€ˆ
+*=
+name5
+-
++")
+'stack_block_2_layer_0_layer_norm_weight’
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.binÄÏˆ
+I
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.bin¿ÏÜN
+6stack_block_2_layer_0_SelfAttention_q_weight_quantized
+
+Ä
+Ä*L
+nameD
+<
+:"8
+6stack_block_2_layer_0_SelfAttention_q_weight_quantized’
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.binÄ˝ÜI
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.bin¿˝ñN
+6stack_block_2_layer_0_SelfAttention_k_weight_quantized
+
+Ä
+Ä*L
+nameD
+<
+:"8
+6stack_block_2_layer_0_SelfAttention_k_weight_quantized’
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.binÄéóI
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.bin¿éßN
+6stack_block_2_layer_0_SelfAttention_v_weight_quantized
+
+Ä
+Ä*L
+nameD
+<
+:"8
+6stack_block_2_layer_0_SelfAttention_v_weight_quantized’
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.binÄüßI
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.bin¿ü∑N
+6stack_block_2_layer_0_SelfAttention_o_weight_quantized
+
+Ä
+Ä*L
+nameD
+<
+:"8
+6stack_block_2_layer_0_SelfAttention_o_weight_quantizedø
+const8
+'stack_block_2_layer_1_layer_norm_weight
+
+Ä*=
+val6
+
+Ä*%
+@model_path/weights/weight.binÄ∞∑*=
+name5
+-
++")
+'stack_block_2_layer_1_layer_norm_weightŸ
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.bin¿¿∑I
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.binÄ¡˜P
+8stack_block_2_layer_1_DenseReluDense_wi_weight_quantized
+
+Ä
+Ä*N
+nameF
+>
+<":
+8stack_block_2_layer_1_DenseReluDense_wi_weight_quantizedŸ
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.bin¿Å¯I
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.binÄÇ∏P
+8stack_block_2_layer_1_DenseReluDense_wo_weight_quantized
+
+Ä
+Ä*N
+nameF
+>
+<":
+8stack_block_2_layer_1_DenseReluDense_wo_weight_quantizedø
+const8
+'stack_block_3_layer_0_layer_norm_weight
+
+Ä*=
+val6
+
+Ä*%
+@model_path/weights/weight.bin¿í∏*=
+name5
+-
++")
+'stack_block_3_layer_0_layer_norm_weight’
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.binÄ£∏I
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.bin¿£»N
+6stack_block_3_layer_0_SelfAttention_q_weight_quantized
+
+Ä
+Ä*L
+nameD
+<
+:"8
+6stack_block_3_layer_0_SelfAttention_q_weight_quantized’
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.binÄ¥»I
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.bin¿¥ÿN
+6stack_block_3_layer_0_SelfAttention_k_weight_quantized
+
+Ä
+Ä*L
+nameD
+<
+:"8
+6stack_block_3_layer_0_SelfAttention_k_weight_quantized’
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.binÄ≈ÿI
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.bin¿≈ËN
+6stack_block_3_layer_0_SelfAttention_v_weight_quantized
+
+Ä
+Ä*L
+nameD
+<
+:"8
+6stack_block_3_layer_0_SelfAttention_v_weight_quantized’
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.binÄ÷ËI
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.bin¿÷¯N
+6stack_block_3_layer_0_SelfAttention_o_weight_quantized
+
+Ä
+Ä*L
+nameD
+<
+:"8
+6stack_block_3_layer_0_SelfAttention_o_weight_quantizedø
+const8
+'stack_block_3_layer_1_layer_norm_weight
+
+Ä*=
+val6
+
+Ä*%
+@model_path/weights/weight.binÄÁ¯*=
+name5
+-
++")
+'stack_block_3_layer_1_layer_norm_weightŸ
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.bin¿˜¯I
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.binÄ¯∏P
+8stack_block_3_layer_1_DenseReluDense_wi_weight_quantized
+
+Ä
+Ä*N
+nameF
+>
+<":
+8stack_block_3_layer_1_DenseReluDense_wi_weight_quantizedŸ
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.bin¿∏πI
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.binÄπ˘P
+8stack_block_3_layer_1_DenseReluDense_wo_weight_quantized
+
+Ä
+Ä*N
+nameF
+>
+<":
+8stack_block_3_layer_1_DenseReluDense_wo_weight_quantizedø
+const8
+'stack_block_4_layer_0_layer_norm_weight
+
+Ä*=
+val6
+
+Ä*%
+@model_path/weights/weight.bin¿…˘*=
+name5
+-
++")
+'stack_block_4_layer_0_layer_norm_weight’
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.binÄ⁄˘I
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.bin¿⁄âN
+6stack_block_4_layer_0_SelfAttention_q_weight_quantized
+
+Ä
+Ä*L
+nameD
+<
+:"8
+6stack_block_4_layer_0_SelfAttention_q_weight_quantized’
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.binÄÎâI
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.bin¿ÎôN
+6stack_block_4_layer_0_SelfAttention_k_weight_quantized
+
+Ä
+Ä*L
+nameD
+<
+:"8
+6stack_block_4_layer_0_SelfAttention_k_weight_quantized’
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.binÄ¸ôI
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.bin¿¸©N
+6stack_block_4_layer_0_SelfAttention_v_weight_quantized
+
+Ä
+Ä*L
+nameD
+<
+:"8
+6stack_block_4_layer_0_SelfAttention_v_weight_quantized’
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.binÄç™I
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.bin¿ç∫N
+6stack_block_4_layer_0_SelfAttention_o_weight_quantized
+
+Ä
+Ä*L
+nameD
+<
+:"8
+6stack_block_4_layer_0_SelfAttention_o_weight_quantizedø
+const8
+'stack_block_4_layer_1_layer_norm_weight
+
+Ä*=
+val6
+
+Ä*%
+@model_path/weights/weight.binÄû∫*=
+name5
+-
++")
+'stack_block_4_layer_1_layer_norm_weightŸ
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.bin¿Æ∫I
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.binÄØ˙P
+8stack_block_4_layer_1_DenseReluDense_wi_weight_quantized
+
+Ä
+Ä*N
+nameF
+>
+<":
+8stack_block_4_layer_1_DenseReluDense_wi_weight_quantizedŸ
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.bin¿Ô˙I
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.binÄ∫P
+8stack_block_4_layer_1_DenseReluDense_wo_weight_quantized
+
+Ä
+Ä*N
+nameF
+>
+<":
+8stack_block_4_layer_1_DenseReluDense_wo_weight_quantizedø
+const8
+'stack_block_5_layer_0_layer_norm_weight
+
+Ä*=
+val6
+
+Ä*%
+@model_path/weights/weight.bin¿Äª*=
+name5
+-
++")
+'stack_block_5_layer_0_layer_norm_weight’
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.binÄëªI
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.bin¿ëÀN
+6stack_block_5_layer_0_SelfAttention_q_weight_quantized
+
+Ä
+Ä*L
+nameD
+<
+:"8
+6stack_block_5_layer_0_SelfAttention_q_weight_quantized’
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.binÄ¢ÀI
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.bin¿¢€N
+6stack_block_5_layer_0_SelfAttention_k_weight_quantized
+
+Ä
+Ä*L
+nameD
+<
+:"8
+6stack_block_5_layer_0_SelfAttention_k_weight_quantized’
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.binÄ≥€I
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.bin¿≥ÎN
+6stack_block_5_layer_0_SelfAttention_v_weight_quantized
+
+Ä
+Ä*L
+nameD
+<
+:"8
+6stack_block_5_layer_0_SelfAttention_v_weight_quantized’
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.binÄƒÎI
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.bin¿ƒ˚N
+6stack_block_5_layer_0_SelfAttention_o_weight_quantized
+
+Ä
+Ä*L
+nameD
+<
+:"8
+6stack_block_5_layer_0_SelfAttention_o_weight_quantizedø
+const8
+'stack_block_5_layer_1_layer_norm_weight
+
+Ä*=
+val6
+
+Ä*%
+@model_path/weights/weight.binÄ’˚*=
+name5
+-
++")
+'stack_block_5_layer_1_layer_norm_weightŸ
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.bin¿Â˚I
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.binÄÊªP
+8stack_block_5_layer_1_DenseReluDense_wi_weight_quantized
+
+Ä
+Ä*N
+nameF
+>
+<":
+8stack_block_5_layer_1_DenseReluDense_wi_weight_quantizedŸ
+constexpr_blockwise_shift_scaleI
+dataA
+?=
+
+Ä
+Ä*%
+@model_path/weights/weight.bin¿¶ºI
+scale@
+><
+
+Ä
+*%
+@model_path/weights/weight.binÄß¸P
+8stack_block_5_layer_1_DenseReluDense_wo_weight_quantized
+
+Ä
+Ä*N
+nameF
+>
+<":
+8stack_block_5_layer_1_DenseReluDense_wo_weight_quantized´
+const.
+stack_final_layer_norm_weight
+
+Ä*=
+val6
+
+Ä*%
+@model_path/weights/weight.bin¿∑¸*3
+name+
+#
+!"
+stack_final_layer_norm_weighty
+const$
+hidden_states_1_batch_dims_0
+*
+val
+
+
+ *2
+name*
+"
+ "
+hidden_states_1_batch_dims_0Ö
+const*
+"hidden_states_1_validate_indices_0
+*
+val
+
+
+ *8
+name0
+(
+&"$
+"hidden_states_1_validate_indices_0g
+const
+greater_equal_0_y_0
+*
+val
+
+
+ *)
+name!
+
+"
+greater_equal_0_y_0ê
+greater_equal
+y
+
+greater_equal_0_y_0
+x
+
+	input_ids&
+greater_equal_0
+
+
+Ä*%
+name
+
+"
+greater_equal_0c
+const
+slice_by_index_0
+*
+val
+	
+
+Ä˚*&
+name
+
+"
+slice_by_index_0o
+add
+y
+
+slice_by_index_0
+x
+
+	input_ids
+add_0
+
+
+Ä*
+name
+
+	"
+add_0ä
+select
+cond
+
+greater_equal_0
+b	
+
+add_0
+a
+
+	input_ids
+select_0
+
+
+Ä*
+name
+
+"
+
+select_0k
+const
+greater_equal_0_y_0_1
+*
+val
+
+
+ *+
+name#
+
+"
+greater_equal_0_y_0_1ï
+greater_equal
+y
+
+greater_equal_0_y_0_1
+x
+
+
+select_0(
+greater_equal_0_1
+
+
+Ä*'
+name
+
+"
+greater_equal_0_1g
+const
+slice_by_index_0_1
+*
+val
+	
+
+Ä˚*(
+name 
+
+"
+slice_by_index_0_1t
+add
+y
+
+slice_by_index_0_1
+x
+
+
+select_0
+add_0_1
+
+
+Ä*
+name
+
+"	
+add_0_1ë
+select
+cond
+
+greater_equal_0_1
+b
+	
+add_0_1
+a
+
+
+select_0!
+
+select_0_1
+
+
+Ä* 
+name
+
+"
+
+select_0_1m
+const
+hidden_states_1_axis_0
+*
+val
+
+
+ *,
+name$
+
+"
+hidden_states_1_axis_0∑
+gather
+indices
+
+
+select_0_1:
+validate_indices&
+$
+"hidden_states_1_validate_indices_0,
+x'
+%
+#stack_embed_tokens_weight_quantized.
+
+batch_dims 
+
+hidden_states_1_batch_dims_0"
+axis
+
+hidden_states_1_axis_0-
+hidden_states_1
+
+
+Ä
+Ä*%
+name
+
+"
+hidden_states_1_
+const
+var_33_dtype_0
+*
+val
+
+
+"
+fp32*#
+name
+
+"
+op_33_dtype_0O
+const
+var_34
+*
+val
+
+
+
+
+  Ä?*
+name
+
+	"
+op_34y
+cast
+dtype
+
+var_33_dtype_0
+x
+
+attention_mask
+var_33
+
+
+Ä*
+name
+
+
+"
+cast_0c
+sub
+y
+
+
+var_33
+x
+
+
+var_34
+var_36
+
+
+Ä*
+name
+
+	"
+op_36j
+const
+var_43_axes_0
+
+
+*
+val
+
+
+
+
+*"
+name
+
+"
+op_43_axes_0{
+expand_dims
+x
+
+
+var_36
+axes
+
+var_43_axes_0#
+var_43
+
+
+
+Ä*
+name
+
+	"
+op_43j
+const
+var_45_axes_0
+
+
+*
+val
+
+
+
+
+*"
+name
+
+"
+op_45_axes_0Å
+expand_dims
+x
+
+
+var_43
+axes
+
+var_45_axes_0)
+var_45
+
+
+
+
+Ä*
+name
+
+	"
+op_45O
+const
+var_51
+*
+val
+
+
+
+
+(knŒ*
+name
+
+	"
+op_51Ç
+mul
+y
+
+
+var_51
+x
+
+
+var_453
+attention_mask_1
+
+
+
+
+Ä*$
+name
+
+"
+attention_maskU
+const
+var_55
+*
+val
+
+
+
+ˇˇˇˇˇˇˇˇˇ*
+name
+
+	"
+op_55a
+const
+var_56_promoted
+*
+val
+
+
+
+
+   @*$
+name
+
+"
+op_56_promoted|
+pow
+y
+
+var_56_promoted
+x
+
+hidden_states_1$
+var_78
+
+
+Ä
+Ä*
+name
+
+	"
+op_78|
+const!
+variance_1_axes_0
+
+
+*'
+val 
+
+
+
+
+
+ˇˇˇˇˇˇˇˇˇ*'
+name
+
+"
+variance_1_axes_0m
+const
+variance_1_keep_dims_0
+*
+val
+
+
+*,
+name$
+
+"
+variance_1_keep_dims_0±
+reduce_mean'
+	keep_dims
+
+variance_1_keep_dims_0
+x
+
+
+var_78
+axes
+
+variance_1_axes_0'
+
+variance_1
+
+
+Ä
+* 
+name
+
+"
+
+variance_1O
+const
+var_81
+*
+val
+
+
+
+
+Ω7Ü5*
+name
+
+	"
+op_81m
+add
+y
+
+
+var_81
+x
+
+
+variance_1#
+var_82
+
+
+Ä
+*
+name
+
+	"
+op_82c
+const
+var_83_epsilon_0
+*
+val
+
+
+
+
+Ãºå+*%
+name
+
+"
+op_83_epsilon_0{
+rsqrt
+x
+
+
+var_82
+epsilon
+
+var_83_epsilon_0#
+var_83
+
+
+Ä
+*
+name
+
+	"
+op_83Ü
+mul
+y
+
+
+var_83
+x
+
+hidden_states_1-
+hidden_states_5
+
+
+Ä
+Ä*%
+name
+
+"
+hidden_states_5ß
+mul
+y
+
+hidden_states_50
+x+
+)
+'stack_block_0_layer_0_layer_norm_weight-
+hidden_states_7
+
+
+Ä
+Ä*%
+name
+
+"
+hidden_states_7è
+const 
+linear_0_bias_0
+
+Ä*=
+val6
+
+Ä*%
+@model_path/weights/weight.binÄ»¸*%
+name
+
+"
+linear_0_bias_0À
+linear
+bias
+
+linear_0_bias_0D
+weight:
+8
+6stack_block_0_layer_0_SelfAttention_q_weight_quantized
+x
+
+hidden_states_7$
+var_97
+
+
+Ä
+Ä*
+name
+
+"
+
+linear_0i
+const
+var_98
+
+
+*+
+val$
+
+
+
+
+Äˇˇˇˇˇˇˇˇˇ@*
+name
+
+	"
+op_98w
+reshape
+shape
+
+
+var_98
+x
+
+
+var_97)
+var_99
+
+
+Ä
+
+@*
+name
+
+	"
+op_99Ã
+linear
+bias
+
+linear_0_bias_0D
+weight:
+8
+6stack_block_0_layer_0_SelfAttention_k_weight_quantized
+x
+
+hidden_states_7%
+var_104
+
+
+Ä
+Ä*
+name
+
+"
+
+linear_1k
+const
+var_105
+
+
+*+
+val$
+
+
+
+
+Äˇˇˇˇˇˇˇˇˇ@*
+name
+
+
+"
+op_105{
+reshape
+shape
+	
+var_105
+x
+	
+var_104*
+var_106
+
+
+Ä
+
+@*
+name
+
+
+"
+op_106Ã
+linear
+bias
+
+linear_0_bias_0D
+weight:
+8
+6stack_block_0_layer_0_SelfAttention_v_weight_quantized
+x
+
+hidden_states_7%
+var_109
+
+
+Ä
+Ä*
+name
+
+"
+
+linear_2k
+const
+var_110
+
+
+*+
+val$
+
+
+
+
+Äˇˇˇˇˇˇˇˇˇ@*
+name
+
+
+"
+op_110{
+reshape
+shape
+	
+var_110
+x
+	
+var_109*
+var_111
+
+
+Ä
+
+@*
+name
+
+
+"
+op_111Ç
+const
+value_1_perm_0
+
+
+*3
+val,
+
+
+
+
+ ˝ˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇ*$
+name
+
+"
+value_1_perm_0ü
+constexpr_blockwise_shift_scaleU
+dataM
+KI 
+
+
+
+Ä
+Ä*%
+@model_path/weights/weight.bin¿ÿ¸9
+scale0
+.,
+
+
+
+
+
+
+
+
+Ü£Æ=;
+position_bias_quantized 
+
+
+
+Ä
+Ä*-
+name%
+
+"
+position_bias_quantizedj
+const
+var_152_transpose_x_0
+*
+val
+
+
+ **
+name"
+
+"
+op_152_transpose_x_0j
+const
+var_152_transpose_y_0
+*
+val
+
+
+ **
+name"
+
+"
+op_152_transpose_y_0å
+const#
+transpose_24_perm_0
+
+
+*3
+val,
+
+
+
+
+ ˝ˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇ*)
+name!
+
+"
+transpose_24_perm_0å
+const#
+transpose_25_perm_0
+
+
+*3
+val,
+
+
+
+
+ ˇˇˇˇˇˇˇˇˇ˝ˇˇˇˇˇˇˇˇ*)
+name!
+
+"
+transpose_25_perm_0ì
+	transpose
+x
+	
+var_106
+perm
+
+transpose_25_perm_0/
+transpose_25
+
+
+
+@
+Ä*"
+name
+
+"
+transpose_58í
+	transpose
+x
+
+
+var_99
+perm
+
+transpose_24_perm_0/
+transpose_24
+
+
+
+Ä
+@*"
+name
+
+"
+transpose_59’
+matmul
+y
+
+transpose_25
+x
+
+transpose_24(
+transpose_y
+
+var_152_transpose_y_0(
+transpose_x
+
+var_152_transpose_x_0+
+var_152 
+
+
+
+Ä
+Ä*
+name
+
+
+"
+op_152ì
+add 
+y
+
+position_bias_quantized
+x
+	
+var_1522
+attn_weights_3 
+
+
+
+Ä
+Ä*$
+name
+
+"
+attn_weights_3Ö
+add
+y
+
+attention_mask_1
+x
+
+attn_weights_3+
+input_3 
+
+
+
+Ä
+Ä*
+name
+
+"	
+input_3{
+softmax
+x
+	
+input_3
+axis
+
+
+var_55+
+input_5 
+
+
+
+Ä
+Ä*
+name
+
+"	
+input_5w
+const#
+attn_output_1_transpose_x_0
+*
+val
+
+
+ *1
+name)
+!
+"
+attn_output_1_transpose_x_0w
+const#
+attn_output_1_transpose_y_0
+*
+val
+
+
+ *1
+name)
+!
+"
+attn_output_1_transpose_y_0â
+	transpose
+x
+	
+var_111
+perm
+
+value_1_perm_0*
+value_1
+
+
+
+Ä
+@*"
+name
+
+"
+transpose_57„
+matmul
+y
+	
+value_1
+x
+	
+input_5.
+transpose_y
+
+attn_output_1_transpose_y_0.
+transpose_x
+
+attn_output_1_transpose_x_00
+attn_output_1
+
+
+
+Ä
+@*#
+name
+
+"
+attn_output_1o
+const
+var_160_perm_0
+
+
+*!
+val
+
+
+
+
+
+ *#
+name
+
+"
+op_160_perm_0j
+const
+var_162
+
+
+**
+val#
+
+
+
+
+Äˇˇˇˇˇˇˇˇˇ*
+name
+
+
+"
+op_162è
+	transpose
+x
+
+attn_output_1
+perm
+
+var_160_perm_0*
+var_160
+
+
+Ä
+
+@*"
+name
+
+"
+transpose_56v
+reshape
+shape
+	
+var_162
+x
+	
+var_160%
+var_163
+
+
+Ä
+Ä*
+name
+
+
+"
+op_163ƒ
+linear
+bias
+
+linear_0_bias_0D
+weight:
+8
+6stack_block_0_layer_0_SelfAttention_o_weight_quantized
+x
+	
+var_163%
+input_9
+
+
+Ä
+Ä*
+name
+
+"
+
+linear_3á
+add
+y
+	
+input_9
+x
+
+hidden_states_1-
+hidden_states_9
+
+
+Ä
+Ä*%
+name
+
+"
+hidden_states_9e
+const
+var_56_promoted_1
+*
+val
+
+
+
+
+   @*&
+name
+
+"
+op_56_promoted_1Ä
+pow
+y
+
+var_56_promoted_1
+x
+
+hidden_states_9%
+var_179
+
+
+Ä
+Ä*
+name
+
+
+"
+op_179|
+const!
+variance_3_axes_0
+
+
+*'
+val 
+
+
+
+
+
+ˇˇˇˇˇˇˇˇˇ*'
+name
+
+"
+variance_3_axes_0m
+const
+variance_3_keep_dims_0
+*
+val
+
+
+*,
+name$
+
+"
+variance_3_keep_dims_0≤
+reduce_mean'
+	keep_dims
+
+variance_3_keep_dims_0
+x
+	
+var_179
+axes
+
+variance_3_axes_0'
+
+variance_3
+
+
+Ä
+* 
+name
+
+"
+
+variance_3Q
+const
+var_182
+*
+val
+
+
+
+
+Ω7Ü5*
+name
+
+
+"
+op_182p
+add
+y
+	
+var_182
+x
+
+
+variance_3$
+var_183
+
+
+Ä
+*
+name
+
+
+"
+op_183e
+const
+var_184_epsilon_0
+*
+val
+
+
+
+
+Ãºå+*&
+name
+
+"
+op_184_epsilon_0
+rsqrt
+x
+	
+var_183 
+epsilon
+
+var_184_epsilon_0$
+var_184
+
+
+Ä
+*
+name
+
+
+"
+op_184â
+mul
+y
+	
+var_184
+x
+
+hidden_states_9.
+hidden_states_13
+
+
+Ä
+Ä*&
+name
+
+"
+hidden_states_13ö
+mul
+y
+
+hidden_states_130
+x+
+)
+'stack_block_0_layer_1_layer_norm_weight&
+input_11
+
+
+Ä
+Ä*
+name
+
+"
+
+input_11è
+const 
+linear_4_bias_0
+
+Ä*=
+val6
+
+Ä*%
+@model_path/weights/weight.binÄŸú*%
+name
+
+"
+linear_4_bias_0»
+linear
+bias
+
+linear_4_bias_0F
+weight<
+:
+8stack_block_0_layer_1_DenseReluDense_wi_weight_quantized
+x
+
+
+input_11&
+input_13
+
+
+Ä
+Ä*
+name
+
+"
+
+linear_4a
+relu
+x
+
+
+input_13&
+input_15
+
+
+Ä
+Ä*
+name
+
+"
+
+input_15»
+linear
+bias
+
+linear_0_bias_0F
+weight<
+:
+8stack_block_0_layer_1_DenseReluDense_wo_weight_quantized
+x
+
+
+input_15&
+input_19
+
+
+Ä
+Ä*
+name
+
+"
+
+linear_5ä
+add
+y
+
+
+input_19
+x
+
+hidden_states_9.
+hidden_states_15
+
+
+Ä
+Ä*&
+name
+
+"
+hidden_states_15W
+const
+var_205
+*
+val
+
+
+
+ˇˇˇˇˇˇˇˇˇ*
+name
+
+
+"
+op_205c
+const
+var_206_promoted
+*
+val
+
+
+
+
+   @*%
+name
+
+"
+op_206_promotedÄ
+pow
+y
+
+var_206_promoted
+x
+
+hidden_states_15%
+var_223
+
+
+Ä
+Ä*
+name
+
+
+"
+op_223|
+const!
+variance_5_axes_0
+
+
+*'
+val 
+
+
+
+
+
+ˇˇˇˇˇˇˇˇˇ*'
+name
+
+"
+variance_5_axes_0m
+const
+variance_5_keep_dims_0
+*
+val
+
+
+*,
+name$
+
+"
+variance_5_keep_dims_0≤
+reduce_mean'
+	keep_dims
+
+variance_5_keep_dims_0
+x
+	
+var_223
+axes
+
+variance_5_axes_0'
+
+variance_5
+
+
+Ä
+* 
+name
+
+"
+
+variance_5Q
+const
+var_226
+*
+val
+
+
+
+
+Ω7Ü5*
+name
+
+
+"
+op_226p
+add
+y
+	
+var_226
+x
+
+
+variance_5$
+var_227
+
+
+Ä
+*
+name
+
+
+"
+op_227e
+const
+var_228_epsilon_0
+*
+val
+
+
+
+
+Ãºå+*&
+name
+
+"
+op_228_epsilon_0
+rsqrt
+x
+	
+var_227 
+epsilon
+
+var_228_epsilon_0$
+var_228
+
+
+Ä
+*
+name
+
+
+"
+op_228ä
+mul
+y
+	
+var_228
+x
+
+hidden_states_15.
+hidden_states_19
+
+
+Ä
+Ä*&
+name
+
+"
+hidden_states_19™
+mul
+y
+
+hidden_states_190
+x+
+)
+'stack_block_1_layer_0_layer_norm_weight.
+hidden_states_21
+
+
+Ä
+Ä*&
+name
+
+"
+hidden_states_21Õ
+linear
+bias
+
+linear_0_bias_0D
+weight:
+8
+6stack_block_1_layer_0_SelfAttention_q_weight_quantized
+x
+
+hidden_states_21%
+var_241
+
+
+Ä
+Ä*
+name
+
+"
+
+linear_6k
+const
+var_242
+
+
+*+
+val$
+
+
+
+
+Äˇˇˇˇˇˇˇˇˇ@*
+name
+
+
+"
+op_242{
+reshape
+shape
+	
+var_242
+x
+	
+var_241*
+var_243
+
+
+Ä
+
+@*
+name
+
+
+"
+op_243Õ
+linear
+bias
+
+linear_0_bias_0D
+weight:
+8
+6stack_block_1_layer_0_SelfAttention_k_weight_quantized
+x
+
+hidden_states_21%
+var_248
+
+
+Ä
+Ä*
+name
+
+"
+
+linear_7k
+const
+var_249
+
+
+*+
+val$
+
+
+
+
+Äˇˇˇˇˇˇˇˇˇ@*
+name
+
+
+"
+op_249{
+reshape
+shape
+	
+var_249
+x
+	
+var_248*
+var_250
+
+
+Ä
+
+@*
+name
+
+
+"
+op_250Õ
+linear
+bias
+
+linear_0_bias_0D
+weight:
+8
+6stack_block_1_layer_0_SelfAttention_v_weight_quantized
+x
+
+hidden_states_21%
+var_253
+
+
+Ä
+Ä*
+name
+
+"
+
+linear_8k
+const
+var_254
+
+
+*+
+val$
+
+
+
+
+Äˇˇˇˇˇˇˇˇˇ@*
+name
+
+
+"
+op_254{
+reshape
+shape
+	
+var_254
+x
+	
+var_253*
+var_255
+
+
+Ä
+
+@*
+name
+
+
+"
+op_255Ç
+const
+value_3_perm_0
+
+
+*3
+val,
+
+
+
+
+ ˝ˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇ*$
+name
+
+"
+value_3_perm_0j
+const
+var_258_transpose_x_0
+*
+val
+
+
+ **
+name"
+
+"
+op_258_transpose_x_0j
+const
+var_258_transpose_y_0
+*
+val
+
+
+ **
+name"
+
+"
+op_258_transpose_y_0å
+const#
+transpose_26_perm_0
+
+
+*3
+val,
+
+
+
+
+ ˝ˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇ*)
+name!
+
+"
+transpose_26_perm_0å
+const#
+transpose_27_perm_0
+
+
+*3
+val,
+
+
+
+
+ ˇˇˇˇˇˇˇˇˇ˝ˇˇˇˇˇˇˇˇ*)
+name!
+
+"
+transpose_27_perm_0ì
+	transpose
+x
+	
+var_250
+perm
+
+transpose_27_perm_0/
+transpose_27
+
+
+
+@
+Ä*"
+name
+
+"
+transpose_54ì
+	transpose
+x
+	
+var_243
+perm
+
+transpose_26_perm_0/
+transpose_26
+
+
+
+Ä
+@*"
+name
+
+"
+transpose_55’
+matmul
+y
+
+transpose_27
+x
+
+transpose_26(
+transpose_y
+
+var_258_transpose_y_0(
+transpose_x
+
+var_258_transpose_x_0+
+var_258 
+
+
+
+Ä
+Ä*
+name
+
+
+"
+op_258ì
+add 
+y
+
+position_bias_quantized
+x
+	
+var_2582
+attn_weights_9 
+
+
+
+Ä
+Ä*$
+name
+
+"
+attn_weights_9á
+add
+y
+
+attention_mask_1
+x
+
+attn_weights_9,
+input_21 
+
+
+
+Ä
+Ä*
+name
+
+"
+
+input_21
+softmax
+x
+
+
+input_21
+axis
+	
+var_205,
+input_23 
+
+
+
+Ä
+Ä*
+name
+
+"
+
+input_23w
+const#
+attn_output_5_transpose_x_0
+*
+val
+
+
+ *1
+name)
+!
+"
+attn_output_5_transpose_x_0w
+const#
+attn_output_5_transpose_y_0
+*
+val
+
+
+ *1
+name)
+!
+"
+attn_output_5_transpose_y_0â
+	transpose
+x
+	
+var_255
+perm
+
+value_3_perm_0*
+value_3
+
+
+
+Ä
+@*"
+name
+
+"
+transpose_53‰
+matmul
+y
+	
+value_3
+x
+
+
+input_23.
+transpose_y
+
+attn_output_5_transpose_y_0.
+transpose_x
+
+attn_output_5_transpose_x_00
+attn_output_5
+
+
+
+Ä
+@*#
+name
+
+"
+attn_output_5o
+const
+var_266_perm_0
+
+
+*!
+val
+
+
+
+
+
+ *#
+name
+
+"
+op_266_perm_0j
+const
+var_268
+
+
+**
+val#
+
+
+
+
+Äˇˇˇˇˇˇˇˇˇ*
+name
+
+
+"
+op_268è
+	transpose
+x
+
+attn_output_5
+perm
+
+var_266_perm_0*
+var_266
+
+
+Ä
+
+@*"
+name
+
+"
+transpose_52v
+reshape
+shape
+	
+var_268
+x
+	
+var_266%
+var_269
+
+
+Ä
+Ä*
+name
+
+
+"
+op_269≈
+linear
+bias
+
+linear_0_bias_0D
+weight:
+8
+6stack_block_1_layer_0_SelfAttention_o_weight_quantized
+x
+	
+var_269&
+input_27
+
+
+Ä
+Ä*
+name
+
+"
+
+linear_9ã
+add
+y
+
+
+input_27
+x
+
+hidden_states_15.
+hidden_states_23
+
+
+Ä
+Ä*&
+name
+
+"
+hidden_states_23g
+const
+var_206_promoted_1
+*
+val
+
+
+
+
+   @*'
+name
+
+"
+op_206_promoted_1Ç
+pow
+y
+
+var_206_promoted_1
+x
+
+hidden_states_23%
+var_279
+
+
+Ä
+Ä*
+name
+
+
+"
+op_279|
+const!
+variance_7_axes_0
+
+
+*'
+val 
+
+
+
+
+
+ˇˇˇˇˇˇˇˇˇ*'
+name
+
+"
+variance_7_axes_0m
+const
+variance_7_keep_dims_0
+*
+val
+
+
+*,
+name$
+
+"
+variance_7_keep_dims_0≤
+reduce_mean'
+	keep_dims
+
+variance_7_keep_dims_0
+x
+	
+var_279
+axes
+
+variance_7_axes_0'
+
+variance_7
+
+
+Ä
+* 
+name
+
+"
+
+variance_7Q
+const
+var_282
+*
+val
+
+
+
+
+Ω7Ü5*
+name
+
+
+"
+op_282p
+add
+y
+	
+var_282
+x
+
+
+variance_7$
+var_283
+
+
+Ä
+*
+name
+
+
+"
+op_283e
+const
+var_284_epsilon_0
+*
+val
+
+
+
+
+Ãºå+*&
+name
+
+"
+op_284_epsilon_0
+rsqrt
+x
+	
+var_283 
+epsilon
+
+var_284_epsilon_0$
+var_284
+
+
+Ä
+*
+name
+
+
+"
+op_284ä
+mul
+y
+	
+var_284
+x
+
+hidden_states_23.
+hidden_states_27
+
+
+Ä
+Ä*&
+name
+
+"
+hidden_states_27ö
+mul
+y
+
+hidden_states_270
+x+
+)
+'stack_block_1_layer_1_layer_norm_weight&
+input_29
+
+
+Ä
+Ä*
+name
+
+"
+
+input_29…
+linear
+bias
+
+linear_4_bias_0F
+weight<
+:
+8stack_block_1_layer_1_DenseReluDense_wi_weight_quantized
+x
+
+
+input_29&
+input_31
+
+
+Ä
+Ä*
+name
+
+"
+	linear_10a
+relu
+x
+
+
+input_31&
+input_33
+
+
+Ä
+Ä*
+name
+
+"
+
+input_33…
+linear
+bias
+
+linear_0_bias_0F
+weight<
+:
+8stack_block_1_layer_1_DenseReluDense_wo_weight_quantized
+x
+
+
+input_33&
+input_37
+
+
+Ä
+Ä*
+name
+
+"
+	linear_11ã
+add
+y
+
+
+input_37
+x
+
+hidden_states_23.
+hidden_states_29
+
+
+Ä
+Ä*&
+name
+
+"
+hidden_states_29W
+const
+var_302
+*
+val
+
+
+
+ˇˇˇˇˇˇˇˇˇ*
+name
+
+
+"
+op_302c
+const
+var_303_promoted
+*
+val
+
+
+
+
+   @*%
+name
+
+"
+op_303_promotedÄ
+pow
+y
+
+var_303_promoted
+x
+
+hidden_states_29%
+var_320
+
+
+Ä
+Ä*
+name
+
+
+"
+op_320|
+const!
+variance_9_axes_0
+
+
+*'
+val 
+
+
+
+
+
+ˇˇˇˇˇˇˇˇˇ*'
+name
+
+"
+variance_9_axes_0m
+const
+variance_9_keep_dims_0
+*
+val
+
+
+*,
+name$
+
+"
+variance_9_keep_dims_0≤
+reduce_mean'
+	keep_dims
+
+variance_9_keep_dims_0
+x
+	
+var_320
+axes
+
+variance_9_axes_0'
+
+variance_9
+
+
+Ä
+* 
+name
+
+"
+
+variance_9Q
+const
+var_323
+*
+val
+
+
+
+
+Ω7Ü5*
+name
+
+
+"
+op_323p
+add
+y
+	
+var_323
+x
+
+
+variance_9$
+var_324
+
+
+Ä
+*
+name
+
+
+"
+op_324e
+const
+var_325_epsilon_0
+*
+val
+
+
+
+
+Ãºå+*&
+name
+
+"
+op_325_epsilon_0
+rsqrt
+x
+	
+var_324 
+epsilon
+
+var_325_epsilon_0$
+var_325
+
+
+Ä
+*
+name
+
+
+"
+op_325ä
+mul
+y
+	
+var_325
+x
+
+hidden_states_29.
+hidden_states_33
+
+
+Ä
+Ä*&
+name
+
+"
+hidden_states_33™
+mul
+y
+
+hidden_states_330
+x+
+)
+'stack_block_2_layer_0_layer_norm_weight.
+hidden_states_35
+
+
+Ä
+Ä*&
+name
+
+"
+hidden_states_35Œ
+linear
+bias
+
+linear_0_bias_0D
+weight:
+8
+6stack_block_2_layer_0_SelfAttention_q_weight_quantized
+x
+
+hidden_states_35%
+var_338
+
+
+Ä
+Ä*
+name
+
+"
+	linear_12k
+const
+var_339
+
+
+*+
+val$
+
+
+
+
+Äˇˇˇˇˇˇˇˇˇ@*
+name
+
+
+"
+op_339{
+reshape
+shape
+	
+var_339
+x
+	
+var_338*
+var_340
+
+
+Ä
+
+@*
+name
+
+
+"
+op_340Œ
+linear
+bias
+
+linear_0_bias_0D
+weight:
+8
+6stack_block_2_layer_0_SelfAttention_k_weight_quantized
+x
+
+hidden_states_35%
+var_345
+
+
+Ä
+Ä*
+name
+
+"
+	linear_13k
+const
+var_346
+
+
+*+
+val$
+
+
+
+
+Äˇˇˇˇˇˇˇˇˇ@*
+name
+
+
+"
+op_346{
+reshape
+shape
+	
+var_346
+x
+	
+var_345*
+var_347
+
+
+Ä
+
+@*
+name
+
+
+"
+op_347Œ
+linear
+bias
+
+linear_0_bias_0D
+weight:
+8
+6stack_block_2_layer_0_SelfAttention_v_weight_quantized
+x
+
+hidden_states_35%
+var_350
+
+
+Ä
+Ä*
+name
+
+"
+	linear_14k
+const
+var_351
+
+
+*+
+val$
+
+
+
+
+Äˇˇˇˇˇˇˇˇˇ@*
+name
+
+
+"
+op_351{
+reshape
+shape
+	
+var_351
+x
+	
+var_350*
+var_352
+
+
+Ä
+
+@*
+name
+
+
+"
+op_352Ç
+const
+value_5_perm_0
+
+
+*3
+val,
+
+
+
+
+ ˝ˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇ*$
+name
+
+"
+value_5_perm_0j
+const
+var_355_transpose_x_0
+*
+val
+
+
+ **
+name"
+
+"
+op_355_transpose_x_0j
+const
+var_355_transpose_y_0
+*
+val
+
+
+ **
+name"
+
+"
+op_355_transpose_y_0å
+const#
+transpose_28_perm_0
+
+
+*3
+val,
+
+
+
+
+ ˝ˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇ*)
+name!
+
+"
+transpose_28_perm_0å
+const#
+transpose_29_perm_0
+
+
+*3
+val,
+
+
+
+
+ ˇˇˇˇˇˇˇˇˇ˝ˇˇˇˇˇˇˇˇ*)
+name!
+
+"
+transpose_29_perm_0ì
+	transpose
+x
+	
+var_347
+perm
+
+transpose_29_perm_0/
+transpose_29
+
+
+
+@
+Ä*"
+name
+
+"
+transpose_50ì
+	transpose
+x
+	
+var_340
+perm
+
+transpose_28_perm_0/
+transpose_28
+
+
+
+Ä
+@*"
+name
+
+"
+transpose_51’
+matmul
+y
+
+transpose_29
+x
+
+transpose_28(
+transpose_y
+
+var_355_transpose_y_0(
+transpose_x
+
+var_355_transpose_x_0+
+var_355 
+
+
+
+Ä
+Ä*
+name
+
+
+"
+op_355ï
+add 
+y
+
+position_bias_quantized
+x
+	
+var_3553
+attn_weights_15 
+
+
+
+Ä
+Ä*%
+name
+
+"
+attn_weights_15à
+add
+y
+
+attention_mask_1
+x
+
+attn_weights_15,
+input_39 
+
+
+
+Ä
+Ä*
+name
+
+"
+
+input_39
+softmax
+x
+
+
+input_39
+axis
+	
+var_302,
+input_41 
+
+
+
+Ä
+Ä*
+name
+
+"
+
+input_41w
+const#
+attn_output_9_transpose_x_0
+*
+val
+
+
+ *1
+name)
+!
+"
+attn_output_9_transpose_x_0w
+const#
+attn_output_9_transpose_y_0
+*
+val
+
+
+ *1
+name)
+!
+"
+attn_output_9_transpose_y_0â
+	transpose
+x
+	
+var_352
+perm
+
+value_5_perm_0*
+value_5
+
+
+
+Ä
+@*"
+name
+
+"
+transpose_49‰
+matmul
+y
+	
+value_5
+x
+
+
+input_41.
+transpose_y
+
+attn_output_9_transpose_y_0.
+transpose_x
+
+attn_output_9_transpose_x_00
+attn_output_9
+
+
+
+Ä
+@*#
+name
+
+"
+attn_output_9o
+const
+var_363_perm_0
+
+
+*!
+val
+
+
+
+
+
+ *#
+name
+
+"
+op_363_perm_0j
+const
+var_365
+
+
+**
+val#
+
+
+
+
+Äˇˇˇˇˇˇˇˇˇ*
+name
+
+
+"
+op_365è
+	transpose
+x
+
+attn_output_9
+perm
+
+var_363_perm_0*
+var_363
+
+
+Ä
+
+@*"
+name
+
+"
+transpose_48v
+reshape
+shape
+	
+var_365
+x
+	
+var_363%
+var_366
+
+
+Ä
+Ä*
+name
+
+
+"
+op_366∆
+linear
+bias
+
+linear_0_bias_0D
+weight:
+8
+6stack_block_2_layer_0_SelfAttention_o_weight_quantized
+x
+	
+var_366&
+input_45
+
+
+Ä
+Ä*
+name
+
+"
+	linear_15ã
+add
+y
+
+
+input_45
+x
+
+hidden_states_29.
+hidden_states_37
+
+
+Ä
+Ä*&
+name
+
+"
+hidden_states_37g
+const
+var_303_promoted_1
+*
+val
+
+
+
+
+   @*'
+name
+
+"
+op_303_promoted_1Ç
+pow
+y
+
+var_303_promoted_1
+x
+
+hidden_states_37%
+var_376
+
+
+Ä
+Ä*
+name
+
+
+"
+op_376~
+const"
+variance_11_axes_0
+
+
+*'
+val 
+
+
+
+
+
+ˇˇˇˇˇˇˇˇˇ*(
+name 
+
+"
+variance_11_axes_0o
+const
+variance_11_keep_dims_0
+*
+val
+
+
+*-
+name%
+
+"
+variance_11_keep_dims_0∂
+reduce_mean(
+	keep_dims
+
+variance_11_keep_dims_0
+x
+	
+var_376
+axes
+
+variance_11_axes_0(
+variance_11
+
+
+Ä
+*!
+name
+
+"
+variance_11Q
+const
+var_379
+*
+val
+
+
+
+
+Ω7Ü5*
+name
+
+
+"
+op_379q
+add
+y
+	
+var_379
+x
+
+variance_11$
+var_380
+
+
+Ä
+*
+name
+
+
+"
+op_380e
+const
+var_381_epsilon_0
+*
+val
+
+
+
+
+Ãºå+*&
+name
+
+"
+op_381_epsilon_0
+rsqrt
+x
+	
+var_380 
+epsilon
+
+var_381_epsilon_0$
+var_381
+
+
+Ä
+*
+name
+
+
+"
+op_381ä
+mul
+y
+	
+var_381
+x
+
+hidden_states_37.
+hidden_states_41
+
+
+Ä
+Ä*&
+name
+
+"
+hidden_states_41ö
+mul
+y
+
+hidden_states_410
+x+
+)
+'stack_block_2_layer_1_layer_norm_weight&
+input_47
+
+
+Ä
+Ä*
+name
+
+"
+
+input_47…
+linear
+bias
+
+linear_4_bias_0F
+weight<
+:
+8stack_block_2_layer_1_DenseReluDense_wi_weight_quantized
+x
+
+
+input_47&
+input_49
+
+
+Ä
+Ä*
+name
+
+"
+	linear_16a
+relu
+x
+
+
+input_49&
+input_51
+
+
+Ä
+Ä*
+name
+
+"
+
+input_51…
+linear
+bias
+
+linear_0_bias_0F
+weight<
+:
+8stack_block_2_layer_1_DenseReluDense_wo_weight_quantized
+x
+
+
+input_51&
+input_55
+
+
+Ä
+Ä*
+name
+
+"
+	linear_17ã
+add
+y
+
+
+input_55
+x
+
+hidden_states_37.
+hidden_states_43
+
+
+Ä
+Ä*&
+name
+
+"
+hidden_states_43W
+const
+var_399
+*
+val
+
+
+
+ˇˇˇˇˇˇˇˇˇ*
+name
+
+
+"
+op_399c
+const
+var_400_promoted
+*
+val
+
+
+
+
+   @*%
+name
+
+"
+op_400_promotedÄ
+pow
+y
+
+var_400_promoted
+x
+
+hidden_states_43%
+var_417
+
+
+Ä
+Ä*
+name
+
+
+"
+op_417~
+const"
+variance_13_axes_0
+
+
+*'
+val 
+
+
+
+
+
+ˇˇˇˇˇˇˇˇˇ*(
+name 
+
+"
+variance_13_axes_0o
+const
+variance_13_keep_dims_0
+*
+val
+
+
+*-
+name%
+
+"
+variance_13_keep_dims_0∂
+reduce_mean(
+	keep_dims
+
+variance_13_keep_dims_0
+x
+	
+var_417
+axes
+
+variance_13_axes_0(
+variance_13
+
+
+Ä
+*!
+name
+
+"
+variance_13Q
+const
+var_420
+*
+val
+
+
+
+
+Ω7Ü5*
+name
+
+
+"
+op_420q
+add
+y
+	
+var_420
+x
+
+variance_13$
+var_421
+
+
+Ä
+*
+name
+
+
+"
+op_421e
+const
+var_422_epsilon_0
+*
+val
+
+
+
+
+Ãºå+*&
+name
+
+"
+op_422_epsilon_0
+rsqrt
+x
+	
+var_421 
+epsilon
+
+var_422_epsilon_0$
+var_422
+
+
+Ä
+*
+name
+
+
+"
+op_422ä
+mul
+y
+	
+var_422
+x
+
+hidden_states_43.
+hidden_states_47
+
+
+Ä
+Ä*&
+name
+
+"
+hidden_states_47™
+mul
+y
+
+hidden_states_470
+x+
+)
+'stack_block_3_layer_0_layer_norm_weight.
+hidden_states_49
+
+
+Ä
+Ä*&
+name
+
+"
+hidden_states_49Œ
+linear
+bias
+
+linear_0_bias_0D
+weight:
+8
+6stack_block_3_layer_0_SelfAttention_q_weight_quantized
+x
+
+hidden_states_49%
+var_435
+
+
+Ä
+Ä*
+name
+
+"
+	linear_18k
+const
+var_436
+
+
+*+
+val$
+
+
+
+
+Äˇˇˇˇˇˇˇˇˇ@*
+name
+
+
+"
+op_436{
+reshape
+shape
+	
+var_436
+x
+	
+var_435*
+var_437
+
+
+Ä
+
+@*
+name
+
+
+"
+op_437Œ
+linear
+bias
+
+linear_0_bias_0D
+weight:
+8
+6stack_block_3_layer_0_SelfAttention_k_weight_quantized
+x
+
+hidden_states_49%
+var_442
+
+
+Ä
+Ä*
+name
+
+"
+	linear_19k
+const
+var_443
+
+
+*+
+val$
+
+
+
+
+Äˇˇˇˇˇˇˇˇˇ@*
+name
+
+
+"
+op_443{
+reshape
+shape
+	
+var_443
+x
+	
+var_442*
+var_444
+
+
+Ä
+
+@*
+name
+
+
+"
+op_444Œ
+linear
+bias
+
+linear_0_bias_0D
+weight:
+8
+6stack_block_3_layer_0_SelfAttention_v_weight_quantized
+x
+
+hidden_states_49%
+var_447
+
+
+Ä
+Ä*
+name
+
+"
+	linear_20k
+const
+var_448
+
+
+*+
+val$
+
+
+
+
+Äˇˇˇˇˇˇˇˇˇ@*
+name
+
+
+"
+op_448{
+reshape
+shape
+	
+var_448
+x
+	
+var_447*
+var_449
+
+
+Ä
+
+@*
+name
+
+
+"
+op_449Ç
+const
+value_7_perm_0
+
+
+*3
+val,
+
+
+
+
+ ˝ˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇ*$
+name
+
+"
+value_7_perm_0j
+const
+var_452_transpose_x_0
+*
+val
+
+
+ **
+name"
+
+"
+op_452_transpose_x_0j
+const
+var_452_transpose_y_0
+*
+val
+
+
+ **
+name"
+
+"
+op_452_transpose_y_0å
+const#
+transpose_30_perm_0
+
+
+*3
+val,
+
+
+
+
+ ˝ˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇ*)
+name!
+
+"
+transpose_30_perm_0å
+const#
+transpose_31_perm_0
+
+
+*3
+val,
+
+
+
+
+ ˇˇˇˇˇˇˇˇˇ˝ˇˇˇˇˇˇˇˇ*)
+name!
+
+"
+transpose_31_perm_0ì
+	transpose
+x
+	
+var_444
+perm
+
+transpose_31_perm_0/
+transpose_31
+
+
+
+@
+Ä*"
+name
+
+"
+transpose_46ì
+	transpose
+x
+	
+var_437
+perm
+
+transpose_30_perm_0/
+transpose_30
+
+
+
+Ä
+@*"
+name
+
+"
+transpose_47’
+matmul
+y
+
+transpose_31
+x
+
+transpose_30(
+transpose_y
+
+var_452_transpose_y_0(
+transpose_x
+
+var_452_transpose_x_0+
+var_452 
+
+
+
+Ä
+Ä*
+name
+
+
+"
+op_452ï
+add 
+y
+
+position_bias_quantized
+x
+	
+var_4523
+attn_weights_21 
+
+
+
+Ä
+Ä*%
+name
+
+"
+attn_weights_21à
+add
+y
+
+attention_mask_1
+x
+
+attn_weights_21,
+input_57 
+
+
+
+Ä
+Ä*
+name
+
+"
+
+input_57
+softmax
+x
+
+
+input_57
+axis
+	
+var_399,
+input_59 
+
+
+
+Ä
+Ä*
+name
+
+"
+
+input_59y
+const$
+attn_output_13_transpose_x_0
+*
+val
+
+
+ *2
+name*
+"
+ "
+attn_output_13_transpose_x_0y
+const$
+attn_output_13_transpose_y_0
+*
+val
+
+
+ *2
+name*
+"
+ "
+attn_output_13_transpose_y_0â
+	transpose
+x
+	
+var_449
+perm
+
+value_7_perm_0*
+value_7
+
+
+
+Ä
+@*"
+name
+
+"
+transpose_45Ë
+matmul
+y
+	
+value_7
+x
+
+
+input_59/
+transpose_y 
+
+attn_output_13_transpose_y_0/
+transpose_x 
+
+attn_output_13_transpose_x_01
+attn_output_13
+
+
+
+Ä
+@*$
+name
+
+"
+attn_output_13o
+const
+var_460_perm_0
+
+
+*!
+val
+
+
+
+
+
+ *#
+name
+
+"
+op_460_perm_0j
+const
+var_462
+
+
+**
+val#
+
+
+
+
+Äˇˇˇˇˇˇˇˇˇ*
+name
+
+
+"
+op_462ê
+	transpose
+x
+
+attn_output_13
+perm
+
+var_460_perm_0*
+var_460
+
+
+Ä
+
+@*"
+name
+
+"
+transpose_44v
+reshape
+shape
+	
+var_462
+x
+	
+var_460%
+var_463
+
+
+Ä
+Ä*
+name
+
+
+"
+op_463∆
+linear
+bias
+
+linear_0_bias_0D
+weight:
+8
+6stack_block_3_layer_0_SelfAttention_o_weight_quantized
+x
+	
+var_463&
+input_63
+
+
+Ä
+Ä*
+name
+
+"
+	linear_21ã
+add
+y
+
+
+input_63
+x
+
+hidden_states_43.
+hidden_states_51
+
+
+Ä
+Ä*&
+name
+
+"
+hidden_states_51g
+const
+var_400_promoted_1
+*
+val
+
+
+
+
+   @*'
+name
+
+"
+op_400_promoted_1Ç
+pow
+y
+
+var_400_promoted_1
+x
+
+hidden_states_51%
+var_473
+
+
+Ä
+Ä*
+name
+
+
+"
+op_473~
+const"
+variance_15_axes_0
+
+
+*'
+val 
+
+
+
+
+
+ˇˇˇˇˇˇˇˇˇ*(
+name 
+
+"
+variance_15_axes_0o
+const
+variance_15_keep_dims_0
+*
+val
+
+
+*-
+name%
+
+"
+variance_15_keep_dims_0∂
+reduce_mean(
+	keep_dims
+
+variance_15_keep_dims_0
+x
+	
+var_473
+axes
+
+variance_15_axes_0(
+variance_15
+
+
+Ä
+*!
+name
+
+"
+variance_15Q
+const
+var_476
+*
+val
+
+
+
+
+Ω7Ü5*
+name
+
+
+"
+op_476q
+add
+y
+	
+var_476
+x
+
+variance_15$
+var_477
+
+
+Ä
+*
+name
+
+
+"
+op_477e
+const
+var_478_epsilon_0
+*
+val
+
+
+
+
+Ãºå+*&
+name
+
+"
+op_478_epsilon_0
+rsqrt
+x
+	
+var_477 
+epsilon
+
+var_478_epsilon_0$
+var_478
+
+
+Ä
+*
+name
+
+
+"
+op_478ä
+mul
+y
+	
+var_478
+x
+
+hidden_states_51.
+hidden_states_55
+
+
+Ä
+Ä*&
+name
+
+"
+hidden_states_55ö
+mul
+y
+
+hidden_states_550
+x+
+)
+'stack_block_3_layer_1_layer_norm_weight&
+input_65
+
+
+Ä
+Ä*
+name
+
+"
+
+input_65…
+linear
+bias
+
+linear_4_bias_0F
+weight<
+:
+8stack_block_3_layer_1_DenseReluDense_wi_weight_quantized
+x
+
+
+input_65&
+input_67
+
+
+Ä
+Ä*
+name
+
+"
+	linear_22a
+relu
+x
+
+
+input_67&
+input_69
+
+
+Ä
+Ä*
+name
+
+"
+
+input_69…
+linear
+bias
+
+linear_0_bias_0F
+weight<
+:
+8stack_block_3_layer_1_DenseReluDense_wo_weight_quantized
+x
+
+
+input_69&
+input_73
+
+
+Ä
+Ä*
+name
+
+"
+	linear_23ã
+add
+y
+
+
+input_73
+x
+
+hidden_states_51.
+hidden_states_57
+
+
+Ä
+Ä*&
+name
+
+"
+hidden_states_57W
+const
+var_496
+*
+val
+
+
+
+ˇˇˇˇˇˇˇˇˇ*
+name
+
+
+"
+op_496c
+const
+var_497_promoted
+*
+val
+
+
+
+
+   @*%
+name
+
+"
+op_497_promotedÄ
+pow
+y
+
+var_497_promoted
+x
+
+hidden_states_57%
+var_514
+
+
+Ä
+Ä*
+name
+
+
+"
+op_514~
+const"
+variance_17_axes_0
+
+
+*'
+val 
+
+
+
+
+
+ˇˇˇˇˇˇˇˇˇ*(
+name 
+
+"
+variance_17_axes_0o
+const
+variance_17_keep_dims_0
+*
+val
+
+
+*-
+name%
+
+"
+variance_17_keep_dims_0∂
+reduce_mean(
+	keep_dims
+
+variance_17_keep_dims_0
+x
+	
+var_514
+axes
+
+variance_17_axes_0(
+variance_17
+
+
+Ä
+*!
+name
+
+"
+variance_17Q
+const
+var_517
+*
+val
+
+
+
+
+Ω7Ü5*
+name
+
+
+"
+op_517q
+add
+y
+	
+var_517
+x
+
+variance_17$
+var_518
+
+
+Ä
+*
+name
+
+
+"
+op_518e
+const
+var_519_epsilon_0
+*
+val
+
+
+
+
+Ãºå+*&
+name
+
+"
+op_519_epsilon_0
+rsqrt
+x
+	
+var_518 
+epsilon
+
+var_519_epsilon_0$
+var_519
+
+
+Ä
+*
+name
+
+
+"
+op_519ä
+mul
+y
+	
+var_519
+x
+
+hidden_states_57.
+hidden_states_61
+
+
+Ä
+Ä*&
+name
+
+"
+hidden_states_61™
+mul
+y
+
+hidden_states_610
+x+
+)
+'stack_block_4_layer_0_layer_norm_weight.
+hidden_states_63
+
+
+Ä
+Ä*&
+name
+
+"
+hidden_states_63Œ
+linear
+bias
+
+linear_0_bias_0D
+weight:
+8
+6stack_block_4_layer_0_SelfAttention_q_weight_quantized
+x
+
+hidden_states_63%
+var_532
+
+
+Ä
+Ä*
+name
+
+"
+	linear_24k
+const
+var_533
+
+
+*+
+val$
+
+
+
+
+Äˇˇˇˇˇˇˇˇˇ@*
+name
+
+
+"
+op_533{
+reshape
+shape
+	
+var_533
+x
+	
+var_532*
+var_534
+
+
+Ä
+
+@*
+name
+
+
+"
+op_534Œ
+linear
+bias
+
+linear_0_bias_0D
+weight:
+8
+6stack_block_4_layer_0_SelfAttention_k_weight_quantized
+x
+
+hidden_states_63%
+var_539
+
+
+Ä
+Ä*
+name
+
+"
+	linear_25k
+const
+var_540
+
+
+*+
+val$
+
+
+
+
+Äˇˇˇˇˇˇˇˇˇ@*
+name
+
+
+"
+op_540{
+reshape
+shape
+	
+var_540
+x
+	
+var_539*
+var_541
+
+
+Ä
+
+@*
+name
+
+
+"
+op_541Œ
+linear
+bias
+
+linear_0_bias_0D
+weight:
+8
+6stack_block_4_layer_0_SelfAttention_v_weight_quantized
+x
+
+hidden_states_63%
+var_544
+
+
+Ä
+Ä*
+name
+
+"
+	linear_26k
+const
+var_545
+
+
+*+
+val$
+
+
+
+
+Äˇˇˇˇˇˇˇˇˇ@*
+name
+
+
+"
+op_545{
+reshape
+shape
+	
+var_545
+x
+	
+var_544*
+var_546
+
+
+Ä
+
+@*
+name
+
+
+"
+op_546Ç
+const
+value_9_perm_0
+
+
+*3
+val,
+
+
+
+
+ ˝ˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇ*$
+name
+
+"
+value_9_perm_0j
+const
+var_549_transpose_x_0
+*
+val
+
+
+ **
+name"
+
+"
+op_549_transpose_x_0j
+const
+var_549_transpose_y_0
+*
+val
+
+
+ **
+name"
+
+"
+op_549_transpose_y_0å
+const#
+transpose_32_perm_0
+
+
+*3
+val,
+
+
+
+
+ ˝ˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇ*)
+name!
+
+"
+transpose_32_perm_0å
+const#
+transpose_33_perm_0
+
+
+*3
+val,
+
+
+
+
+ ˇˇˇˇˇˇˇˇˇ˝ˇˇˇˇˇˇˇˇ*)
+name!
+
+"
+transpose_33_perm_0ì
+	transpose
+x
+	
+var_541
+perm
+
+transpose_33_perm_0/
+transpose_33
+
+
+
+@
+Ä*"
+name
+
+"
+transpose_42ì
+	transpose
+x
+	
+var_534
+perm
+
+transpose_32_perm_0/
+transpose_32
+
+
+
+Ä
+@*"
+name
+
+"
+transpose_43’
+matmul
+y
+
+transpose_33
+x
+
+transpose_32(
+transpose_y
+
+var_549_transpose_y_0(
+transpose_x
+
+var_549_transpose_x_0+
+var_549 
+
+
+
+Ä
+Ä*
+name
+
+
+"
+op_549ï
+add 
+y
+
+position_bias_quantized
+x
+	
+var_5493
+attn_weights_27 
+
+
+
+Ä
+Ä*%
+name
+
+"
+attn_weights_27à
+add
+y
+
+attention_mask_1
+x
+
+attn_weights_27,
+input_75 
+
+
+
+Ä
+Ä*
+name
+
+"
+
+input_75
+softmax
+x
+
+
+input_75
+axis
+	
+var_496,
+input_77 
+
+
+
+Ä
+Ä*
+name
+
+"
+
+input_77y
+const$
+attn_output_17_transpose_x_0
+*
+val
+
+
+ *2
+name*
+"
+ "
+attn_output_17_transpose_x_0y
+const$
+attn_output_17_transpose_y_0
+*
+val
+
+
+ *2
+name*
+"
+ "
+attn_output_17_transpose_y_0â
+	transpose
+x
+	
+var_546
+perm
+
+value_9_perm_0*
+value_9
+
+
+
+Ä
+@*"
+name
+
+"
+transpose_41Ë
+matmul
+y
+	
+value_9
+x
+
+
+input_77/
+transpose_y 
+
+attn_output_17_transpose_y_0/
+transpose_x 
+
+attn_output_17_transpose_x_01
+attn_output_17
+
+
+
+Ä
+@*$
+name
+
+"
+attn_output_17o
+const
+var_557_perm_0
+
+
+*!
+val
+
+
+
+
+
+ *#
+name
+
+"
+op_557_perm_0j
+const
+var_559
+
+
+**
+val#
+
+
+
+
+Äˇˇˇˇˇˇˇˇˇ*
+name
+
+
+"
+op_559ê
+	transpose
+x
+
+attn_output_17
+perm
+
+var_557_perm_0*
+var_557
+
+
+Ä
+
+@*"
+name
+
+"
+transpose_40v
+reshape
+shape
+	
+var_559
+x
+	
+var_557%
+var_560
+
+
+Ä
+Ä*
+name
+
+
+"
+op_560∆
+linear
+bias
+
+linear_0_bias_0D
+weight:
+8
+6stack_block_4_layer_0_SelfAttention_o_weight_quantized
+x
+	
+var_560&
+input_81
+
+
+Ä
+Ä*
+name
+
+"
+	linear_27ã
+add
+y
+
+
+input_81
+x
+
+hidden_states_57.
+hidden_states_65
+
+
+Ä
+Ä*&
+name
+
+"
+hidden_states_65g
+const
+var_497_promoted_1
+*
+val
+
+
+
+
+   @*'
+name
+
+"
+op_497_promoted_1Ç
+pow
+y
+
+var_497_promoted_1
+x
+
+hidden_states_65%
+var_570
+
+
+Ä
+Ä*
+name
+
+
+"
+op_570~
+const"
+variance_19_axes_0
+
+
+*'
+val 
+
+
+
+
+
+ˇˇˇˇˇˇˇˇˇ*(
+name 
+
+"
+variance_19_axes_0o
+const
+variance_19_keep_dims_0
+*
+val
+
+
+*-
+name%
+
+"
+variance_19_keep_dims_0∂
+reduce_mean(
+	keep_dims
+
+variance_19_keep_dims_0
+x
+	
+var_570
+axes
+
+variance_19_axes_0(
+variance_19
+
+
+Ä
+*!
+name
+
+"
+variance_19Q
+const
+var_573
+*
+val
+
+
+
+
+Ω7Ü5*
+name
+
+
+"
+op_573q
+add
+y
+	
+var_573
+x
+
+variance_19$
+var_574
+
+
+Ä
+*
+name
+
+
+"
+op_574e
+const
+var_575_epsilon_0
+*
+val
+
+
+
+
+Ãºå+*&
+name
+
+"
+op_575_epsilon_0
+rsqrt
+x
+	
+var_574 
+epsilon
+
+var_575_epsilon_0$
+var_575
+
+
+Ä
+*
+name
+
+
+"
+op_575ä
+mul
+y
+	
+var_575
+x
+
+hidden_states_65.
+hidden_states_69
+
+
+Ä
+Ä*&
+name
+
+"
+hidden_states_69ö
+mul
+y
+
+hidden_states_690
+x+
+)
+'stack_block_4_layer_1_layer_norm_weight&
+input_83
+
+
+Ä
+Ä*
+name
+
+"
+
+input_83…
+linear
+bias
+
+linear_4_bias_0F
+weight<
+:
+8stack_block_4_layer_1_DenseReluDense_wi_weight_quantized
+x
+
+
+input_83&
+input_85
+
+
+Ä
+Ä*
+name
+
+"
+	linear_28a
+relu
+x
+
+
+input_85&
+input_87
+
+
+Ä
+Ä*
+name
+
+"
+
+input_87…
+linear
+bias
+
+linear_0_bias_0F
+weight<
+:
+8stack_block_4_layer_1_DenseReluDense_wo_weight_quantized
+x
+
+
+input_87&
+input_91
+
+
+Ä
+Ä*
+name
+
+"
+	linear_29ã
+add
+y
+
+
+input_91
+x
+
+hidden_states_65.
+hidden_states_71
+
+
+Ä
+Ä*&
+name
+
+"
+hidden_states_71W
+const
+var_593
+*
+val
+
+
+
+ˇˇˇˇˇˇˇˇˇ*
+name
+
+
+"
+op_593c
+const
+var_594_promoted
+*
+val
+
+
+
+
+   @*%
+name
+
+"
+op_594_promotedÄ
+pow
+y
+
+var_594_promoted
+x
+
+hidden_states_71%
+var_611
+
+
+Ä
+Ä*
+name
+
+
+"
+op_611~
+const"
+variance_21_axes_0
+
+
+*'
+val 
+
+
+
+
+
+ˇˇˇˇˇˇˇˇˇ*(
+name 
+
+"
+variance_21_axes_0o
+const
+variance_21_keep_dims_0
+*
+val
+
+
+*-
+name%
+
+"
+variance_21_keep_dims_0∂
+reduce_mean(
+	keep_dims
+
+variance_21_keep_dims_0
+x
+	
+var_611
+axes
+
+variance_21_axes_0(
+variance_21
+
+
+Ä
+*!
+name
+
+"
+variance_21Q
+const
+var_614
+*
+val
+
+
+
+
+Ω7Ü5*
+name
+
+
+"
+op_614q
+add
+y
+	
+var_614
+x
+
+variance_21$
+var_615
+
+
+Ä
+*
+name
+
+
+"
+op_615e
+const
+var_616_epsilon_0
+*
+val
+
+
+
+
+Ãºå+*&
+name
+
+"
+op_616_epsilon_0
+rsqrt
+x
+	
+var_615 
+epsilon
+
+var_616_epsilon_0$
+var_616
+
+
+Ä
+*
+name
+
+
+"
+op_616ä
+mul
+y
+	
+var_616
+x
+
+hidden_states_71.
+hidden_states_75
+
+
+Ä
+Ä*&
+name
+
+"
+hidden_states_75™
+mul
+y
+
+hidden_states_750
+x+
+)
+'stack_block_5_layer_0_layer_norm_weight.
+hidden_states_77
+
+
+Ä
+Ä*&
+name
+
+"
+hidden_states_77Œ
+linear
+bias
+
+linear_0_bias_0D
+weight:
+8
+6stack_block_5_layer_0_SelfAttention_q_weight_quantized
+x
+
+hidden_states_77%
+var_629
+
+
+Ä
+Ä*
+name
+
+"
+	linear_30k
+const
+var_630
+
+
+*+
+val$
+
+
+
+
+Äˇˇˇˇˇˇˇˇˇ@*
+name
+
+
+"
+op_630{
+reshape
+shape
+	
+var_630
+x
+	
+var_629*
+var_631
+
+
+Ä
+
+@*
+name
+
+
+"
+op_631Œ
+linear
+bias
+
+linear_0_bias_0D
+weight:
+8
+6stack_block_5_layer_0_SelfAttention_k_weight_quantized
+x
+
+hidden_states_77%
+var_636
+
+
+Ä
+Ä*
+name
+
+"
+	linear_31k
+const
+var_637
+
+
+*+
+val$
+
+
+
+
+Äˇˇˇˇˇˇˇˇˇ@*
+name
+
+
+"
+op_637{
+reshape
+shape
+	
+var_637
+x
+	
+var_636*
+var_638
+
+
+Ä
+
+@*
+name
+
+
+"
+op_638Œ
+linear
+bias
+
+linear_0_bias_0D
+weight:
+8
+6stack_block_5_layer_0_SelfAttention_v_weight_quantized
+x
+
+hidden_states_77%
+var_641
+
+
+Ä
+Ä*
+name
+
+"
+	linear_32k
+const
+var_642
+
+
+*+
+val$
+
+
+
+
+Äˇˇˇˇˇˇˇˇˇ@*
+name
+
+
+"
+op_642{
+reshape
+shape
+	
+var_642
+x
+	
+var_641*
+var_643
+
+
+Ä
+
+@*
+name
+
+
+"
+op_643~
+const
+value_perm_0
+
+
+*3
+val,
+
+
+
+
+ ˝ˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇ*"
+name
+
+"
+value_perm_0j
+const
+var_646_transpose_x_0
+*
+val
+
+
+ **
+name"
+
+"
+op_646_transpose_x_0j
+const
+var_646_transpose_y_0
+*
+val
+
+
+ **
+name"
+
+"
+op_646_transpose_y_0å
+const#
+transpose_34_perm_0
+
+
+*3
+val,
+
+
+
+
+ ˝ˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇ*)
+name!
+
+"
+transpose_34_perm_0å
+const#
+transpose_35_perm_0
+
+
+*3
+val,
+
+
+
+
+ ˇˇˇˇˇˇˇˇˇ˝ˇˇˇˇˇˇˇˇ*)
+name!
+
+"
+transpose_35_perm_0ì
+	transpose
+x
+	
+var_638
+perm
+
+transpose_35_perm_0/
+transpose_35
+
+
+
+@
+Ä*"
+name
+
+"
+transpose_38ì
+	transpose
+x
+	
+var_631
+perm
+
+transpose_34_perm_0/
+transpose_34
+
+
+
+Ä
+@*"
+name
+
+"
+transpose_39’
+matmul
+y
+
+transpose_35
+x
+
+transpose_34(
+transpose_y
+
+var_646_transpose_y_0(
+transpose_x
+
+var_646_transpose_x_0+
+var_646 
+
+
+
+Ä
+Ä*
+name
+
+
+"
+op_646ï
+add 
+y
+
+position_bias_quantized
+x
+	
+var_6463
+attn_weights_33 
+
+
+
+Ä
+Ä*%
+name
+
+"
+attn_weights_33à
+add
+y
+
+attention_mask_1
+x
+
+attn_weights_33,
+input_93 
+
+
+
+Ä
+Ä*
+name
+
+"
+
+input_93
+softmax
+x
+
+
+input_93
+axis
+	
+var_593,
+input_95 
+
+
+
+Ä
+Ä*
+name
+
+"
+
+input_95y
+const$
+attn_output_21_transpose_x_0
+*
+val
+
+
+ *2
+name*
+"
+ "
+attn_output_21_transpose_x_0y
+const$
+attn_output_21_transpose_y_0
+*
+val
+
+
+ *2
+name*
+"
+ "
+attn_output_21_transpose_y_0Ö
+	transpose
+x
+	
+var_643
+perm
+
+value_perm_0(
+value
+
+
+
+Ä
+@*"
+name
+
+"
+transpose_37Ê
+matmul
+y	
+
+value
+x
+
+
+input_95/
+transpose_y 
+
+attn_output_21_transpose_y_0/
+transpose_x 
+
+attn_output_21_transpose_x_01
+attn_output_21
+
+
+
+Ä
+@*$
+name
+
+"
+attn_output_21o
+const
+var_654_perm_0
+
+
+*!
+val
+
+
+
+
+
+ *#
+name
+
+"
+op_654_perm_0j
+const
+var_656
+
+
+**
+val#
+
+
+
+
+Äˇˇˇˇˇˇˇˇˇ*
+name
+
+
+"
+op_656ê
+	transpose
+x
+
+attn_output_21
+perm
+
+var_654_perm_0*
+var_654
+
+
+Ä
+
+@*"
+name
+
+"
+transpose_36v
+reshape
+shape
+	
+var_656
+x
+	
+var_654%
+var_657
+
+
+Ä
+Ä*
+name
+
+
+"
+op_657∆
+linear
+bias
+
+linear_0_bias_0D
+weight:
+8
+6stack_block_5_layer_0_SelfAttention_o_weight_quantized
+x
+	
+var_657&
+input_99
+
+
+Ä
+Ä*
+name
+
+"
+	linear_33ã
+add
+y
+
+
+input_99
+x
+
+hidden_states_71.
+hidden_states_79
+
+
+Ä
+Ä*&
+name
+
+"
+hidden_states_79g
+const
+var_594_promoted_1
+*
+val
+
+
+
+
+   @*'
+name
+
+"
+op_594_promoted_1Ç
+pow
+y
+
+var_594_promoted_1
+x
+
+hidden_states_79%
+var_667
+
+
+Ä
+Ä*
+name
+
+
+"
+op_667~
+const"
+variance_23_axes_0
+
+
+*'
+val 
+
+
+
+
+
+ˇˇˇˇˇˇˇˇˇ*(
+name 
+
+"
+variance_23_axes_0o
+const
+variance_23_keep_dims_0
+*
+val
+
+
+*-
+name%
+
+"
+variance_23_keep_dims_0∂
+reduce_mean(
+	keep_dims
+
+variance_23_keep_dims_0
+x
+	
+var_667
+axes
+
+variance_23_axes_0(
+variance_23
+
+
+Ä
+*!
+name
+
+"
+variance_23Q
+const
+var_670
+*
+val
+
+
+
+
+Ω7Ü5*
+name
+
+
+"
+op_670q
+add
+y
+	
+var_670
+x
+
+variance_23$
+var_671
+
+
+Ä
+*
+name
+
+
+"
+op_671e
+const
+var_672_epsilon_0
+*
+val
+
+
+
+
+Ãºå+*&
+name
+
+"
+op_672_epsilon_0
+rsqrt
+x
+	
+var_671 
+epsilon
+
+var_672_epsilon_0$
+var_672
+
+
+Ä
+*
+name
+
+
+"
+op_672ä
+mul
+y
+	
+var_672
+x
+
+hidden_states_79.
+hidden_states_83
+
+
+Ä
+Ä*&
+name
+
+"
+hidden_states_83ú
+mul
+y
+
+hidden_states_830
+x+
+)
+'stack_block_5_layer_1_layer_norm_weight'
+	input_101
+
+
+Ä
+Ä*
+name
+
+"
+	input_101À
+linear
+bias
+
+linear_4_bias_0F
+weight<
+:
+8stack_block_5_layer_1_DenseReluDense_wi_weight_quantized
+x
+
+	input_101'
+	input_103
+
+
+Ä
+Ä*
+name
+
+"
+	linear_34d
+relu
+x
+
+	input_103'
+	input_105
+
+
+Ä
+Ä*
+name
+
+"
+	input_105«
+linear
+bias
+
+linear_0_bias_0F
+weight<
+:
+8stack_block_5_layer_1_DenseReluDense_wo_weight_quantized
+x
+
+	input_105#
+input
+
+
+Ä
+Ä*
+name
+
+"
+	linear_35à
+add
+y	
+
+input
+x
+
+hidden_states_79.
+hidden_states_85
+
+
+Ä
+Ä*&
+name
+
+"
+hidden_states_85c
+const
+var_691_promoted
+*
+val
+
+
+
+
+   @*%
+name
+
+"
+op_691_promotedÄ
+pow
+y
+
+var_691_promoted
+x
+
+hidden_states_85%
+var_697
+
+
+Ä
+Ä*
+name
+
+
+"
+op_697x
+const
+variance_axes_0
+
+
+*'
+val 
+
+
+
+
+
+ˇˇˇˇˇˇˇˇˇ*%
+name
+
+"
+variance_axes_0i
+const
+variance_keep_dims_0
+*
+val
+
+
+**
+name"
+
+"
+variance_keep_dims_0™
+reduce_mean%
+	keep_dims
+
+variance_keep_dims_0
+x
+	
+var_697
+axes
+
+variance_axes_0%
+variance
+
+
+Ä
+*
+name
+
+"
+
+varianceQ
+const
+var_700
+*
+val
+
+
+
+
+Ω7Ü5*
+name
+
+
+"
+op_700n
+add
+y
+	
+var_700
+x
+
+
+variance$
+var_701
+
+
+Ä
+*
+name
+
+
+"
+op_701e
+const
+var_702_epsilon_0
+*
+val
+
+
+
+
+Ãºå+*&
+name
+
+"
+op_702_epsilon_0
+rsqrt
+x
+	
+var_701 
+epsilon
+
+var_702_epsilon_0$
+var_702
+
+
+Ä
+*
+name
+
+
+"
+op_702à
+mul
+y
+	
+var_702
+x
+
+hidden_states_85/
+hidden_states_1_1
+
+
+Ä
+Ä*#
+name
+
+"
+hidden_statesî
+mul
+y
+
+hidden_states_1_1&
+x!
+
+stack_final_layer_norm_weight+
+hidden_states
+
+
+Ä
+Ä*
+name
+
+
+"
+op_704

@@ -103,8 +103,8 @@ struct CompareView: View {
                     .foregroundStyle(BuyWiseColors.textPrimary)
                 Spacer()
                 if let summary {
-                    Label(summary.source == .onDeviceModel ? "Apple Intelligence" : "From listed specs",
-                          systemImage: summary.source == .onDeviceModel ? "apple.intelligence" : "list.bullet.rectangle")
+                    Label(summary.source == .coreML ? "Core ML model" : "From listed specs",
+                          systemImage: summary.source == .coreML ? "cpu" : "list.bullet.rectangle")
                         .font(BuyWiseTypography.caption)
                         .foregroundStyle(BuyWiseColors.textSecondary)
                 }
@@ -114,7 +114,7 @@ struct CompareView: View {
                     .font(BuyWiseTypography.body)
                     .foregroundStyle(BuyWiseColors.textPrimary)
                     .fixedSize(horizontal: false, vertical: true)
-                if summary.source == .onDeviceModel {
+                if summary.source == .coreML {
                     Text("Written on your iPhone from the prices and specs above. Check details before buying.")
                         .font(BuyWiseTypography.caption)
                         .foregroundStyle(BuyWiseColors.textSecondary)

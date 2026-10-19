@@ -1,12 +1,11 @@
 import Foundation
-import FoundationModels
 
-/// Short, neutral comparison summaries. The price sentence is computed in code; Apple's on-device language
-/// model (Apple Intelligence) describes the specification differences. Devices without Apple Intelligence
-/// get a rule-based summary built from the same facts.
+/// Short, neutral comparison summaries. The price sentence is computed in code; a T5-small model fine-tuned
+/// for BuyWise (ml/summarizer) and run with Core ML describes the specification differences. If the model
+/// can't run, or writes a number that isn't in the specs, a rule-based summary of the same facts is used.
 enum ProductSummarizer {
     enum Source: Equatable {
-        case onDeviceModel
+        case coreML
         case rules
     }
 
@@ -15,41 +14,33 @@ enum ProductSummarizer {
         let source: Source
     }
 
-    // The model only writes about specifications. Prices are stated by `priceSentence`, computed in code,
-    // because small on-device models are unreliable at arithmetic and a summary must never misstate a price.
-    private static let instructions = """
-        You describe how two products differ for a Sri Lankan shopping app. You are given specifications \
-        that both products list. Write one or two plain sentences about the most important differences. \
-        Use only the values given and refer to each product by its name. Do not mention prices, do not say \
-        which one to buy, and do not use lists, headings or marketing language.
-        """
-
     static func compare(_ first: Product, _ second: Product) async -> Summary {
-        let price = priceSentence(first, second)
         let fallback = Summary(text: ruleBasedComparison(first, second), source: .rules)
-        let shared = sharedSpecs(first, second)
-        guard SystemLanguageModel.default.isAvailable, !shared.isEmpty else { return fallback }
-
-        let session = LanguageModelSession(instructions: instructions)
-        do {
-            let response = try await session.respond(
-                to: "\(first.fullName) vs \(second.fullName):\n" + shared.joined(separator: "\n"),
-                options: GenerationOptions(temperature: 0.2, maximumResponseTokens: 120)
-            )
-            let text = response.content.trimmingCharacters(in: .whitespacesAndNewlines)
-            guard !text.isEmpty else { return fallback }
-            return Summary(text: [price, text].compactMap { $0 }.joined(separator: " "), source: .onDeviceModel)
-        } catch {
-            return fallback
-        }
+        let input = modelInput(first, second)
+        // Off the main thread: the decoder runs once per word piece.
+        let written = await Task.detached(priority: .userInitiated) {
+            try? T5Summarizer.shared?.summarize(input)
+        }.value
+        guard let written, isFaithful(written, input: input, names: [first.name, second.name]) else { return fallback }
+        return Summary(text: [priceSentence(first, second), written].compactMap { $0 }.joined(separator: " "), source: .coreML)
     }
 
-    /// "Storage: Galaxy S25 FE 256GB = 256GB, Redmi Note 15 128GB = 128GB" for each spec both products list.
-    private static func sharedSpecs(_ first: Product, _ second: Product) -> [String] {
-        first.specifications.compactMap { spec in
-            guard let other = second.specValue(for: spec.label), other != spec.value else { return nil }
-            return "\(spec.label): \(first.name) = \(spec.value), \(second.name) = \(other)"
-        }
+    /// The spec-by-spec comparison the model reads, built by the same code that made its training data.
+    static func modelInput(_ first: Product, _ second: Product) -> String {
+        let facts = SpecComparison.facts(
+            first: first.specifications.map { ($0.label, $0.value) },
+            second: second.specifications.map { ($0.label, $0.value) }
+        )
+        return SpecComparison.modelInput(category: first.category.rawValue, firstName: first.name, secondName: second.name, facts: facts)
+    }
+
+    /// Guards against a model mistake reaching the user: every number must come from the specs, and the
+    /// summary must name one of the products (or say they're similar).
+    private static func isFaithful(_ text: String, input: String, names: [String]) -> Bool {
+        guard !text.isEmpty else { return false }
+        let numbers = text.matches(of: /\d+(?:\.\d+)?/).map { String($0.output) }
+        guard numbers.allSatisfy(input.contains) else { return false }
+        return names.contains(where: text.contains) || text.localizedCaseInsensitiveContains("similar")
     }
 
     /// Deterministic price comparison, e.g. "The vivo Y04 is LKR 15,000 cheaper, at LKR 29,999 from Abans."
