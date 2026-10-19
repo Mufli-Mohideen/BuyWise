@@ -4,6 +4,7 @@ import SwiftUI
 struct UpgradeResultView: View {
     let analysis: UpgradeAnalysis
     @State private var showUnchangedFeatures = false
+    @State private var summary: ProductSummarizer.Summary?
 
     var body: some View {
         ScrollView {
@@ -20,6 +21,9 @@ struct UpgradeResultView: View {
             .padding(20)
         }
         .bwScreenBackground()
+        .task(id: "\(analysis.current.id)-\(analysis.new.id)") {
+            summary = await ProductSummarizer.upgrade(analysis)
+        }
         .navigationTitle("Upgrade analysis")
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -316,13 +320,31 @@ struct UpgradeResultView: View {
 
     private var summaryCard: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Label("Summary", systemImage: "text.alignleft")
-                .font(BuyWiseTypography.headline)
-                .foregroundStyle(BuyWiseColors.textPrimary)
-            Text(analysis.summary)
-                .font(BuyWiseTypography.body)
-                .foregroundStyle(BuyWiseColors.textPrimary)
-                .fixedSize(horizontal: false, vertical: true)
+            HStack(alignment: .firstTextBaseline) {
+                Label("Summary", systemImage: "text.alignleft")
+                    .font(BuyWiseTypography.headline)
+                    .foregroundStyle(BuyWiseColors.textPrimary)
+                Spacer()
+                if let summary {
+                    Label(summary.source == .coreML ? "Core ML model" : "From listed specs",
+                          systemImage: summary.source == .coreML ? "cpu" : "list.bullet.rectangle")
+                        .font(BuyWiseTypography.caption)
+                        .foregroundStyle(BuyWiseColors.textSecondary)
+                }
+            }
+            if let summary {
+                Text(summary.text)
+                    .font(BuyWiseTypography.body)
+                    .foregroundStyle(BuyWiseColors.textPrimary)
+                    .fixedSize(horizontal: false, vertical: true)
+            } else {
+                HStack(spacing: 8) {
+                    ProgressView()
+                    Text("Summarising…")
+                        .font(BuyWiseTypography.caption)
+                        .foregroundStyle(BuyWiseColors.textSecondary)
+                }
+            }
             Text("BuyWise lays out the facts. Whether to upgrade is your call.")
                 .font(BuyWiseTypography.caption)
                 .foregroundStyle(BuyWiseColors.textSecondary)

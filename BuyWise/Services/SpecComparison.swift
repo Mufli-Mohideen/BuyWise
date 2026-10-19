@@ -84,10 +84,12 @@ nonisolated enum SpecComparison {
         }
     }
 
-    /// Features that one product lists as "Yes" and the other doesn't.
+    /// Features one product has and the other explicitly doesn't ("Yes" vs "No"). A spec that isn't listed is
+    /// unknown, not "No": retailer pages often leave out 5G or noise cancellation on products that have it.
     private static func present(_ advantage: String) -> Rule {
         { a, b in
-            let x = a?.lowercased() == "yes", y = b?.lowercased() == "yes"
+            guard let a, let b else { return nil }
+            let x = a.lowercased() == "yes", y = b.lowercased() == "yes"
             return x == y ? nil : (x ? "first" : "second", advantage)
         }
     }

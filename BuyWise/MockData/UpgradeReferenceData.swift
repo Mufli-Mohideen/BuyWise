@@ -10,9 +10,9 @@ extension ProductCatalog {
         tagline: "Dual-camera iPhone with the A15 Bionic chip", rating: 4.6, listings: [],
         specifications: [
             Specification("Display", "6.1\" Super Retina XDR"),
-            Specification("Chip", "A15 Bionic"),
+            Specification("Chip", "Apple A15 Bionic"),
             Specification("Storage", "128GB"),
-            Specification("Camera", "12MP Dual Camera"),
+            Specification("Camera", "12MP"),
             Specification("Memory", "4GB"),
             Specification("Battery", "3240 mAh"),
             Specification("5G", "Yes")
@@ -27,7 +27,7 @@ extension ProductCatalog {
             Specification("Display", "6.1\" Dynamic AMOLED 2X"),
             Specification("Chip", "Snapdragon 8 Gen 2"),
             Specification("Storage", "128GB"),
-            Specification("Camera", "50MP Triple Camera"),
+            Specification("Camera", "50MP"),
             Specification("Memory", "8GB"),
             Specification("Battery", "3900 mAh"),
             Specification("5G", "Yes")
@@ -41,7 +41,7 @@ extension ProductCatalog {
         specifications: [
             Specification("Display", "13.3\" Retina"),
             Specification("Chip", "Apple M1"),
-            Specification("Memory", "8GB Unified Memory"),
+            Specification("Memory", "8GB"),
             Specification("Storage", "256GB SSD"),
             Specification("Battery", "49.9 Wh"),
             Specification("Weight", "1.29 kg")

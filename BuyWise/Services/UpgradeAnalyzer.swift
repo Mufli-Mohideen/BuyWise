@@ -98,10 +98,35 @@ struct UpgradeAnalysis {
         (value > 0 ? "+" : value < 0 ? "−" : "") + percentText(abs(value))
     }
 
-    /// Factual, generated summary. Describes the data only; never recommends.
-    var summary: String {
+    /// The cost, computed in code so it's always exact. Opens both the Core ML and the rule-based summary.
+    var costSentence: String {
+        "Upgrading from the \(current.fullName) to the \(new.fullName) costs \(PriceFormatter.lkr(upgradeCost)) at \(costRetailer.rawValue)."
+    }
+
+    /// Feature and price-trend sentences, computed in code. Close both the Core ML and the rule-based summary.
+    var closingSentences: [String] {
         var sentences: [String] = []
-        sentences.append("Upgrading from the \(current.fullName) to the \(new.fullName) costs \(PriceFormatter.lkr(upgradeCost)) at \(costRetailer.rawValue).")
+        let additions = features.gained + features.changed.map { "\($0.name) \($0.to) (was \($0.from))" }
+        if !additions.isEmpty {
+            let shown = Array(additions.prefix(3))
+            let extra = additions.count - shown.count
+            let text = extra > 0
+                ? shown.joined(separator: ", ") + " and \(extra) other change\(extra == 1 ? "" : "s")"
+                : Self.list(shown)
+            sentences.append("The new model adds \(text).")
+        }
+        if !features.lost.isEmpty {
+            sentences.append("It no longer has \(Self.list(features.lost)).")
+        }
+        if let price {
+            sentences.append("The current price is \(price.description).")
+        }
+        return sentences
+    }
+
+    /// Rule-based summary, used when the Core ML model can't run. Describes the data only; never recommends.
+    var summary: String {
+        var sentences: [String] = [costSentence]
 
         let better = metrics.filter { $0.status == .better && $0.showsPercent }.sorted { $0.improvementPercent > $1.improvementPercent }
         if !better.isEmpty {
@@ -130,23 +155,7 @@ struct UpgradeAnalysis {
             sentences.append("\(Self.sentenceCase(Self.list(unchanged.map { $0.title.lowercased() }))) \(unchanged.count == 1 ? "is" : "are") unchanged.")
         }
 
-        let additions = features.gained + features.changed.map { "\($0.name) \($0.to) (was \($0.from))" }
-        if !additions.isEmpty {
-            let shown = Array(additions.prefix(3))
-            let extra = additions.count - shown.count
-            let text = extra > 0
-                ? shown.joined(separator: ", ") + " and \(extra) other change\(extra == 1 ? "" : "s")"
-                : Self.list(shown)
-            sentences.append("The new model adds \(text).")
-        }
-        if !features.lost.isEmpty {
-            sentences.append("It no longer has \(Self.list(features.lost)).")
-        }
-
-        if let price {
-            sentences.append("The current price is \(price.description).")
-        }
-        return sentences.joined(separator: " ")
+        return (sentences + closingSentences).joined(separator: " ")
     }
 
     private static func list(_ items: [String]) -> String {

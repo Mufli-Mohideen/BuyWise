@@ -15,32 +15,79 @@ enum ProductSummarizer {
     }
 
     static func compare(_ first: Product, _ second: Product) async -> Summary {
-        let fallback = Summary(text: ruleBasedComparison(first, second), source: .rules)
-        let input = modelInput(first, second)
+        guard let written = await specSummary(first, second) else {
+            return Summary(text: ruleBasedComparison(first, second), source: .rules)
+        }
+        return Summary(text: [priceSentence(first, second), written].compactMap { $0 }.joined(separator: " "), source: .coreML)
+    }
+
+    /// Upgrade analysis: the cost, feature and price sentences come from code; the Core ML model describes how
+    /// the device you own and the one you're considering differ.
+    static func upgrade(_ analysis: UpgradeAnalysis) async -> Summary {
+        guard let written = await specSummary(analysis.current, analysis.new) else {
+            return Summary(text: analysis.summary, source: .rules)
+        }
+        return Summary(text: ([analysis.costSentence, written] + analysis.closingSentences).joined(separator: " "), source: .coreML)
+    }
+
+    /// The model's description of the spec differences, or nil if it can't run or writes something unsupported.
+    private static func specSummary(_ first: Product, _ second: Product) async -> String? {
+        let facts = comparisonFacts(first, second)
+        let input = SpecComparison.modelInput(category: first.category.rawValue, firstName: first.name, secondName: second.name, facts: facts)
         // Off the main thread: the decoder runs once per word piece.
         let written = await Task.detached(priority: .userInitiated) {
             try? T5Summarizer.shared?.summarize(input)
         }.value
-        guard let written, isFaithful(written, input: input, names: [first.name, second.name]) else { return fallback }
-        return Summary(text: [priceSentence(first, second), written].compactMap { $0 }.joined(separator: " "), source: .coreML)
+        guard let written, isFaithful(written, input: input, facts: facts, first: first.name, second: second.name) else { return nil }
+        return written
     }
 
     /// The spec-by-spec comparison the model reads, built by the same code that made its training data.
-    static func modelInput(_ first: Product, _ second: Product) -> String {
-        let facts = SpecComparison.facts(
+    private static func comparisonFacts(_ first: Product, _ second: Product) -> [SpecComparison.Fact] {
+        SpecComparison.facts(
             first: first.specifications.map { ($0.label, $0.value) },
             second: second.specifications.map { ($0.label, $0.value) }
         )
-        return SpecComparison.modelInput(category: first.category.rawValue, firstName: first.name, secondName: second.name, facts: facts)
     }
 
-    /// Guards against a model mistake reaching the user: every number must come from the specs, and the
-    /// summary must name one of the products (or say they're similar).
-    private static func isFaithful(_ text: String, input: String, names: [String]) -> Bool {
+    /// How each advantage reads in a summary, e.g. "a bigger 5000 mAh battery" states "a bigger battery".
+    private static let advantageWording: [(advantage: String, pattern: String)] = [
+        ("a faster chip", "faster chip"), ("more memory", "more memory"), ("more storage", "more storage"),
+        ("a higher-resolution camera", "higher-resolution"), ("a bigger battery", #"bigger [\d.,]* ?(mAh |Wh )?battery"#),
+        ("longer battery life", "longer battery life"), ("a bigger display", #"bigger [\d.]*-?(inch )?display"#),
+        ("a lighter build", "lighter build"), ("5G support", "5G support"), ("active noise cancellation", "noise cancellation"),
+        ("larger drivers", "drivers"), ("newer Bluetooth", "newer Bluetooth"),
+    ]
+
+    /// Guards against a model mistake reaching the user. Every number must come from the specs, and every
+    /// advantage the summary states must be true of the product it names. A summary that states no advantage
+    /// at all must say the products are similar.
+    private static func isFaithful(_ text: String, input: String, facts: [SpecComparison.Fact], first: String, second: String) -> Bool {
         guard !text.isEmpty else { return false }
         let numbers = text.matches(of: /\d+(?:\.\d+)?/).map { String($0.output) }
         guard numbers.allSatisfy(input.contains) else { return false }
-        return names.contains(where: text.contains) || text.localizedCaseInsensitiveContains("similar")
+
+        let truth = Set(facts.compactMap { fact in fact.advantage.map { "\(fact.better ?? ""):\($0)" } })
+        var claims: Set<String> = []
+        for wording in advantageWording {
+            for match in text.ranges(of: try! Regex(wording.pattern)) {
+                guard let side = owner(of: match.lowerBound, in: text, first: first, second: second) else { return false }
+                let claim = "\(side):\(wording.advantage)"
+                // A false claim, or the same claim twice ("a lighter build … and a lighter build").
+                guard truth.contains(claim), claims.insert(claim).inserted else { return false }
+            }
+        }
+        return !claims.isEmpty || text.localizedCaseInsensitiveContains("similar")
+    }
+
+    /// The product named most recently before `position`; the longer name wins when one contains the other
+    /// ("iPhone 13 128GB" vs "iPhone 13").
+    private static func owner(of position: String.Index, in text: String, first: String, second: String) -> String? {
+        let before = text[..<position]
+        let candidates = [("first", first), ("second", second)].compactMap { side, name in
+            before.ranges(of: name).last.map { (side: side, start: $0.lowerBound, length: name.count) }
+        }
+        return candidates.max { ($0.start, $0.length) < ($1.start, $1.length) }?.side
     }
 
     /// Deterministic price comparison, e.g. "The vivo Y04 is LKR 15,000 cheaper, at LKR 29,999 from Abans."
