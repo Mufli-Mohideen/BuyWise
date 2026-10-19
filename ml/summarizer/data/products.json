@@ -1,0 +1,4228 @@
+[
+ {
+  "name": "iPhone Duo 512GB",
+  "brand": "Apple",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple A20 Pro"
+   },
+   {
+    "label": "Memory",
+    "value": "12GB"
+   },
+   {
+    "label": "Storage",
+    "value": "512GB"
+   },
+   {
+    "label": "Weight",
+    "value": "254g"
+   },
+   {
+    "label": "Display",
+    "value": "7.6\" LTPO Super Retina XDR"
+   },
+   {
+    "label": "Camera",
+    "value": "48MP"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "iPhone Duo 256GB",
+  "brand": "Apple",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple A20 Pro"
+   },
+   {
+    "label": "Memory",
+    "value": "12GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Weight",
+    "value": "254g"
+   },
+   {
+    "label": "Display",
+    "value": "7.6\" LTPO Super Retina XDR"
+   },
+   {
+    "label": "Camera",
+    "value": "48MP"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "Moto G06 Power 64GB",
+  "brand": "Motorola",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.88\""
+   },
+   {
+    "label": "Chip",
+    "value": "MediaTek G81 Extreme"
+   },
+   {
+    "label": "Memory",
+    "value": "4GB"
+   },
+   {
+    "label": "Storage",
+    "value": "64GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "7000 mAh"
+   }
+  ]
+ },
+ {
+  "name": "C85 256GB",
+  "brand": "realme",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.8\""
+   },
+   {
+    "label": "Chip",
+    "value": "Snapdragon 685"
+   },
+   {
+    "label": "Memory",
+    "value": "8GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "7000 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "212g"
+   }
+  ]
+ },
+ {
+  "name": "C71 256GB",
+  "brand": "realme",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Unisoc T7250"
+   },
+   {
+    "label": "Memory",
+    "value": "8GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Display",
+    "value": "6.67\""
+   },
+   {
+    "label": "Battery",
+    "value": "6300 mAh"
+   }
+  ]
+ },
+ {
+  "name": "Super 26 Ultra 256GB",
+  "brand": "itel",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.78\""
+   },
+   {
+    "label": "Chip",
+    "value": "Unisoc T7300"
+   },
+   {
+    "label": "Memory",
+    "value": "8GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "6000 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "168g"
+   }
+  ]
+ },
+ {
+  "name": "A200 128GB",
+  "brand": "itel",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.75\""
+   },
+   {
+    "label": "Chip",
+    "value": "Unisoc T7250"
+   },
+   {
+    "label": "Memory",
+    "value": "3GB"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Camera",
+    "value": "13MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5000 mAh"
+   }
+  ]
+ },
+ {
+  "name": "A200 64GB",
+  "brand": "itel",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.75\""
+   },
+   {
+    "label": "Chip",
+    "value": "Unisoc T7250"
+   },
+   {
+    "label": "Memory",
+    "value": "3GB"
+   },
+   {
+    "label": "Storage",
+    "value": "64GB"
+   },
+   {
+    "label": "Camera",
+    "value": "13MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5000 mAh"
+   }
+  ]
+ },
+ {
+  "name": "A100Cs 64GB",
+  "brand": "itel",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.6\""
+   },
+   {
+    "label": "Chip",
+    "value": "Unisoc T7100"
+   },
+   {
+    "label": "Memory",
+    "value": "3GB"
+   },
+   {
+    "label": "Storage",
+    "value": "64GB"
+   },
+   {
+    "label": "Camera",
+    "value": "8MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5000 mAh"
+   }
+  ]
+ },
+ {
+  "name": "A100C 64GB",
+  "brand": "itel",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Memory",
+    "value": "3GB"
+   },
+   {
+    "label": "Storage",
+    "value": "64GB"
+   },
+   {
+    "label": "Display",
+    "value": "6.6\""
+   },
+   {
+    "label": "Chip",
+    "value": "Unisoc T7100"
+   },
+   {
+    "label": "Camera",
+    "value": "8MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5000 mAh"
+   }
+  ]
+ },
+ {
+  "name": "iPhone 18 Pro Max 512GB",
+  "brand": "Apple",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple A20 Pro"
+   },
+   {
+    "label": "Memory",
+    "value": "12GB"
+   },
+   {
+    "label": "Storage",
+    "value": "512GB"
+   },
+   {
+    "label": "Weight",
+    "value": "249g"
+   },
+   {
+    "label": "Display",
+    "value": "6.9\" LTPO Super Retina XDR OLED"
+   },
+   {
+    "label": "Camera",
+    "value": "48MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5567 mAh"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "iPhone 18 Pro Max 256GB",
+  "brand": "Apple",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple A20 Pro"
+   },
+   {
+    "label": "Memory",
+    "value": "12GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Weight",
+    "value": "249g"
+   },
+   {
+    "label": "Display",
+    "value": "6.9\" LTPO Super Retina XDR OLED"
+   },
+   {
+    "label": "Camera",
+    "value": "48MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5567 mAh"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "iPhone 18 Pro 256GB",
+  "brand": "Apple",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple A20 Pro"
+   },
+   {
+    "label": "Memory",
+    "value": "12GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Weight",
+    "value": "211g"
+   },
+   {
+    "label": "Display",
+    "value": "6.3\" LTPO Super Retina XDR OLED"
+   },
+   {
+    "label": "Camera",
+    "value": "48MP"
+   },
+   {
+    "label": "Battery",
+    "value": "4288 mAh"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "Galaxy A36 5G 12GB/256GB",
+  "brand": "Samsung",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.7\" Super AMOLED"
+   },
+   {
+    "label": "Chip",
+    "value": "Snapdragon 6 Gen 3"
+   },
+   {
+    "label": "Memory",
+    "value": "12GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5000 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "195g"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "X5d Plus 128GB",
+  "brand": "HONOR",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.74\" TFT LCD"
+   },
+   {
+    "label": "Chip",
+    "value": "Helio G81"
+   },
+   {
+    "label": "Memory",
+    "value": "4GB"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5260 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "186g"
+   }
+  ]
+ },
+ {
+  "name": "X5d 64GB",
+  "brand": "HONOR",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.74\" TFT LCD"
+   },
+   {
+    "label": "Chip",
+    "value": "Helio G81"
+   },
+   {
+    "label": "Memory",
+    "value": "4GB"
+   },
+   {
+    "label": "Storage",
+    "value": "64GB"
+   },
+   {
+    "label": "Camera",
+    "value": "13MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5260 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "186g"
+   }
+  ]
+ },
+ {
+  "name": "Y31d 128GB",
+  "brand": "vivo",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Memory",
+    "value": "6GB"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Display",
+    "value": "6.75\""
+   },
+   {
+    "label": "Chip",
+    "value": "Snapdragon 6s Gen 2"
+   },
+   {
+    "label": "Battery",
+    "value": "7200 mAh"
+   }
+  ]
+ },
+ {
+  "name": "Redmi Note 15 5G 128GB",
+  "brand": "Xiaomi",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.77\""
+   },
+   {
+    "label": "Chip",
+    "value": "Snapdragon 6 Gen 3"
+   },
+   {
+    "label": "Memory",
+    "value": "6GB"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Camera",
+    "value": "108MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5520 mAh"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   },
+   {
+    "label": "Weight",
+    "value": "178g"
+   }
+  ]
+ },
+ {
+  "name": "V70 FE 256GB",
+  "brand": "vivo",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Dimensity 7360 Turbo"
+   },
+   {
+    "label": "Memory",
+    "value": "12GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Camera",
+    "value": "200MP"
+   },
+   {
+    "label": "Battery",
+    "value": "7000 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "200g"
+   },
+   {
+    "label": "Display",
+    "value": "6.83\""
+   }
+  ]
+ },
+ {
+  "name": "Y11d 128GB",
+  "brand": "vivo",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.74\" LCD"
+   },
+   {
+    "label": "Chip",
+    "value": "Unisoc T7225"
+   },
+   {
+    "label": "Memory",
+    "value": "4GB"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Weight",
+    "value": "209g"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "6500 mAh"
+   }
+  ]
+ },
+ {
+  "name": "Y05 128GB",
+  "brand": "vivo",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Unisoc T7225"
+   },
+   {
+    "label": "Memory",
+    "value": "4GB"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Weight",
+    "value": "209g"
+   },
+   {
+    "label": "Display",
+    "value": "6.74\""
+   },
+   {
+    "label": "Camera",
+    "value": "8MP"
+   },
+   {
+    "label": "Battery",
+    "value": "6500 mAh"
+   }
+  ]
+ },
+ {
+  "name": "Y05 64GB",
+  "brand": "vivo",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Unisoc T7225"
+   },
+   {
+    "label": "Memory",
+    "value": "4GB"
+   },
+   {
+    "label": "Storage",
+    "value": "64GB"
+   },
+   {
+    "label": "Weight",
+    "value": "209g"
+   },
+   {
+    "label": "Display",
+    "value": "6.74\""
+   },
+   {
+    "label": "Camera",
+    "value": "8MP"
+   },
+   {
+    "label": "Battery",
+    "value": "6500 mAh"
+   }
+  ]
+ },
+ {
+  "name": "Xiaomi 17T 512GB",
+  "brand": "Xiaomi",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.59\""
+   },
+   {
+    "label": "Chip",
+    "value": "Dimensity 8500 Ultra"
+   },
+   {
+    "label": "Memory",
+    "value": "12GB"
+   },
+   {
+    "label": "Storage",
+    "value": "512GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "6500 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "200g"
+   }
+  ]
+ },
+ {
+  "name": "Redmi A7 Pro 4G 64GB",
+  "brand": "Xiaomi",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.9\""
+   },
+   {
+    "label": "Chip",
+    "value": "Unisoc T7250"
+   },
+   {
+    "label": "Memory",
+    "value": "4GB"
+   },
+   {
+    "label": "Storage",
+    "value": "64GB"
+   },
+   {
+    "label": "Camera",
+    "value": "13MP"
+   },
+   {
+    "label": "Battery",
+    "value": "6000 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "208g"
+   }
+  ]
+ },
+ {
+  "name": "Blade A36e 64GB",
+  "brand": "ZTE",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.52\" IPS LCD"
+   },
+   {
+    "label": "Chip",
+    "value": "Unisoc SC9863A"
+   },
+   {
+    "label": "Memory",
+    "value": "2GB"
+   },
+   {
+    "label": "Storage",
+    "value": "64GB"
+   },
+   {
+    "label": "Camera",
+    "value": "8MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5000 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "185g"
+   }
+  ]
+ },
+ {
+  "name": "HONOR 600 Pro 256GB",
+  "brand": "HONOR",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.57\" AMOLED"
+   },
+   {
+    "label": "Chip",
+    "value": "Snapdragon 8 Elite"
+   },
+   {
+    "label": "Memory",
+    "value": "12GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Camera",
+    "value": "200MP"
+   },
+   {
+    "label": "Battery",
+    "value": "7000 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "195g"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "HONOR 600 256GB",
+  "brand": "HONOR",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.57\" AMOLED"
+   },
+   {
+    "label": "Chip",
+    "value": "Snapdragon 7 Gen 4"
+   },
+   {
+    "label": "Memory",
+    "value": "12GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Camera",
+    "value": "200MP"
+   },
+   {
+    "label": "Battery",
+    "value": "7000 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "185g"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "Redmi Note 15 Pro 5G 512GB",
+  "brand": "Xiaomi",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.83\""
+   },
+   {
+    "label": "Chip",
+    "value": "Snapdragon 7s Gen 4"
+   },
+   {
+    "label": "Memory",
+    "value": "12GB"
+   },
+   {
+    "label": "Storage",
+    "value": "512GB"
+   },
+   {
+    "label": "Camera",
+    "value": "200MP"
+   },
+   {
+    "label": "Battery",
+    "value": "6500 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "208g"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "Redmi 15C 5G 128GB",
+  "brand": "Xiaomi",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.9\""
+   },
+   {
+    "label": "Chip",
+    "value": "Dimensity 6300"
+   },
+   {
+    "label": "Memory",
+    "value": "4GB"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "6000 mAh"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "Galaxy A57 5G 12GB/256GB",
+  "brand": "Samsung",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.7\" Super AMOLED Plus"
+   },
+   {
+    "label": "Chip",
+    "value": "Exynos 1680"
+   },
+   {
+    "label": "Memory",
+    "value": "12GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5000 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "179g"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "Galaxy A57 5G 8GB/256GB",
+  "brand": "Samsung",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.7\" Super AMOLED Plus"
+   },
+   {
+    "label": "Chip",
+    "value": "Exynos 1680"
+   },
+   {
+    "label": "Memory",
+    "value": "8GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5000 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "179g"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "MacBook Pro 14 M5 Pro 24GB/1TB",
+  "brand": "Apple",
+  "category": "laptops",
+  "specs": [
+   {
+    "label": "Memory",
+    "value": "24GB"
+   },
+   {
+    "label": "Storage",
+    "value": "1TB SSD"
+   },
+   {
+    "label": "Display",
+    "value": "14.2\""
+   },
+   {
+    "label": "Graphics",
+    "value": "Neural Accelerators"
+   },
+   {
+    "label": "Battery",
+    "value": "Up to 24 hours"
+   },
+   {
+    "label": "OS",
+    "value": "macOS"
+   },
+   {
+    "label": "Chip",
+    "value": "Apple M5 Pro"
+   }
+  ]
+ },
+ {
+  "name": "Y04 64GB",
+  "brand": "vivo",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.74\""
+   },
+   {
+    "label": "Memory",
+    "value": "4GB"
+   },
+   {
+    "label": "Storage",
+    "value": "64GB"
+   },
+   {
+    "label": "Camera",
+    "value": "13MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5500 mAh"
+   }
+  ]
+ },
+ {
+  "name": "Y04 128GB",
+  "brand": "vivo",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.74\""
+   },
+   {
+    "label": "Memory",
+    "value": "4GB"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Camera",
+    "value": "13MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5500 mAh"
+   }
+  ]
+ },
+ {
+  "name": "Tune 680NC",
+  "brand": "JBL",
+  "category": "headphones",
+  "specs": [
+   {
+    "label": "Battery",
+    "value": "Up to 76 hours"
+   },
+   {
+    "label": "Driver",
+    "value": "32mm"
+   },
+   {
+    "label": "Connectivity",
+    "value": "Bluetooth 6.3"
+   },
+   {
+    "label": "Noise Cancellation",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "MacBook Air 13 M5 512GB",
+  "brand": "Apple",
+  "category": "laptops",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple M5"
+   },
+   {
+    "label": "Memory",
+    "value": "16GB"
+   },
+   {
+    "label": "Storage",
+    "value": "512GB SSD"
+   },
+   {
+    "label": "Graphics",
+    "value": "8C GPU"
+   },
+   {
+    "label": "Display",
+    "value": "13.6\""
+   },
+   {
+    "label": "Battery",
+    "value": "Up to 18 hours"
+   },
+   {
+    "label": "Weight",
+    "value": "1.23 kg"
+   }
+  ]
+ },
+ {
+  "name": "Hot 60i 128GB",
+  "brand": "Infinix",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Helio G81 Ultimate"
+   },
+   {
+    "label": "Memory",
+    "value": "6GB"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Weight",
+    "value": "188g"
+   },
+   {
+    "label": "Battery",
+    "value": "5160 mAh"
+   }
+  ]
+ },
+ {
+  "name": "Note 60 256GB",
+  "brand": "Infinix",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.78\""
+   },
+   {
+    "label": "Chip",
+    "value": "Dimensity 7400 Ultimate"
+   },
+   {
+    "label": "Memory",
+    "value": "8GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "6500 mAh"
+   }
+  ]
+ },
+ {
+  "name": "Hot 60 Pro 256GB",
+  "brand": "Infinix",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Helio G200"
+   },
+   {
+    "label": "Memory",
+    "value": "8GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Weight",
+    "value": "170g"
+   },
+   {
+    "label": "Display",
+    "value": "6.78\""
+   },
+   {
+    "label": "Battery",
+    "value": "5160 mAh"
+   }
+  ]
+ },
+ {
+  "name": "MacBook Pro 14 M5 Pro 16GB/1TB",
+  "brand": "Apple",
+  "category": "laptops",
+  "specs": [
+   {
+    "label": "Memory",
+    "value": "16GB"
+   },
+   {
+    "label": "Storage",
+    "value": "1TB SSD"
+   },
+   {
+    "label": "Display",
+    "value": "14.2\""
+   },
+   {
+    "label": "Graphics",
+    "value": "Neural Accelerators"
+   },
+   {
+    "label": "Battery",
+    "value": "Up to 24 hours"
+   },
+   {
+    "label": "OS",
+    "value": "macOS"
+   },
+   {
+    "label": "Chip",
+    "value": "Apple M5 Pro"
+   }
+  ]
+ },
+ {
+  "name": "MacBook Neo 13 512GB",
+  "brand": "Apple",
+  "category": "laptops",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple A18 Pro"
+   },
+   {
+    "label": "Memory",
+    "value": "8GB"
+   },
+   {
+    "label": "Storage",
+    "value": "512GB SSD"
+   },
+   {
+    "label": "Battery",
+    "value": "Up to 16 hours"
+   },
+   {
+    "label": "OS",
+    "value": "macOS"
+   }
+  ]
+ },
+ {
+  "name": "Galaxy A17 5G 256GB",
+  "brand": "Samsung",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.7\" Super AMOLED"
+   },
+   {
+    "label": "Chip",
+    "value": "Exynos 1330"
+   },
+   {
+    "label": "Memory",
+    "value": "8GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5000 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "192g"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "Galaxy S26 256GB",
+  "brand": "Samsung",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.3\" Dynamic LTPO AMOLED 2X"
+   },
+   {
+    "label": "Chip",
+    "value": "Exynos 2600"
+   },
+   {
+    "label": "Memory",
+    "value": "12GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "300 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "167g"
+   }
+  ]
+ },
+ {
+  "name": "Tune 530BT",
+  "brand": "JBL",
+  "category": "headphones",
+  "specs": [
+   {
+    "label": "Battery",
+    "value": "Up to 76 hours"
+   },
+   {
+    "label": "Driver",
+    "value": "33mm"
+   },
+   {
+    "label": "Weight",
+    "value": "152g"
+   },
+   {
+    "label": "Noise Cancellation",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "HONOR 400 256GB",
+  "brand": "HONOR",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.55\" AMOLED"
+   },
+   {
+    "label": "Chip",
+    "value": "Snapdragon 7 Gen 3"
+   },
+   {
+    "label": "Memory",
+    "value": "12GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Camera",
+    "value": "200MP"
+   },
+   {
+    "label": "Battery",
+    "value": "6000 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "184g"
+   }
+  ]
+ },
+ {
+  "name": "HONOR 400 Lite 256GB",
+  "brand": "HONOR",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.7\" AMOLED"
+   },
+   {
+    "label": "Chip",
+    "value": "Dimensity 7025 Ultra"
+   },
+   {
+    "label": "Memory",
+    "value": "12GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Camera",
+    "value": "108MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5230 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "171g"
+   }
+  ]
+ },
+ {
+  "name": "X7d 5G 128GB",
+  "brand": "HONOR",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.77\" TFT LCD"
+   },
+   {
+    "label": "Chip",
+    "value": "Snapdragon 6s Gen 3"
+   },
+   {
+    "label": "Memory",
+    "value": "6GB"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "6500 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "206g"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "X7d 256GB",
+  "brand": "HONOR",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.77\" TFT LCD"
+   },
+   {
+    "label": "Chip",
+    "value": "Snapdragon 685"
+   },
+   {
+    "label": "Memory",
+    "value": "8GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Camera",
+    "value": "108MP"
+   },
+   {
+    "label": "Battery",
+    "value": "6500 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "208g"
+   }
+  ]
+ },
+ {
+  "name": "X5c Plus 128GB",
+  "brand": "HONOR",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.74\" TFT LCD"
+   },
+   {
+    "label": "Chip",
+    "value": "Helio G81"
+   },
+   {
+    "label": "Memory",
+    "value": "4GB"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5260 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "186g"
+   }
+  ]
+ },
+ {
+  "name": "Y21d 128GB",
+  "brand": "vivo",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "T7225"
+   },
+   {
+    "label": "Memory",
+    "value": "6GB"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Camera",
+    "value": "5MP"
+   },
+   {
+    "label": "Battery",
+    "value": "6500 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "209g"
+   },
+   {
+    "label": "Display",
+    "value": "6.68\""
+   }
+  ]
+ },
+ {
+  "name": "Redmi Note 15 5G 256GB",
+  "brand": "Xiaomi",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.77\""
+   },
+   {
+    "label": "Chip",
+    "value": "Snapdragon 6 Gen 3"
+   },
+   {
+    "label": "Memory",
+    "value": "8GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Camera",
+    "value": "108MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5520 mAh"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   },
+   {
+    "label": "Weight",
+    "value": "178g"
+   }
+  ]
+ },
+ {
+  "name": "Redmi Note 15 Pro 5G 256GB",
+  "brand": "Xiaomi",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.83\""
+   },
+   {
+    "label": "Chip",
+    "value": "Snapdragon 7s Gen 4"
+   },
+   {
+    "label": "Memory",
+    "value": "8GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Camera",
+    "value": "200MP"
+   },
+   {
+    "label": "Battery",
+    "value": "6500 mAh"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "Y21d 256GB",
+  "brand": "vivo",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "LCD"
+   },
+   {
+    "label": "Chip",
+    "value": "T7225"
+   },
+   {
+    "label": "Memory",
+    "value": "6GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "6500 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "209g"
+   }
+  ]
+ },
+ {
+  "name": "Y29t 5G 128GB",
+  "brand": "vivo",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Dimensity 6300"
+   },
+   {
+    "label": "Memory",
+    "value": "6GB"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Weight",
+    "value": "202g"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   },
+   {
+    "label": "Display",
+    "value": "6.74\""
+   },
+   {
+    "label": "Battery",
+    "value": "6000 mAh"
+   }
+  ]
+ },
+ {
+  "name": "Y29 128GB",
+  "brand": "vivo",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.68\""
+   },
+   {
+    "label": "Memory",
+    "value": "8GB"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "6500 mAh"
+   },
+   {
+    "label": "Chip",
+    "value": "Snapdragon 685"
+   },
+   {
+    "label": "Weight",
+    "value": "204g"
+   }
+  ]
+ },
+ {
+  "name": "Y29 256GB",
+  "brand": "vivo",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.68\""
+   },
+   {
+    "label": "Memory",
+    "value": "8GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "6500 mAh"
+   },
+   {
+    "label": "Chip",
+    "value": "Snapdragon 685"
+   },
+   {
+    "label": "Weight",
+    "value": "204g"
+   }
+  ]
+ },
+ {
+  "name": "Y31 5G 256GB",
+  "brand": "vivo",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Snapdragon 4 Gen 2"
+   },
+   {
+    "label": "Memory",
+    "value": "8GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Camera",
+    "value": "8MP"
+   },
+   {
+    "label": "Battery",
+    "value": "6500 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "209g"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   },
+   {
+    "label": "Display",
+    "value": "6.68\""
+   }
+  ]
+ },
+ {
+  "name": "X300 Pro 5G 512GB",
+  "brand": "vivo",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Dimensity 9500"
+   },
+   {
+    "label": "Memory",
+    "value": "16GB"
+   },
+   {
+    "label": "Storage",
+    "value": "512GB"
+   },
+   {
+    "label": "Display",
+    "value": "6.78\""
+   },
+   {
+    "label": "Camera",
+    "value": "200MP"
+   },
+   {
+    "label": "Battery",
+    "value": "6510 mAh"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "V60 5G 256GB",
+  "brand": "vivo",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Snapdragon 7 Gen 4"
+   },
+   {
+    "label": "Memory",
+    "value": "12GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Weight",
+    "value": "192g"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   },
+   {
+    "label": "Display",
+    "value": "6.67\""
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "6500 mAh"
+   }
+  ]
+ },
+ {
+  "name": "MacBook Pro 14 M5 1TB",
+  "brand": "Apple",
+  "category": "laptops",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple M5"
+   },
+   {
+    "label": "Memory",
+    "value": "24GB"
+   },
+   {
+    "label": "Storage",
+    "value": "1TB SSD"
+   },
+   {
+    "label": "OS",
+    "value": "macOS"
+   },
+   {
+    "label": "Display",
+    "value": "14\""
+   }
+  ]
+ },
+ {
+  "name": "MacBook Neo 13 256GB",
+  "brand": "Apple",
+  "category": "laptops",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple A18 Pro"
+   },
+   {
+    "label": "Memory",
+    "value": "8GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB SSD"
+   },
+   {
+    "label": "Battery",
+    "value": "Up to 16 hours"
+   },
+   {
+    "label": "OS",
+    "value": "macOS"
+   },
+   {
+    "label": "Display",
+    "value": "13\" WQXGA"
+   },
+   {
+    "label": "Weight",
+    "value": "1.23 kg"
+   }
+  ]
+ },
+ {
+  "name": "Galaxy S26 Plus 256GB",
+  "brand": "Samsung",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.7\" Dynamic LTPO AMOLED 2X"
+   },
+   {
+    "label": "Chip",
+    "value": "Exynos 2600"
+   },
+   {
+    "label": "Memory",
+    "value": "12GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "900 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "190g"
+   }
+  ]
+ },
+ {
+  "name": "Galaxy S26 Ultra 256GB",
+  "brand": "Samsung",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.9\" Dynamic LTPO AMOLED 2X"
+   },
+   {
+    "label": "Chip",
+    "value": "Snapdragon 8 Elite Gen 5"
+   },
+   {
+    "label": "Memory",
+    "value": "12GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Camera",
+    "value": "200MP"
+   },
+   {
+    "label": "Weight",
+    "value": "214g"
+   },
+   {
+    "label": "Battery",
+    "value": "5000 mAh"
+   }
+  ]
+ },
+ {
+  "name": "X9d 5G 256GB",
+  "brand": "HONOR",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.79\" AMOLED"
+   },
+   {
+    "label": "Chip",
+    "value": "Snapdragon 6 Gen 4"
+   },
+   {
+    "label": "Memory",
+    "value": "12GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Camera",
+    "value": "108MP"
+   },
+   {
+    "label": "Battery",
+    "value": "8300 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "193g"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "Redmi Note 14 5G 128GB",
+  "brand": "Xiaomi",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.67\""
+   },
+   {
+    "label": "Chip",
+    "value": "Helio G99 Ultra"
+   },
+   {
+    "label": "Memory",
+    "value": "6GB"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Camera",
+    "value": "108MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5500 mAh"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "Tune 730BT",
+  "brand": "JBL",
+  "category": "headphones",
+  "specs": [
+   {
+    "label": "Battery",
+    "value": "Up to 76 hours"
+   },
+   {
+    "label": "Driver",
+    "value": "40mm"
+   },
+   {
+    "label": "Weight",
+    "value": "218.2g"
+   }
+  ]
+ },
+ {
+  "name": "Magic V5 Foldable 512GB",
+  "brand": "HONOR",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "7.95\" Foldable LTPO AMOLED"
+   },
+   {
+    "label": "Chip",
+    "value": "Snapdragon 8 Elite"
+   },
+   {
+    "label": "Memory",
+    "value": "16GB"
+   },
+   {
+    "label": "Storage",
+    "value": "512GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5820 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "217g"
+   }
+  ]
+ },
+ {
+  "name": "Magic V3 Foldable 512GB",
+  "brand": "HONOR",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "7.92\" Foldable LTPO AMOLED"
+   },
+   {
+    "label": "Chip",
+    "value": "Snapdragon 8 Gen 3"
+   },
+   {
+    "label": "Memory",
+    "value": "12GB"
+   },
+   {
+    "label": "Storage",
+    "value": "512GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5150 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "226g"
+   }
+  ]
+ },
+ {
+  "name": "X6c 256GB",
+  "brand": "HONOR",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.61\" TFT LCD"
+   },
+   {
+    "label": "Chip",
+    "value": "Helio G81 Ultra"
+   },
+   {
+    "label": "Memory",
+    "value": "6GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5300 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "199g"
+   }
+  ]
+ },
+ {
+  "name": "X6c 128GB",
+  "brand": "HONOR",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.61\" TFT LCD"
+   },
+   {
+    "label": "Chip",
+    "value": "Helio G81 Ultra"
+   },
+   {
+    "label": "Memory",
+    "value": "6GB"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5300 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "199g"
+   }
+  ]
+ },
+ {
+  "name": "iPhone 17 Pro Max 1TB",
+  "brand": "Apple",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple A19 Pro"
+   },
+   {
+    "label": "Storage",
+    "value": "1TB"
+   },
+   {
+    "label": "Weight",
+    "value": "233g"
+   },
+   {
+    "label": "Display",
+    "value": "6.3\""
+   },
+   {
+    "label": "Camera",
+    "value": "48MP"
+   }
+  ]
+ },
+ {
+  "name": "Redmi 15 256GB",
+  "brand": "Xiaomi",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.9\""
+   },
+   {
+    "label": "Chip",
+    "value": "Snapdragon 685"
+   },
+   {
+    "label": "Memory",
+    "value": "8GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "7000 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "214g"
+   }
+  ]
+ },
+ {
+  "name": "Redmi 15 128GB",
+  "brand": "Xiaomi",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.9\""
+   },
+   {
+    "label": "Chip",
+    "value": "Snapdragon 685"
+   },
+   {
+    "label": "Memory",
+    "value": "6GB"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "7000 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "214g"
+   }
+  ]
+ },
+ {
+  "name": "iPhone 17 Pro Max 512GB",
+  "brand": "Apple",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple A19 Pro"
+   },
+   {
+    "label": "Memory",
+    "value": "12GB"
+   },
+   {
+    "label": "Storage",
+    "value": "512GB"
+   },
+   {
+    "label": "Weight",
+    "value": "233g"
+   },
+   {
+    "label": "Display",
+    "value": "6.9\" LTPO Super Retina XDR OLED"
+   },
+   {
+    "label": "Camera",
+    "value": "48MP"
+   },
+   {
+    "label": "Battery",
+    "value": "4823 mAh"
+   }
+  ]
+ },
+ {
+  "name": "iPhone Air 256GB",
+  "brand": "Apple",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple A19 Pro"
+   },
+   {
+    "label": "Memory",
+    "value": "12GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Weight",
+    "value": "165g"
+   },
+   {
+    "label": "Display",
+    "value": "6.5\" LTPO Super Retina XDR OLED"
+   },
+   {
+    "label": "Camera",
+    "value": "48MP"
+   },
+   {
+    "label": "Battery",
+    "value": "3149 mAh"
+   }
+  ]
+ },
+ {
+  "name": "iPhone 17 Pro Max 256GB",
+  "brand": "Apple",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple A19 Pro"
+   },
+   {
+    "label": "Memory",
+    "value": "12GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Weight",
+    "value": "233g"
+   },
+   {
+    "label": "Display",
+    "value": "6.9\" LTPO Super Retina XDR OLED"
+   },
+   {
+    "label": "Camera",
+    "value": "48MP"
+   },
+   {
+    "label": "Battery",
+    "value": "4823 mAh"
+   }
+  ]
+ },
+ {
+  "name": "iPhone 17 Pro 512GB",
+  "brand": "Apple",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple A19 Pro"
+   },
+   {
+    "label": "Storage",
+    "value": "512GB"
+   },
+   {
+    "label": "Weight",
+    "value": "206g"
+   },
+   {
+    "label": "Display",
+    "value": "6.3\""
+   },
+   {
+    "label": "Camera",
+    "value": "48MP"
+   }
+  ]
+ },
+ {
+  "name": "iPhone 17 Pro 256GB",
+  "brand": "Apple",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple A19 Pro"
+   },
+   {
+    "label": "Memory",
+    "value": "12GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Weight",
+    "value": "206g"
+   },
+   {
+    "label": "Display",
+    "value": "6.3\" LTPO Super Retina XDR OLED"
+   },
+   {
+    "label": "Camera",
+    "value": "48MP"
+   },
+   {
+    "label": "Battery",
+    "value": "4252 mAh"
+   }
+  ]
+ },
+ {
+  "name": "iPhone 17 256GB",
+  "brand": "Apple",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple A19"
+   },
+   {
+    "label": "Memory",
+    "value": "8GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Weight",
+    "value": "177g"
+   },
+   {
+    "label": "Display",
+    "value": "6.3\" LTPO Super Retina XDR OLED"
+   },
+   {
+    "label": "Camera",
+    "value": "48MP"
+   },
+   {
+    "label": "Battery",
+    "value": "3692 mAh"
+   }
+  ]
+ },
+ {
+  "name": "Redmi 15C 4G 256GB",
+  "brand": "Xiaomi",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.9\""
+   },
+   {
+    "label": "Chip",
+    "value": "Helio G81 Ultra"
+   },
+   {
+    "label": "Memory",
+    "value": "8GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "6000 mAh"
+   }
+  ]
+ },
+ {
+  "name": "Redmi 15C 4G 128GB",
+  "brand": "Xiaomi",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.9\""
+   },
+   {
+    "label": "Chip",
+    "value": "Helio G81 Ultra"
+   },
+   {
+    "label": "Memory",
+    "value": "6GB"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "6000 mAh"
+   }
+  ]
+ },
+ {
+  "name": "Galaxy A17 5G 128GB",
+  "brand": "Samsung",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.7\" Super AMOLED"
+   },
+   {
+    "label": "Chip",
+    "value": "Exynos 1330"
+   },
+   {
+    "label": "Memory",
+    "value": "8GB"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5000 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "192g"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "Choice Earbuds X7 Lite",
+  "brand": "HONOR",
+  "category": "headphones",
+  "specs": [
+   {
+    "label": "Type",
+    "value": "Ear Buds"
+   },
+   {
+    "label": "Battery",
+    "value": "Up to 38 hours"
+   },
+   {
+    "label": "Driver",
+    "value": "10mm"
+   },
+   {
+    "label": "Connectivity",
+    "value": "Bluetooth 5.4"
+   },
+   {
+    "label": "Weight",
+    "value": "4.2g"
+   },
+   {
+    "label": "Noise Cancellation",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "Choice Earbuds Clip",
+  "brand": "HONOR",
+  "category": "headphones",
+  "specs": [
+   {
+    "label": "Type",
+    "value": "On Ear"
+   },
+   {
+    "label": "Battery",
+    "value": "Up to 36 hours"
+   },
+   {
+    "label": "Driver",
+    "value": "10.8mm"
+   },
+   {
+    "label": "Noise Cancellation",
+    "value": "AI Call Noise Cancellation"
+   },
+   {
+    "label": "Weight",
+    "value": "5.1g"
+   }
+  ]
+ },
+ {
+  "name": "MacBook Air 15 M4 256GB",
+  "brand": "Apple",
+  "category": "laptops",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple M4"
+   },
+   {
+    "label": "Memory",
+    "value": "16GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB SSD"
+   },
+   {
+    "label": "Graphics",
+    "value": "8C GPU"
+   },
+   {
+    "label": "Display",
+    "value": "15\""
+   },
+   {
+    "label": "Battery",
+    "value": "Up to 18 hours"
+   }
+  ]
+ },
+ {
+  "name": "Smart 10 Plus 128GB",
+  "brand": "Infinix",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Unisoc T7250"
+   },
+   {
+    "label": "Memory",
+    "value": "4GB"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Camera",
+    "value": "8MP"
+   },
+   {
+    "label": "Weight",
+    "value": "198g"
+   },
+   {
+    "label": "Display",
+    "value": "6.67\""
+   },
+   {
+    "label": "Battery",
+    "value": "6000 mAh"
+   }
+  ]
+ },
+ {
+  "name": "X9c 5G 256GB",
+  "brand": "HONOR",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.78\" AMOLED"
+   },
+   {
+    "label": "Chip",
+    "value": "Snapdragon 6 Gen 1"
+   },
+   {
+    "label": "Memory",
+    "value": "12GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Camera",
+    "value": "108MP"
+   },
+   {
+    "label": "Battery",
+    "value": "6600 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "189g"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "Redmi A5 4G 128GB",
+  "brand": "Xiaomi",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.88\""
+   },
+   {
+    "label": "Chip",
+    "value": "Unisoc T7250"
+   },
+   {
+    "label": "Memory",
+    "value": "4GB"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Camera",
+    "value": "32MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5200 mAh"
+   }
+  ]
+ },
+ {
+  "name": "Redmi A5 4G 64GB",
+  "brand": "Xiaomi",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.88\""
+   },
+   {
+    "label": "Chip",
+    "value": "Unisoc T7250"
+   },
+   {
+    "label": "Memory",
+    "value": "3GB"
+   },
+   {
+    "label": "Storage",
+    "value": "64GB"
+   },
+   {
+    "label": "Camera",
+    "value": "32MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5200 mAh"
+   }
+  ]
+ },
+ {
+  "name": "Tune 670NC",
+  "brand": "JBL",
+  "category": "headphones",
+  "specs": [
+   {
+    "label": "Type",
+    "value": "Yes"
+   },
+   {
+    "label": "Connectivity",
+    "value": "Bluetooth 5.3"
+   },
+   {
+    "label": "Noise Cancellation",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "MacBook Air 13 M4 512GB",
+  "brand": "Apple",
+  "category": "laptops",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple M4"
+   },
+   {
+    "label": "Memory",
+    "value": "16GB"
+   },
+   {
+    "label": "Storage",
+    "value": "512GB SSD"
+   },
+   {
+    "label": "Graphics",
+    "value": "8C GPU"
+   },
+   {
+    "label": "Display",
+    "value": "13.6\""
+   },
+   {
+    "label": "Battery",
+    "value": "Up to 18 hours"
+   }
+  ]
+ },
+ {
+  "name": "Galaxy A56 12GB/256GB",
+  "brand": "Samsung",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.7\" Super AMOLED"
+   },
+   {
+    "label": "Chip",
+    "value": "Exynos 1580"
+   },
+   {
+    "label": "Memory",
+    "value": "12GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5000 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "198g"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "Galaxy A56 8GB/256GB",
+  "brand": "Samsung",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.7\" Super AMOLED"
+   },
+   {
+    "label": "Chip",
+    "value": "Exynos 1580"
+   },
+   {
+    "label": "Memory",
+    "value": "8GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5000 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "198g"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "Galaxy A36 5G 8GB/256GB",
+  "brand": "Samsung",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.7\" Super AMOLED"
+   },
+   {
+    "label": "Chip",
+    "value": "Snapdragon 6 Gen 3"
+   },
+   {
+    "label": "Memory",
+    "value": "8GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5000 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "195g"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "Galaxy A26 5G 128GB",
+  "brand": "Samsung",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.7\" Super AMOLED"
+   },
+   {
+    "label": "Chip",
+    "value": "Exynos 1380"
+   },
+   {
+    "label": "Memory",
+    "value": "8GB"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5000 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "200g"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "MacBook Pro 14 M4 512GB",
+  "brand": "Apple",
+  "category": "laptops",
+  "specs": [
+   {
+    "label": "Memory",
+    "value": "16GB"
+   },
+   {
+    "label": "Storage",
+    "value": "512GB SSD"
+   },
+   {
+    "label": "Graphics",
+    "value": "10-Core"
+   },
+   {
+    "label": "Chip",
+    "value": "Apple M4"
+   },
+   {
+    "label": "Display",
+    "value": "14\""
+   },
+   {
+    "label": "Battery",
+    "value": "Up to 24 hours"
+   }
+  ]
+ },
+ {
+  "name": "MacBook Air 15 M3 256GB",
+  "brand": "Apple",
+  "category": "laptops",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple M3"
+   },
+   {
+    "label": "Memory",
+    "value": "16GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB SSD"
+   },
+   {
+    "label": "Graphics",
+    "value": "10 Core"
+   },
+   {
+    "label": "Battery",
+    "value": "Up to 18 hours"
+   },
+   {
+    "label": "Weight",
+    "value": "1.24 kg"
+   },
+   {
+    "label": "Display",
+    "value": "15.3\""
+   }
+  ]
+ },
+ {
+  "name": "MacBook Air 13 M4 256GB",
+  "brand": "Apple",
+  "category": "laptops",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple M4"
+   },
+   {
+    "label": "Memory",
+    "value": "16GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB SSD"
+   },
+   {
+    "label": "Graphics",
+    "value": "8C GPU"
+   },
+   {
+    "label": "Display",
+    "value": "13.6\""
+   },
+   {
+    "label": "Battery",
+    "value": "Up to 18 hours"
+   }
+  ]
+ },
+ {
+  "name": "Y19s 4GB/128GB",
+  "brand": "vivo",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.68\""
+   },
+   {
+    "label": "Chip",
+    "value": "Unisoc Tiger T612"
+   },
+   {
+    "label": "Memory",
+    "value": "4GB"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5150 mAh"
+   }
+  ]
+ },
+ {
+  "name": "Y19s 6GB/128GB",
+  "brand": "vivo",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.68\""
+   },
+   {
+    "label": "Chip",
+    "value": "Unisoc Tiger T612"
+   },
+   {
+    "label": "Memory",
+    "value": "6GB"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5150 mAh"
+   }
+  ]
+ },
+ {
+  "name": "V50 5G 256GB",
+  "brand": "vivo",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.77\""
+   },
+   {
+    "label": "Memory",
+    "value": "12GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "6000 mAh"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   },
+   {
+    "label": "Chip",
+    "value": "Snapdragon 7 Gen 3"
+   }
+  ]
+ },
+ {
+  "name": "Galaxy A36 5G 128GB",
+  "brand": "Samsung",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.7\" Super AMOLED"
+   },
+   {
+    "label": "Chip",
+    "value": "Snapdragon 6 Gen 3"
+   },
+   {
+    "label": "Memory",
+    "value": "8GB"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5000 mAh"
+   },
+   {
+    "label": "Weight",
+    "value": "195g"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "Redmi Note 14 4G 256GB",
+  "brand": "Xiaomi",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.67\""
+   },
+   {
+    "label": "Chip",
+    "value": "Helio G99 Ultra"
+   },
+   {
+    "label": "Memory",
+    "value": "8GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Camera",
+    "value": "108MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5500 mAh"
+   }
+  ]
+ },
+ {
+  "name": "iPhone 16e 128GB",
+  "brand": "Apple",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.1\""
+   },
+   {
+    "label": "Chip",
+    "value": "Apple A18 Bionic"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Camera",
+    "value": "48MP"
+   }
+  ]
+ },
+ {
+  "name": "AirPods 4 with Active Noise Cancellation",
+  "brand": "Apple",
+  "category": "headphones",
+  "specs": [
+   {
+    "label": "Battery",
+    "value": "Up to 5 hours"
+   },
+   {
+    "label": "Noise Cancellation",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "iPhone 16 Pro Max 1TB",
+  "brand": "Apple",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple A18 Pro"
+   },
+   {
+    "label": "Storage",
+    "value": "1TB"
+   },
+   {
+    "label": "Weight",
+    "value": "227g"
+   },
+   {
+    "label": "Display",
+    "value": "6.9\""
+   },
+   {
+    "label": "Camera",
+    "value": "48MP"
+   }
+  ]
+ },
+ {
+  "name": "iPhone 16 Pro Max 256GB",
+  "brand": "Apple",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple A18 Pro"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Weight",
+    "value": "227g"
+   },
+   {
+    "label": "Display",
+    "value": "6.9\""
+   },
+   {
+    "label": "Camera",
+    "value": "48MP"
+   }
+  ]
+ },
+ {
+  "name": "iPhone 16 Pro 1TB",
+  "brand": "Apple",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple A18 Pro"
+   },
+   {
+    "label": "Storage",
+    "value": "1TB"
+   },
+   {
+    "label": "Weight",
+    "value": "199g"
+   },
+   {
+    "label": "Display",
+    "value": "6.3\""
+   },
+   {
+    "label": "Camera",
+    "value": "48MP"
+   }
+  ]
+ },
+ {
+  "name": "iPhone 16 Pro 512GB",
+  "brand": "Apple",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple A18 Pro"
+   },
+   {
+    "label": "Storage",
+    "value": "512GB"
+   },
+   {
+    "label": "Weight",
+    "value": "199g"
+   },
+   {
+    "label": "Display",
+    "value": "6.3\""
+   },
+   {
+    "label": "Camera",
+    "value": "48MP"
+   }
+  ]
+ },
+ {
+  "name": "iPhone 16 Pro 256GB",
+  "brand": "Apple",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple A18 Pro"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Weight",
+    "value": "199g"
+   },
+   {
+    "label": "Display",
+    "value": "6.3\""
+   },
+   {
+    "label": "Camera",
+    "value": "48MP"
+   }
+  ]
+ },
+ {
+  "name": "iPhone 16 Pro 128GB",
+  "brand": "Apple",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple A18 Pro"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Weight",
+    "value": "199g"
+   },
+   {
+    "label": "Display",
+    "value": "6.3\""
+   },
+   {
+    "label": "Camera",
+    "value": "48MP"
+   }
+  ]
+ },
+ {
+  "name": "iPhone 16 256GB",
+  "brand": "Apple",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple A18"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Weight",
+    "value": "170g"
+   },
+   {
+    "label": "Camera",
+    "value": "48MP"
+   }
+  ]
+ },
+ {
+  "name": "iPhone 16 128GB",
+  "brand": "Apple",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple A18"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Weight",
+    "value": "170g"
+   },
+   {
+    "label": "Camera",
+    "value": "48MP"
+   }
+  ]
+ },
+ {
+  "name": "MacBook Air M1 256GB",
+  "brand": "Apple",
+  "category": "laptops",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple M1"
+   },
+   {
+    "label": "Memory",
+    "value": "8GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB SSD"
+   },
+   {
+    "label": "Display",
+    "value": "13.3\""
+   },
+   {
+    "label": "Graphics",
+    "value": "Integrated graphics"
+   },
+   {
+    "label": "Battery",
+    "value": "49.9 Wh"
+   },
+   {
+    "label": "Weight",
+    "value": "1.29 kg"
+   },
+   {
+    "label": "OS",
+    "value": "macOS"
+   }
+  ]
+ },
+ {
+  "name": "MacBook Pro 14 M3 512GB",
+  "brand": "Apple",
+  "category": "laptops",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple M3"
+   },
+   {
+    "label": "Memory",
+    "value": "8GB"
+   },
+   {
+    "label": "Storage",
+    "value": "512GB SSD"
+   },
+   {
+    "label": "Display",
+    "value": "14\""
+   },
+   {
+    "label": "Battery",
+    "value": "Up to 22 hours"
+   }
+  ]
+ },
+ {
+  "name": "Hot 40i 128GB",
+  "brand": "Infinix",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Unisoc T606"
+   },
+   {
+    "label": "Memory",
+    "value": "8GB"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Weight",
+    "value": "190g"
+   },
+   {
+    "label": "Display",
+    "value": "6.56\""
+   },
+   {
+    "label": "Battery",
+    "value": "5000 mAh"
+   }
+  ]
+ },
+ {
+  "name": "Smart 8 64GB",
+  "brand": "Infinix",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.6\""
+   },
+   {
+    "label": "Chip",
+    "value": "Unisoc T606"
+   },
+   {
+    "label": "Memory",
+    "value": "4GB"
+   },
+   {
+    "label": "Storage",
+    "value": "64GB"
+   },
+   {
+    "label": "Camera",
+    "value": "13MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5000 mAh"
+   }
+  ]
+ },
+ {
+  "name": "Smart 7 HD 64GB",
+  "brand": "Infinix",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.6\""
+   },
+   {
+    "label": "Memory",
+    "value": "2GB"
+   },
+   {
+    "label": "Storage",
+    "value": "64GB"
+   },
+   {
+    "label": "Camera",
+    "value": "8MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5000 mAh"
+   }
+  ]
+ },
+ {
+  "name": "iPhone 15 256GB",
+  "brand": "Apple",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple A16 Bionic"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB"
+   },
+   {
+    "label": "Weight",
+    "value": "171g"
+   },
+   {
+    "label": "Camera",
+    "value": "48MP"
+   }
+  ]
+ },
+ {
+  "name": "iPhone 15 128GB",
+  "brand": "Apple",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple A16 Bionic"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Weight",
+    "value": "171g"
+   },
+   {
+    "label": "Camera",
+    "value": "48MP"
+   }
+  ]
+ },
+ {
+  "name": "Tune 520BT",
+  "brand": "JBL",
+  "category": "headphones",
+  "specs": [
+   {
+    "label": "Connectivity",
+    "value": "Bluetooth 6.2"
+   },
+   {
+    "label": "Battery",
+    "value": "Up to 57 hours"
+   }
+  ]
+ },
+ {
+  "name": "Tune 770NC",
+  "brand": "JBL",
+  "category": "headphones",
+  "specs": [
+   {
+    "label": "Connectivity",
+    "value": "Bluetooth 5.3"
+   },
+   {
+    "label": "Weight",
+    "value": "232g"
+   },
+   {
+    "label": "Noise Cancellation",
+    "value": "Yes"
+   },
+   {
+    "label": "Battery",
+    "value": "Up to 44 hours"
+   }
+  ]
+ },
+ {
+  "name": "Tune 720BT",
+  "brand": "JBL",
+  "category": "headphones",
+  "specs": [
+   {
+    "label": "Connectivity",
+    "value": "Bluetooth 5.3"
+   },
+   {
+    "label": "Battery",
+    "value": "Up to 76 hours"
+   }
+  ]
+ },
+ {
+  "name": "QuietComfort Earbuds",
+  "brand": "Bose",
+  "category": "headphones",
+  "specs": [
+   {
+    "label": "Type",
+    "value": "In Ear"
+   },
+   {
+    "label": "Battery",
+    "value": "Up to 6 hours"
+   },
+   {
+    "label": "Connectivity",
+    "value": "Bluetooth 5.1"
+   },
+   {
+    "label": "Noise Cancellation",
+    "value": "World-Class Noise Cancelling"
+   },
+   {
+    "label": "Weight",
+    "value": "8.5g"
+   }
+  ]
+ },
+ {
+  "name": "iPhone 14 128GB",
+  "brand": "Apple",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple A15 Bionic"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Weight",
+    "value": "172g"
+   },
+   {
+    "label": "Display",
+    "value": "6.1\""
+   },
+   {
+    "label": "Battery",
+    "value": "3310 mAh"
+   }
+  ]
+ },
+ {
+  "name": "iPhone 13 128GB",
+  "brand": "Apple",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple A15 Bionic"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Weight",
+    "value": "174g"
+   },
+   {
+    "label": "Display",
+    "value": "6.1\""
+   },
+   {
+    "label": "Camera",
+    "value": "12MP"
+   }
+  ]
+ },
+ {
+  "name": "iPhone 12 128GB",
+  "brand": "Apple",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple A14 Bionic"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Weight",
+    "value": "164g"
+   }
+  ]
+ },
+ {
+  "name": "iPhone 18 Pro Max 1TB",
+  "brand": "Apple",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple A20 Pro"
+   },
+   {
+    "label": "Memory",
+    "value": "12GB"
+   },
+   {
+    "label": "Storage",
+    "value": "1TB"
+   },
+   {
+    "label": "Weight",
+    "value": "249g"
+   },
+   {
+    "label": "Display",
+    "value": "6.9\" LTPO Super Retina XDR OLED"
+   },
+   {
+    "label": "Camera",
+    "value": "48MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5567 mAh"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "iPhone 18 Pro Max 2TB",
+  "brand": "Apple",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple A20 Pro"
+   },
+   {
+    "label": "Memory",
+    "value": "12GB"
+   },
+   {
+    "label": "Storage",
+    "value": "2TB"
+   },
+   {
+    "label": "Weight",
+    "value": "249g"
+   },
+   {
+    "label": "Display",
+    "value": "6.9\" LTPO Super Retina XDR OLED"
+   },
+   {
+    "label": "Camera",
+    "value": "48MP"
+   },
+   {
+    "label": "Battery",
+    "value": "5567 mAh"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "iPhone 18 Pro 512GB",
+  "brand": "Apple",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Chip",
+    "value": "Apple A20 Pro"
+   },
+   {
+    "label": "Memory",
+    "value": "12GB"
+   },
+   {
+    "label": "Storage",
+    "value": "512GB"
+   },
+   {
+    "label": "Weight",
+    "value": "211g"
+   },
+   {
+    "label": "Display",
+    "value": "6.3\" LTPO Super Retina XDR OLED"
+   },
+   {
+    "label": "Camera",
+    "value": "48MP"
+   },
+   {
+    "label": "Battery",
+    "value": "4288 mAh"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   }
+  ]
+ }
+]

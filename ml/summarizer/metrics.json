@@ -1,0 +1,44 @@
+{
+  "metrics": {
+    "validation_pairs": 587,
+    "rouge_l": 0.9084,
+    "claim_precision": 0.9925,
+    "claim_recall": 0.9971,
+    "summaries_with_unsupported_numbers": 0,
+    "summaries_naming_neither_product": 0
+  },
+  "samples": [
+    {
+      "input": "compare smartphones: A: iPhone Duo 256GB. B: iPhone Duo 512GB. Chip: Apple A20 Pro | Apple A20 Pro | same. Memory: 12GB | 12GB | same. Storage: 256GB | 512GB | B more storage. Weight: 254g | 254g | same. Display: 7.6\" LTPO Super Retina XDR | 7.6\" LTPO Super Retina XDR | same. Camera: 48MP | 48MP | same. 5G: Yes | Yes | same.",
+      "reference": "The iPhone Duo 512GB offers more storage (512GB) over the iPhone Duo 256GB. Both use the Apple A20 Pro.",
+      "model": "Both use the Apple A20 Pro, and their other listed specifications are very similar."
+    },
+    {
+      "input": "compare smartphones: A: iPhone Duo 512GB. B: Moto G06 Power 64GB. Chip: Apple A20 Pro | MediaTek G81 Extreme | A a faster chip. Memory: 12GB | 4GB | A more memory. Storage: 512GB | 64GB | A more storage. Weight: 254g | not listed | different. Display: 7.6\" LTPO Super Retina XDR | 6.88\" | A a bigger display. Camera: 48MP | 50MP | B a higher-resolution camera. 5G: Yes | not listed | A 5G support. Battery: not listed | 7000 mAh | different.",
+      "reference": "The iPhone Duo 512GB comes with a faster chip (Apple A20 Pro), more storage (512GB) and more memory (12GB), whereas the Moto G06 Power 64GB has a higher-resolution 50MP camera.",
+      "model": "The iPhone Duo 512GB offers a faster chip (Apple A20 Pro), more storage (512GB) and more memory (12GB). The Moto G06 Power 64GB has a higher-resolution 50MP camera."
+    },
+    {
+      "input": "compare smartphones: A: iPhone Duo 512GB. B: Super 26 Ultra 256GB. Chip: Apple A20 Pro | Unisoc T7300 | A a faster chip. Memory: 12GB | 8GB | A more memory. Storage: 512GB | 256GB | A more storage. Weight: 254g | 168g | B a lighter build. Display: 7.6\" LTPO Super Retina XDR | 6.78\" | A a bigger display. Camera: 48MP | 50MP | B a higher-resolution camera. 5G: Yes | not listed | A 5G support. Battery: not listed | 6000 mAh | different.",
+      "reference": "The iPhone Duo 512GB offers a faster chip (Apple A20 Pro), more storage (512GB) and more memory (12GB). The Super 26 Ultra 256GB has a higher-resolution 50MP camera and a lighter build (168g).",
+      "model": "The iPhone Duo 512GB offers a faster chip (Apple A20 Pro), more storage (512GB) and more memory (12GB). The Super 26 Ultra 256GB has a higher-resolution 50MP camera and a lighter build (168g)."
+    },
+    {
+      "input": "compare smartphones: A: iPhone Duo 512GB. B: Y05 128GB. Chip: Apple A20 Pro | Unisoc T7225 | A a faster chip. Memory: 12GB | 4GB | A more memory. Storage: 512GB | 128GB | A more storage. Weight: 254g | 209g | B a lighter build. Display: 7.6\" LTPO Super Retina XDR | 6.74\" | A a bigger display. Camera: 48MP | 8MP | A a higher-resolution camera. 5G: Yes | not listed | A 5G support. Battery: not listed | 6500 mAh | different.",
+      "reference": "The iPhone Duo 512GB offers a faster chip (Apple A20 Pro), a higher-resolution 48MP camera and more storage (512GB). The Y05 128GB has a lighter build (209g).",
+      "model": "The iPhone Duo 512GB comes with a faster chip (Apple A20 Pro), a higher-resolution 48MP camera and more storage (512GB), whereas the Y05 128GB has a lighter build (209g)."
+    },
+    {
+      "input": "compare smartphones: A: iPhone Duo 512GB. B: Galaxy S26 Ultra 256GB. Chip: Apple A20 Pro | Snapdragon 8 Elite Gen 5 | A a faster chip. Memory: 12GB | 12GB | same. Storage: 512GB | 256GB | A more storage. Weight: 254g | 214g | B a lighter build. Display: 7.6\" LTPO Super Retina XDR | 6.9\" Dynamic LTPO AMOLED 2X | A a bigger display. Camera: 48MP | 200MP | B a higher-resolution camera. 5G: Yes | not listed | A 5G support. Battery: not listed | 5000 mAh | different.",
+      "reference": "The iPhone Duo 512GB comes with a faster chip (Apple A20 Pro), more storage (512GB) and a bigger 7.6-inch display, whereas the Galaxy S26 Ultra 256GB has a higher-resolution 200MP camera and a lighter build (214g).",
+      "model": "The iPhone Duo 512GB offers a faster chip (Apple A20 Pro), more storage (512GB) and a bigger 7.6-inch display. The Galaxy S26 Ultra 256GB has a higher-resolution 200MP camera and a lighter build (214g)."
+    }
+  ],
+  "coreml_metrics": {
+    "validation_pairs": 120,
+    "rouge_l": 0.9114,
+    "claim_precision": 1.0,
+    "claim_recall": 0.9979,
+    "summaries_with_unsupported_numbers": 0
+  }
+}
