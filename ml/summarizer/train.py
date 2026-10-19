@@ -45,7 +45,7 @@ def split(examples):
         pair = "|".join(sorted([example["first"], example["second"]]))
         return int(hashlib.md5(pair.encode()).hexdigest(), 16) % 10
     train = [e for e in examples if bucket(e) != 0]
-    val = [e for e in examples if bucket(e) == 0 and e["variant"] == "full"]
+    val = [e for e in examples if bucket(e) == 0 and e["variant"] in ("full", "upgrade")]
     return train, val
 
 
@@ -113,11 +113,13 @@ def rouge_l(prediction, target):
     return 2 * precision * recall / (precision + recall)
 
 
+# How each advantage reads in a summary. The same patterns as the app's check in ProductSummarizer.swift.
 ADVANTAGE_WORDS = {
     "a faster chip": "faster chip", "more memory": "more memory", "more storage": "more storage",
-    "a higher-resolution camera": "higher-resolution", "a bigger battery": "battery", "longer battery life": "longer battery",
-    "a bigger display": "display", "a lighter build": "lighter build", "5G support": "5G support",
-    "active noise cancellation": "noise cancellation", "larger drivers": "drivers", "newer Bluetooth": "newer Bluetooth",
+    "a higher-resolution camera": "higher-resolution", "a bigger battery": r"bigger [\d.,]* ?(mAh |Wh )?battery",
+    "longer battery life": "longer battery life", "a bigger display": r"bigger [\d.]*-?(inch )?display",
+    "a lighter build": "lighter build", "5G support": "5G support", "active noise cancellation": "noise cancellation",
+    "larger drivers": "drivers", "newer Bluetooth": "newer Bluetooth",
 }
 
 
@@ -126,9 +128,10 @@ def claims(text, example):
     names = {example["first"]: "first", example["second"]: "second"}
     found = set()
     for advantage, marker in ADVANTAGE_WORDS.items():
-        for match in re.finditer(re.escape(marker), text):
+        for match in re.finditer(marker, text):
             before = text[:match.start()]
-            owner = max(names, key=lambda n: before.rfind(n))
+            # The most recently named product; the longer name wins when one contains the other.
+            owner = max(names, key=lambda n: (before.rfind(n), len(n)))
             if before.rfind(owner) >= 0:
                 found.add((names[owner], advantage))
     return found
@@ -197,9 +200,12 @@ def main():
         model = train(train_set, tokenizer)
         print(f"trained in {(time.time() - started) / 60:.1f} min", flush=True)
 
-    metrics, samples = evaluate(model, tokenizer, val_set)
-    METRICS.write_text(json.dumps({"metrics": metrics, "samples": samples}, indent=2))
-    print(json.dumps(metrics, indent=2))
+    metrics, samples = evaluate(model, tokenizer, [e for e in val_set if e["variant"] == "full"])
+    upgrade_metrics, upgrade_samples = evaluate(model, tokenizer, [e for e in val_set if e["variant"] == "upgrade"])
+    METRICS.write_text(json.dumps({"metrics": metrics, "upgrade_metrics": upgrade_metrics,
+                                   "samples": samples, "upgrade_samples": upgrade_samples}, indent=2))
+    print("catalogue pairs:", json.dumps(metrics, indent=2))
+    print("upgrade pairs (owned device vs new):", json.dumps(upgrade_metrics, indent=2))
     for sample in samples[:3]:
         print("\nREF:", sample["reference"], "\nOUT:", sample["model"])
 

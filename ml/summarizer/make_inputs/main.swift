@@ -32,10 +32,18 @@ let products = try JSONDecoder().decode([ProductRecord].self, from: Data(content
 var random = SplitMix(state: 2026)
 var examples: [Example] = []
 
-func add(_ a: ProductRecord, _ b: ProductRecord, specsA: [Spec], specsB: [Spec], variant: String) {
+func add(_ a: ProductRecord, _ b: ProductRecord, specsA: [Spec], specsB: [Spec], variant: String,
+         nameA: String? = nil, nameB: String? = nil) {
+    let (first, second) = (nameA ?? a.name, nameB ?? b.name)
     let facts = SpecComparison.facts(first: specsA.map { ($0.label, $0.value) }, second: specsB.map { ($0.label, $0.value) })
-    let input = SpecComparison.modelInput(category: a.category, firstName: a.name, secondName: b.name, facts: facts)
-    examples.append(Example(category: a.category, first: a.name, second: b.name, input: input, facts: facts, variant: variant))
+    let input = SpecComparison.modelInput(category: a.category, firstName: first, secondName: second, facts: facts)
+    examples.append(Example(category: a.category, first: first, second: second, input: input, facts: facts, variant: variant))
+}
+
+/// "Galaxy A36 5G 8GB/256GB" → "Galaxy A36 5G": teaches the model to copy names that don't end in a storage size,
+/// like the older devices in Upgrade analysis ("iPhone 13").
+func shortName(_ name: String) -> String {
+    name.replacingOccurrences(of: #"\s+\d+GB(/\d+(GB|TB))?$|\s+\d+TB$"#, with: "", options: .regularExpression)
 }
 
 func dropping(_ specs: [Spec]) -> [Spec] {
@@ -43,6 +51,18 @@ func dropping(_ specs: [Spec]) -> [Spec] {
     var kept = specs
     for _ in 0..<(1 + random.below(2)) { kept.remove(at: random.below(kept.count)) }
     return kept
+}
+
+// Optional third argument: older devices users may own (Upgrade analysis). Each is paired with every
+// catalogue product in its category, owned device first, as the app does.
+if arguments.count > 3 {
+    let owned = try JSONDecoder().decode([ProductRecord].self, from: Data(contentsOf: URL(fileURLWithPath: arguments[3])))
+    for device in owned {
+        for product in products where product.category == device.category {
+            add(device, product, specsA: device.specs, specsB: product.specs, variant: "upgrade")
+            add(device, product, specsA: dropping(device.specs), specsB: dropping(product.specs), variant: "upgrade-dropped")
+        }
+    }
 }
 
 for category in ["smartphones", "laptops", "headphones"] {
@@ -53,6 +73,9 @@ for category in ["smartphones", "laptops", "headphones"] {
         for j in group.indices where i != j && (small || i < j) {
             let (a, b) = small || random.below(2) == 0 ? (group[i], group[j]) : (group[j], group[i])
             add(a, b, specsA: a.specs, specsB: b.specs, variant: "full")
+            if random.below(6) == 0, shortName(a.name) != shortName(b.name) {
+                add(a, b, specsA: a.specs, specsB: b.specs, variant: "short-names", nameA: shortName(a.name), nameB: shortName(b.name))
+            }
             if small || random.below(4) == 0 {
                 add(a, b, specsA: dropping(a.specs), specsB: dropping(b.specs), variant: "dropped")
             }

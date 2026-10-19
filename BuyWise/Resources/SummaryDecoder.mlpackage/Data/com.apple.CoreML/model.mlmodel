@@ -16,11 +16,11 @@
 next_token
 *
  €¢é
-]Writes the comparison summary one token at a time (T5-small decoder, fine-tuned for BuyWise).1.0BuyWise"Apache-2.0 (T5 base weights)¢:
+]Writes the comparison summary one token at a time (T5-small decoder, fine-tuned for BuyWise).1.0BuyWise"Apache-2.0 (T5 base weights)¢+
+$com.github.apple.coremltools.version9.0¢:
++com.github.apple.coremltools.source_dialectTorchScript¢:
 ,com.github.apple.coremltools.conversion_date
-2026-10-19¢:
-+com.github.apple.coremltools.source_dialectTorchScript¢+
-$com.github.apple.coremltools.version9.0¢3
+2026-10-19¢3
 #com.github.apple.coremltools.sourcetorch==2.7.0²ÇøÁø
 main·ø
 '
@@ -46,15 +46,7 @@ $com.github.apple.coremltools.version9.0¢3
 CoreML8ƒ÷
 CoreML8öö
 next_tokenŠ
-constexpr_blockwise_shift_scaleP
-dataH
-FD
-
-
-
-`
-`*"
-@model_path/weights/weight.bin@9
+constexpr_blockwise_shift_scale9
 scale0
 .,
 
@@ -65,7 +57,15 @@ FD
 
 
 
-¿KðJ2
+¿KðJP
+dataH
+FD
+
+
+
+`
+`*"
+@model_path/weights/weight.bin@2
 causal_quantized
 
 
@@ -76,19 +76,19 @@ FD
 
 "
 causal_quantized°
-constexpr_blockwise_shift_scaleH
-data@
-><
-
-€û
-€*#
-@model_path/weights/weight.bin€IJ
+constexpr_blockwise_shift_scaleJ
 scaleA
 ?=
 
 €û
 *%
-@model_path/weights/weight.binÀÉì<
+@model_path/weights/weight.binÀÉìH
+data@
+><
+
+€û
+€*#
+@model_path/weights/weight.bin€I<
 #stack_embed_tokens_weight_quantized
 
 €û
@@ -110,18 +110,18 @@ FD
 +")
 'stack_block_0_layer_0_layer_norm_weightÕ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.binÀÆôI
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.bin€Ç„N
+@model_path/weights/weight.bin€Ç„I
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.binÀÆôN
 6stack_block_0_layer_0_SelfAttention_q_weight_quantized
 
 €
@@ -131,18 +131,18 @@ FD
 :"8
 6stack_block_0_layer_0_SelfAttention_q_weight_quantizedÕ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.binÀ×„I
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.bin€Ø”N
+@model_path/weights/weight.bin€Ø”I
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.binÀ×„N
 6stack_block_0_layer_0_SelfAttention_k_weight_quantized
 
 €
@@ -152,18 +152,18 @@ FD
 :"8
 6stack_block_0_layer_0_SelfAttention_k_weight_quantizedÕ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.binÀè”I
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.bin€é¤N
+@model_path/weights/weight.bin€é¤I
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.binÀè”N
 6stack_block_0_layer_0_SelfAttention_v_weight_quantized
 
 €
@@ -173,18 +173,18 @@ FD
 :"8
 6stack_block_0_layer_0_SelfAttention_v_weight_quantizedÕ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.binÀù¤I
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.bin€ú´N
+@model_path/weights/weight.bin€ú´I
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.binÀù¤N
 6stack_block_0_layer_0_SelfAttention_o_weight_quantized
 
 €
@@ -206,18 +206,18 @@ FD
 +")
 'stack_block_0_layer_1_layer_norm_weightÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.bin€›µI
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.binÀ›ÅP
+@model_path/weights/weight.binÀ›ÅI
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.bin€›µP
 8stack_block_0_layer_1_EncDecAttention_q_weight_quantized
 
 €
@@ -227,18 +227,18 @@ FD
 <":
 8stack_block_0_layer_1_EncDecAttention_q_weight_quantizedÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.bin€¬ÅI
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.binÀ¬ÕP
+@model_path/weights/weight.binÀ¬ÕI
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.bin€¬ÅP
 8stack_block_0_layer_1_EncDecAttention_k_weight_quantized
 
 €
@@ -248,18 +248,18 @@ FD
 <":
 8stack_block_0_layer_1_EncDecAttention_k_weight_quantizedÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.bin€½ÕI
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.binÀ½åP
+@model_path/weights/weight.binÀ½åI
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.bin€½ÕP
 8stack_block_0_layer_1_EncDecAttention_v_weight_quantized
 
 €
@@ -269,18 +269,18 @@ FD
 <":
 8stack_block_0_layer_1_EncDecAttention_v_weight_quantizedÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.bin€ÎåI
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.binÀÎõP
+@model_path/weights/weight.binÀÎõI
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.bin€ÎåP
 8stack_block_0_layer_1_EncDecAttention_o_weight_quantized
 
 €
@@ -302,18 +302,18 @@ FD
 +")
 'stack_block_0_layer_2_layer_norm_weightÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.binÀïõI
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.bin€ðµ	P
+@model_path/weights/weight.bin€ðµ	I
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.binÀïõP
 8stack_block_0_layer_2_DenseReluDense_wi_weight_quantized
 
 €
@@ -323,18 +323,18 @@ FD
 <":
 8stack_block_0_layer_2_DenseReluDense_wi_weight_quantizedÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.binÀ°¶	I
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.bin€±ö	P
+@model_path/weights/weight.bin€±ö	I
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.binÀ°¶	P
 8stack_block_0_layer_2_DenseReluDense_wo_weight_quantized
 
 €
@@ -356,19 +356,19 @@ FD
 +")
 'stack_block_1_layer_0_layer_norm_weightÕ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.bin€Òö	I
 scale@
 ><
 
 €
 *%
 @model_path/weights/weight.binÀÒ†
-N
+I
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.bin€Òö	N
 6stack_block_1_layer_0_SelfAttention_q_weight_quantized
 
 €
@@ -378,19 +378,19 @@ FD
 :"8
 6stack_block_1_layer_0_SelfAttention_q_weight_quantizedÕ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.bin€ã†
-I
 scale@
 ><
 
 €
 *%
 @model_path/weights/weight.binÀã–
+I
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.bin€ã†
 N
 6stack_block_1_layer_0_SelfAttention_k_weight_quantized
 
@@ -401,19 +401,19 @@ FD
 :"8
 6stack_block_1_layer_0_SelfAttention_k_weight_quantizedÕ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.bin€ô–
-I
 scale@
 ><
 
 €
 *%
 @model_path/weights/weight.binÀô¦
+I
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.bin€ô–
 N
 6stack_block_1_layer_0_SelfAttention_v_weight_quantized
 
@@ -424,19 +424,19 @@ FD
 :"8
 6stack_block_1_layer_0_SelfAttention_v_weight_quantizedÕ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.bin€…§
-I
 scale@
 ><
 
 €
 *%
 @model_path/weights/weight.binÀ…·
+I
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.bin€…§
 N
 6stack_block_1_layer_0_SelfAttention_o_weight_quantized
 
@@ -460,19 +460,19 @@ FD
 +")
 'stack_block_1_layer_1_layer_norm_weightÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.binÀ¦·
-I
 scale@
 ><
 
 €
 *%
 @model_path/weights/weight.bin€§Ç
+I
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.binÀ¦·
 P
 8stack_block_1_layer_1_EncDecAttention_q_weight_quantized
 
@@ -483,19 +483,19 @@ FD
 <":
 8stack_block_1_layer_1_EncDecAttention_q_weight_quantizedÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.binÀ·Ç
-I
 scale@
 ><
 
 €
 *%
 @model_path/weights/weight.bin€¸×
+I
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.binÀ·Ç
 P
 8stack_block_1_layer_1_EncDecAttention_k_weight_quantized
 
@@ -506,19 +506,19 @@ FD
 <":
 8stack_block_1_layer_1_EncDecAttention_k_weight_quantizedÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.binÀÈ×
-I
 scale@
 ><
 
 €
 *%
 @model_path/weights/weight.bin€Éç
+I
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.binÀÈ×
 P
 8stack_block_1_layer_1_EncDecAttention_v_weight_quantized
 
@@ -529,19 +529,19 @@ FD
 <":
 8stack_block_1_layer_1_EncDecAttention_v_weight_quantizedÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.binÀÙç
-I
 scale@
 ><
 
 €
 *%
 @model_path/weights/weight.bin€Ú÷
+I
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.binÀÙç
 P
 8stack_block_1_layer_1_EncDecAttention_o_weight_quantized
 
@@ -565,19 +565,19 @@ FD
 +")
 'stack_block_1_layer_2_layer_norm_weightÙ
 constexpr_blockwise_shift_scaleI
+scale@
+><
+
+€
+*%
+@model_path/weights/weight.binÀû·I
 dataA
 ?=
 
 €
 €*%
 @model_path/weights/weight.bin€û÷
-I
-scale@
-><
-
-€
-*%
-@model_path/weights/weight.binÀû·P
+P
 8stack_block_1_layer_2_DenseReluDense_wi_weight_quantized
 
 €
@@ -587,18 +587,18 @@ FD
 <":
 8stack_block_1_layer_2_DenseReluDense_wi_weight_quantizedÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.bin€¼¸I
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.binÀ¼øP
+@model_path/weights/weight.binÀ¼øI
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.bin€¼¸P
 8stack_block_1_layer_2_DenseReluDense_wo_weight_quantized
 
 €
@@ -620,18 +620,18 @@ FD
 +")
 'stack_block_2_layer_0_layer_norm_weightÕ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.binÀÝøI
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.bin€ÞˆN
+@model_path/weights/weight.bin€ÞˆI
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.binÀÝøN
 6stack_block_2_layer_0_SelfAttention_q_weight_quantized
 
 €
@@ -641,18 +641,18 @@ FD
 :"8
 6stack_block_2_layer_0_SelfAttention_q_weight_quantizedÕ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.binÀîˆI
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.bin€ï˜N
+@model_path/weights/weight.bin€ï˜I
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.binÀîˆN
 6stack_block_2_layer_0_SelfAttention_k_weight_quantized
 
 €
@@ -662,18 +662,18 @@ FD
 :"8
 6stack_block_2_layer_0_SelfAttention_k_weight_quantizedÕ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.binÀÿ˜I
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.bin€€©N
+@model_path/weights/weight.bin€€©I
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.binÀÿ˜N
 6stack_block_2_layer_0_SelfAttention_v_weight_quantized
 
 €
@@ -683,18 +683,18 @@ FD
 :"8
 6stack_block_2_layer_0_SelfAttention_v_weight_quantizedÕ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.binÀ©I
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.bin€‘¹N
+@model_path/weights/weight.bin€‘¹I
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.binÀ©N
 6stack_block_2_layer_0_SelfAttention_o_weight_quantized
 
 €
@@ -716,18 +716,18 @@ FD
 +")
 'stack_block_2_layer_1_layer_norm_weightÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.bin€²¹I
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.binÀ²ÉP
+@model_path/weights/weight.binÀ²ÉI
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.bin€²¹P
 8stack_block_2_layer_1_EncDecAttention_q_weight_quantized
 
 €
@@ -737,18 +737,18 @@ FD
 <":
 8stack_block_2_layer_1_EncDecAttention_q_weight_quantizedÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.bin€ÃÉI
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.binÀÃÙP
+@model_path/weights/weight.binÀÃÙI
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.bin€ÃÉP
 8stack_block_2_layer_1_EncDecAttention_k_weight_quantized
 
 €
@@ -758,18 +758,18 @@ FD
 <":
 8stack_block_2_layer_1_EncDecAttention_k_weight_quantizedÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.bin€ÔÙI
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.binÀÔéP
+@model_path/weights/weight.binÀÔéI
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.bin€ÔÙP
 8stack_block_2_layer_1_EncDecAttention_v_weight_quantized
 
 €
@@ -779,18 +779,18 @@ FD
 <":
 8stack_block_2_layer_1_EncDecAttention_v_weight_quantizedÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.bin€åéI
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.binÀåùP
+@model_path/weights/weight.binÀåùI
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.bin€åéP
 8stack_block_2_layer_1_EncDecAttention_o_weight_quantized
 
 €
@@ -812,18 +812,18 @@ FD
 +")
 'stack_block_2_layer_2_layer_norm_weightÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.binÀ†úI
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.bin€‡ºP
+@model_path/weights/weight.bin€‡ºI
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.binÀ†úP
 8stack_block_2_layer_2_DenseReluDense_wi_weight_quantized
 
 €
@@ -833,18 +833,18 @@ FD
 <":
 8stack_block_2_layer_2_DenseReluDense_wi_weight_quantizedÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.binÀÇºI
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.bin€ÈúP
+@model_path/weights/weight.bin€ÈúI
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.binÀÇºP
 8stack_block_2_layer_2_DenseReluDense_wo_weight_quantized
 
 €
@@ -866,18 +866,18 @@ FD
 +")
 'stack_block_3_layer_0_layer_norm_weightÕ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.bin€éúI
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.binÀéŠN
+@model_path/weights/weight.binÀéŠI
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.bin€éúN
 6stack_block_3_layer_0_SelfAttention_q_weight_quantized
 
 €
@@ -887,18 +887,18 @@ FD
 :"8
 6stack_block_3_layer_0_SelfAttention_q_weight_quantizedÕ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.bin€úŠI
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.binÀúšN
+@model_path/weights/weight.binÀúšI
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.bin€úŠN
 6stack_block_3_layer_0_SelfAttention_k_weight_quantized
 
 €
@@ -908,18 +908,18 @@ FD
 :"8
 6stack_block_3_layer_0_SelfAttention_k_weight_quantizedÕ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.bin€‹›I
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.binÀ‹«N
+@model_path/weights/weight.binÀ‹«I
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.bin€‹›N
 6stack_block_3_layer_0_SelfAttention_v_weight_quantized
 
 €
@@ -929,18 +929,18 @@ FD
 :"8
 6stack_block_3_layer_0_SelfAttention_v_weight_quantizedÕ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.bin€œ«I
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.binÀœ»N
+@model_path/weights/weight.binÀœ»I
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.bin€œ«N
 6stack_block_3_layer_0_SelfAttention_o_weight_quantized
 
 €
@@ -962,18 +962,18 @@ FD
 +")
 'stack_block_3_layer_1_layer_norm_weightÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.binÀ½»I
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.bin€¾ËP
+@model_path/weights/weight.bin€¾ËI
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.binÀ½»P
 8stack_block_3_layer_1_EncDecAttention_q_weight_quantized
 
 €
@@ -983,18 +983,18 @@ FD
 <":
 8stack_block_3_layer_1_EncDecAttention_q_weight_quantizedÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.binÀÎËI
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.bin€ÏÛP
+@model_path/weights/weight.bin€ÏÛI
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.binÀÎËP
 8stack_block_3_layer_1_EncDecAttention_k_weight_quantized
 
 €
@@ -1004,18 +1004,18 @@ FD
 <":
 8stack_block_3_layer_1_EncDecAttention_k_weight_quantizedÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.binÀßÛI
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.bin€àëP
+@model_path/weights/weight.bin€àëI
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.binÀßÛP
 8stack_block_3_layer_1_EncDecAttention_v_weight_quantized
 
 €
@@ -1025,18 +1025,18 @@ FD
 <":
 8stack_block_3_layer_1_EncDecAttention_v_weight_quantizedÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.binÀðëI
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.bin€ñûP
+@model_path/weights/weight.bin€ñûI
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.binÀðëP
 8stack_block_3_layer_1_EncDecAttention_o_weight_quantized
 
 €
@@ -1058,18 +1058,18 @@ FD
 +")
 'stack_block_3_layer_2_layer_norm_weightÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.bin€’üI
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.binÀ’¼P
+@model_path/weights/weight.binÀ’¼I
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.bin€’üP
 8stack_block_3_layer_2_DenseReluDense_wi_weight_quantized
 
 €
@@ -1079,18 +1079,18 @@ FD
 <":
 8stack_block_3_layer_2_DenseReluDense_wi_weight_quantizedÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.bin€Ó¼I
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.binÀÓüP
+@model_path/weights/weight.binÀÓüI
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.bin€Ó¼P
 8stack_block_3_layer_2_DenseReluDense_wo_weight_quantized
 
 €
@@ -1112,18 +1112,18 @@ FD
 +")
 'stack_block_4_layer_0_layer_norm_weightÕ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.binÀôüI
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.bin€õŒN
+@model_path/weights/weight.bin€õŒI
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.binÀôüN
 6stack_block_4_layer_0_SelfAttention_q_weight_quantized
 
 €
@@ -1133,18 +1133,18 @@ FD
 :"8
 6stack_block_4_layer_0_SelfAttention_q_weight_quantizedÕ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.binÀ…I
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.bin€†N
+@model_path/weights/weight.bin€†I
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.binÀ…N
 6stack_block_4_layer_0_SelfAttention_k_weight_quantized
 
 €
@@ -1154,18 +1154,18 @@ FD
 :"8
 6stack_block_4_layer_0_SelfAttention_k_weight_quantizedÕ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.binÀ–I
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.bin€—­N
+@model_path/weights/weight.bin€—­I
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.binÀ–N
 6stack_block_4_layer_0_SelfAttention_v_weight_quantized
 
 €
@@ -1175,18 +1175,18 @@ FD
 :"8
 6stack_block_4_layer_0_SelfAttention_v_weight_quantizedÕ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.binÀ§­I
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.bin€¨½N
+@model_path/weights/weight.bin€¨½I
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.binÀ§­N
 6stack_block_4_layer_0_SelfAttention_o_weight_quantized
 
 €
@@ -1208,18 +1208,18 @@ FD
 +")
 'stack_block_4_layer_1_layer_norm_weightÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.bin€É½I
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.binÀÉÍP
+@model_path/weights/weight.binÀÉÍI
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.bin€É½P
 8stack_block_4_layer_1_EncDecAttention_q_weight_quantized
 
 €
@@ -1229,18 +1229,18 @@ FD
 <":
 8stack_block_4_layer_1_EncDecAttention_q_weight_quantizedÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.bin€ÚÍI
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.binÀÚÝP
+@model_path/weights/weight.binÀÚÝI
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.bin€ÚÍP
 8stack_block_4_layer_1_EncDecAttention_k_weight_quantized
 
 €
@@ -1250,18 +1250,18 @@ FD
 <":
 8stack_block_4_layer_1_EncDecAttention_k_weight_quantizedÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.bin€ëÝI
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.binÀëíP
+@model_path/weights/weight.binÀëíI
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.bin€ëÝP
 8stack_block_4_layer_1_EncDecAttention_v_weight_quantized
 
 €
@@ -1271,18 +1271,18 @@ FD
 <":
 8stack_block_4_layer_1_EncDecAttention_v_weight_quantizedÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.bin€üíI
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.binÀüýP
+@model_path/weights/weight.binÀüýI
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.bin€üíP
 8stack_block_4_layer_1_EncDecAttention_o_weight_quantized
 
 €
@@ -1304,18 +1304,18 @@ FD
 +")
 'stack_block_4_layer_2_layer_norm_weightÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.binÀþI
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.bin€ž¾P
+@model_path/weights/weight.bin€ž¾I
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.binÀþP
 8stack_block_4_layer_2_DenseReluDense_wi_weight_quantized
 
 €
@@ -1325,18 +1325,18 @@ FD
 <":
 8stack_block_4_layer_2_DenseReluDense_wi_weight_quantizedÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.binÀÞ¾I
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.bin€ßþP
+@model_path/weights/weight.bin€ßþI
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.binÀÞ¾P
 8stack_block_4_layer_2_DenseReluDense_wo_weight_quantized
 
 €
@@ -1358,18 +1358,18 @@ FD
 +")
 'stack_block_5_layer_0_layer_norm_weightÕ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.bin€€ÿI
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.binÀ€N
+@model_path/weights/weight.binÀ€I
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.bin€€ÿN
 6stack_block_5_layer_0_SelfAttention_q_weight_quantized
 
 €
@@ -1379,18 +1379,18 @@ FD
 :"8
 6stack_block_5_layer_0_SelfAttention_q_weight_quantizedÕ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.bin€‘I
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.binÀ‘ŸN
+@model_path/weights/weight.binÀ‘ŸI
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.bin€‘N
 6stack_block_5_layer_0_SelfAttention_k_weight_quantized
 
 €
@@ -1400,18 +1400,18 @@ FD
 :"8
 6stack_block_5_layer_0_SelfAttention_k_weight_quantizedÕ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.bin€¢ŸI
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.binÀ¢¯N
+@model_path/weights/weight.binÀ¢¯I
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.bin€¢ŸN
 6stack_block_5_layer_0_SelfAttention_v_weight_quantized
 
 €
@@ -1421,18 +1421,18 @@ FD
 :"8
 6stack_block_5_layer_0_SelfAttention_v_weight_quantizedÕ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.bin€³¯I
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.binÀ³¿N
+@model_path/weights/weight.binÀ³¿I
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.bin€³¯N
 6stack_block_5_layer_0_SelfAttention_o_weight_quantized
 
 €
@@ -1454,18 +1454,18 @@ FD
 +")
 'stack_block_5_layer_1_layer_norm_weightÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.binÀÔ¿I
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.bin€ÕÏP
+@model_path/weights/weight.bin€ÕÏI
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.binÀÔ¿P
 8stack_block_5_layer_1_EncDecAttention_q_weight_quantized
 
 €
@@ -1475,18 +1475,18 @@ FD
 <":
 8stack_block_5_layer_1_EncDecAttention_q_weight_quantizedÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.binÀåÏI
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.bin€æßP
+@model_path/weights/weight.bin€æßI
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.binÀåÏP
 8stack_block_5_layer_1_EncDecAttention_k_weight_quantized
 
 €
@@ -1496,18 +1496,18 @@ FD
 <":
 8stack_block_5_layer_1_EncDecAttention_k_weight_quantizedÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.binÀößI
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.bin€÷ïP
+@model_path/weights/weight.bin€÷ïI
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.binÀößP
 8stack_block_5_layer_1_EncDecAttention_v_weight_quantized
 
 €
@@ -1517,18 +1517,18 @@ FD
 <":
 8stack_block_5_layer_1_EncDecAttention_v_weight_quantizedÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.binÀ‡ðI
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.bin€ˆ€P
+@model_path/weights/weight.bin€ˆ€I
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.binÀ‡ðP
 8stack_block_5_layer_1_EncDecAttention_o_weight_quantized
 
 €
@@ -1550,18 +1550,18 @@ FD
 +")
 'stack_block_5_layer_2_layer_norm_weightÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.bin€©€I
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.binÀ©ÀP
+@model_path/weights/weight.binÀ©ÀI
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.bin€©€P
 8stack_block_5_layer_2_DenseReluDense_wi_weight_quantized
 
 €
@@ -1571,18 +1571,18 @@ FD
 <":
 8stack_block_5_layer_2_DenseReluDense_wi_weight_quantizedÙ
 constexpr_blockwise_shift_scaleI
-dataA
-?=
-
-€
-€*%
-@model_path/weights/weight.bin€êÀI
 scale@
 ><
 
 €
 *%
-@model_path/weights/weight.binÀê€P
+@model_path/weights/weight.binÀê€I
+dataA
+?=
+
+€
+€*%
+@model_path/weights/weight.bin€êÀP
 8stack_block_5_layer_2_DenseReluDense_wo_weight_quantized
 
 €
@@ -1677,16 +1677,16 @@ FD
 
 	"
 add_0‘
-select
-cond
-
-greater_equal_0
+select
 b	
 
 add_0
 a
 
-decoder_input_ids
+decoder_input_ids
+cond
+
+greater_equal_0
 select_0
 
 
@@ -1750,17 +1750,17 @@ FD
 
 "	
 add_0_1
-select
-cond
-
-greater_equal_0_1
+select
 b
 	
 add_0_1
 a
 
 
-select_0 
+select_0
+cond
+
+greater_equal_0_1 
 
 select_0_1
 
@@ -1782,24 +1782,24 @@ select_0_1m
 
 "
 hidden_states_1_axis_0¶
-gather
-indices
-
-
-select_0_1:
+gather:
 validate_indices&
 $
-"hidden_states_1_validate_indices_0,
-x'
-%
-#stack_embed_tokens_weight_quantized.
+"hidden_states_1_validate_indices_0.
 
 batch_dims 
 
 hidden_states_1_batch_dims_0"
 axis
 
-hidden_states_1_axis_0,
+hidden_states_1_axis_0,
+x'
+%
+#stack_embed_tokens_weight_quantized
+indices
+
+
+select_0_1,
 hidden_states_1
 
 
@@ -2098,14 +2098,14 @@ variance_1"
 
 "
 op_92_epsilon_0z
-rsqrt
+rsqrt
+epsilon
+
+var_92_epsilon_0
 x
 
 
-var_91
-epsilon
-
-var_92_epsilon_0"
+var_91"
 var_92
 
 
@@ -2160,13 +2160,13 @@ variance_1"
 
 "
 linear_0_bias_0Ë
-linear
-bias
-
-linear_0_bias_0D
+linearD
 weight:
 8
-6stack_block_0_layer_0_SelfAttention_q_weight_quantized
+6stack_block_0_layer_0_SelfAttention_q_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 hidden_states_7$
@@ -2214,13 +2214,13 @@ variance_1"
 
 "
 op_108Ë
-linear
-bias
-
-linear_0_bias_0D
+linearD
 weight:
 8
-6stack_block_0_layer_0_SelfAttention_k_weight_quantized
+6stack_block_0_layer_0_SelfAttention_k_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 hidden_states_7$
@@ -2268,13 +2268,13 @@ variance_1"
 
 "
 op_115Ë
-linear
-bias
-
-linear_0_bias_0D
+linearD
 weight:
 8
-6stack_block_0_layer_0_SelfAttention_v_weight_quantized
+6stack_block_0_layer_0_SelfAttention_v_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 hidden_states_7$
@@ -2337,15 +2337,7 @@ variance_1"
 
 "
 value_1_perm_0Ÿ
-constexpr_blockwise_shift_scaleS
-dataK
-IG
-
-
-
-`
-`*%
-@model_path/weights/weight.bin€œ9
+constexpr_blockwise_shift_scale9
 scale0
 .,
 
@@ -2356,7 +2348,15 @@ IG
 
 
 
-±0L=;
+øßK=S
+dataK
+IG
+
+
+
+`
+`*%
+@model_path/weights/weight.bin€œ;
 position_bias_1_quantized
 
 
@@ -2419,13 +2419,13 @@ IG
 
 "
 transpose_49_perm_0“
-	transpose
-x
-	
-var_115
+	transpose
 perm
 
-transpose_49_perm_0.
+transpose_49_perm_0
+x
+	
+var_115.
 transpose_49
 
 
@@ -2436,13 +2436,13 @@ IG
 
 "
 transpose_118“
-	transpose
-x
-	
-var_108
+	transpose
 perm
 
-transpose_48_perm_0.
+transpose_48_perm_0
+x
+	
+var_108.
 transpose_48
 
 
@@ -2453,19 +2453,19 @@ IG
 
 "
 transpose_119Ó
-matmul
-y
-
-transpose_49
-x
-
-transpose_48(
+matmul(
 transpose_y
 
 var_158_transpose_y_0(
 transpose_x
 
-var_158_transpose_x_0)
+var_158_transpose_x_0
+y
+
+transpose_49
+x
+
+transpose_48)
 var_158
 
 
@@ -2551,13 +2551,13 @@ IG
 !
 "
 attn_output_1_transpose_y_0‰
-	transpose
-x
-	
-var_120
+	transpose
 perm
 
-value_1_perm_0)
+value_1_perm_0
+x
+	
+var_120)
 value_1
 
 
@@ -2568,19 +2568,19 @@ IG
 
 "
 transpose_117â
-matmul
-y
-	
-value_1
-x
-	
-input_5.
+matmul.
 transpose_y
 
 attn_output_1_transpose_y_0.
 transpose_x
 
-attn_output_1_transpose_x_0/
+attn_output_1_transpose_x_0
+y
+	
+value_1
+x
+	
+input_5/
 attn_output_1
 
 
@@ -2623,13 +2623,13 @@ IG
 
 "
 op_168
-	transpose
-x
-
-attn_output_1
+	transpose
 perm
 
-var_166_perm_0)
+var_166_perm_0
+x
+
+attn_output_1)
 var_166
 
 
@@ -2657,13 +2657,13 @@ IG
 
 "
 op_169Ã
-linear
-bias
-
-linear_0_bias_0D
+linearD
 weight:
 8
-6stack_block_0_layer_0_SelfAttention_o_weight_quantized
+6stack_block_0_layer_0_SelfAttention_o_weight_quantized
+bias
+
+linear_0_bias_0
 x
 	
 var_169$
@@ -2816,13 +2816,13 @@ variance_3#
 
 "
 op_190_epsilon_0~
-rsqrt
-x
-	
-var_189 
+rsqrt 
 epsilon
 
-var_190_epsilon_0#
+var_190_epsilon_0
+x
+	
+var_189#
 var_190
 
 
@@ -2865,13 +2865,13 @@ variance_3#
 
 "
 hidden_states_15Î
-linear
-bias
-
-linear_0_bias_0F
+linearF
 weight<
 :
-8stack_block_0_layer_1_EncDecAttention_q_weight_quantized
+8stack_block_0_layer_1_EncDecAttention_q_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 hidden_states_15$
@@ -2919,13 +2919,13 @@ variance_3#
 
 "
 op_205Ô
-linear
-bias
-
-linear_0_bias_0F
+linearF
 weight<
 :
-8stack_block_0_layer_1_EncDecAttention_k_weight_quantized
+8stack_block_0_layer_1_EncDecAttention_k_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 encoder_hidden_states%
@@ -2973,13 +2973,13 @@ variance_3#
 
 "
 op_212Ô
-linear
-bias
-
-linear_0_bias_0F
+linearF
 weight<
 :
-8stack_block_0_layer_1_EncDecAttention_v_weight_quantized
+8stack_block_0_layer_1_EncDecAttention_v_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 encoder_hidden_states%
@@ -3094,13 +3094,13 @@ variance_3#
 
 "
 transpose_51_perm_0”
-	transpose
-x
-	
-var_212
+	transpose
 perm
 
-transpose_51_perm_0/
+transpose_51_perm_0
+x
+	
+var_212/
 transpose_51
 
 
@@ -3111,13 +3111,13 @@ variance_3#
 
 "
 transpose_114“
-	transpose
-x
-	
-var_205
+	transpose
 perm
 
-transpose_50_perm_0.
+transpose_50_perm_0
+x
+	
+var_205.
 transpose_50
 
 
@@ -3128,19 +3128,19 @@ variance_3#
 
 "
 transpose_115Ô
-matmul
-y
-
-transpose_51
-x
-
-transpose_50(
+matmul(
 transpose_y
 
 var_223_transpose_y_0(
 transpose_x
 
-var_223_transpose_x_0*
+var_223_transpose_x_0
+y
+
+transpose_51
+x
+
+transpose_50*
 var_223
 
 
@@ -3212,13 +3212,13 @@ variance_3#
 !
 "
 attn_output_5_transpose_y_0Š
-	transpose
-x
-	
-var_217
+	transpose
 perm
 
-value_3_perm_0*
+value_3_perm_0
+x
+	
+var_217*
 value_3
 
 
@@ -3229,20 +3229,20 @@ variance_3#
 
 "
 transpose_113ã
-matmul
+matmul.
+transpose_y
+
+attn_output_5_transpose_y_0.
+transpose_x
+
+attn_output_5_transpose_x_0
 y
 	
 value_3
 x
 
 
-input_13.
-transpose_y
-
-attn_output_5_transpose_y_0.
-transpose_x
-
-attn_output_5_transpose_x_0/
+input_13/
 attn_output_5
 
 
@@ -3285,13 +3285,13 @@ variance_3#
 
 "
 op_233
-	transpose
-x
-
-attn_output_5
+	transpose
 perm
 
-var_231_perm_0)
+var_231_perm_0
+x
+
+attn_output_5)
 var_231
 
 
@@ -3319,13 +3319,13 @@ variance_3#
 
 "
 op_234Æ
-linear
-bias
-
-linear_0_bias_0F
+linearF
 weight<
 :
-8stack_block_0_layer_1_EncDecAttention_o_weight_quantized
+8stack_block_0_layer_1_EncDecAttention_o_weight_quantized
+bias
+
+linear_0_bias_0
 x
 	
 var_234%
@@ -3479,13 +3479,13 @@ variance_5#
 
 "
 op_255_epsilon_0~
-rsqrt
-x
-	
-var_254 
+rsqrt 
 epsilon
 
-var_255_epsilon_0#
+var_255_epsilon_0
+x
+	
+var_254#
 var_255
 
 
@@ -3541,13 +3541,13 @@ variance_5#
 
 "
 linear_8_bias_0Ç
-linear
-bias
-
-linear_8_bias_0F
+linearF
 weight<
 :
-8stack_block_0_layer_2_DenseReluDense_wi_weight_quantized
+8stack_block_0_layer_2_DenseReluDense_wi_weight_quantized
+bias
+
+linear_8_bias_0
 x
 
 
@@ -3577,13 +3577,13 @@ variance_5#
 "
 
 input_23Ç
-linear
-bias
-
-linear_0_bias_0F
+linearF
 weight<
 :
-8stack_block_0_layer_2_DenseReluDense_wo_weight_quantized
+8stack_block_0_layer_2_DenseReluDense_wo_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 
@@ -3751,13 +3751,13 @@ variance_7#
 
 "
 op_302_epsilon_0~
-rsqrt
-x
-	
-var_301 
+rsqrt 
 epsilon
 
-var_302_epsilon_0#
+var_302_epsilon_0
+x
+	
+var_301#
 var_302
 
 
@@ -3800,13 +3800,13 @@ variance_7#
 
 "
 hidden_states_29Í
-linear
-bias
-
-linear_0_bias_0D
+linearD
 weight:
 8
-6stack_block_1_layer_0_SelfAttention_q_weight_quantized
+6stack_block_1_layer_0_SelfAttention_q_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 hidden_states_29$
@@ -3853,13 +3853,13 @@ variance_7#
 
 "
 op_317Í
-linear
-bias
-
-linear_0_bias_0D
+linearD
 weight:
 8
-6stack_block_1_layer_0_SelfAttention_k_weight_quantized
+6stack_block_1_layer_0_SelfAttention_k_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 hidden_states_29$
@@ -3906,13 +3906,13 @@ variance_7#
 
 "
 op_324Í
-linear
-bias
-
-linear_0_bias_0D
+linearD
 weight:
 8
-6stack_block_1_layer_0_SelfAttention_v_weight_quantized
+6stack_block_1_layer_0_SelfAttention_v_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 hidden_states_29$
@@ -4026,13 +4026,13 @@ variance_7#
 
 "
 transpose_53_perm_0“
-	transpose
-x
-	
-var_324
+	transpose
 perm
 
-transpose_53_perm_0.
+transpose_53_perm_0
+x
+	
+var_324.
 transpose_53
 
 
@@ -4043,13 +4043,13 @@ variance_7#
 
 "
 transpose_110“
-	transpose
-x
-	
-var_317
+	transpose
 perm
 
-transpose_52_perm_0.
+transpose_52_perm_0
+x
+	
+var_317.
 transpose_52
 
 
@@ -4060,19 +4060,19 @@ variance_7#
 
 "
 transpose_111Ó
-matmul
-y
-
-transpose_53
-x
-
-transpose_52(
+matmul(
 transpose_y
 
 var_332_transpose_y_0(
 transpose_x
 
-var_332_transpose_x_0)
+var_332_transpose_x_0
+y
+
+transpose_53
+x
+
+transpose_52)
 var_332
 
 
@@ -4160,13 +4160,13 @@ variance_7#
 !
 "
 attn_output_9_transpose_y_0‰
-	transpose
-x
-	
-var_329
+	transpose
 perm
 
-value_5_perm_0)
+value_5_perm_0
+x
+	
+var_329)
 value_5
 
 
@@ -4177,20 +4177,20 @@ variance_7#
 
 "
 transpose_109ã
-matmul
+matmul.
+transpose_y
+
+attn_output_9_transpose_y_0.
+transpose_x
+
+attn_output_9_transpose_x_0
 y
 	
 value_5
 x
 
 
-input_31.
-transpose_y
-
-attn_output_9_transpose_y_0.
-transpose_x
-
-attn_output_9_transpose_x_0/
+input_31/
 attn_output_9
 
 
@@ -4233,13 +4233,13 @@ variance_7#
 
 "
 op_342
-	transpose
-x
-
-attn_output_9
+	transpose
 perm
 
-var_340_perm_0)
+var_340_perm_0
+x
+
+attn_output_9)
 var_340
 
 
@@ -4267,13 +4267,13 @@ variance_7#
 
 "
 op_343Å
-linear
-bias
-
-linear_0_bias_0D
+linearD
 weight:
 8
-6stack_block_1_layer_0_SelfAttention_o_weight_quantized
+6stack_block_1_layer_0_SelfAttention_o_weight_quantized
+bias
+
+linear_0_bias_0
 x
 	
 var_343%
@@ -4426,13 +4426,13 @@ variance_9#
 
 "
 op_358_epsilon_0~
-rsqrt
-x
-	
-var_357 
+rsqrt 
 epsilon
 
-var_358_epsilon_0#
+var_358_epsilon_0
+x
+	
+var_357#
 var_358
 
 
@@ -4475,13 +4475,13 @@ variance_9#
 
 "
 hidden_states_37Ï
-linear
-bias
-
-linear_0_bias_0F
+linearF
 weight<
 :
-8stack_block_1_layer_1_EncDecAttention_q_weight_quantized
+8stack_block_1_layer_1_EncDecAttention_q_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 hidden_states_37$
@@ -4528,13 +4528,13 @@ variance_9#
 
 "
 op_373Õ
-linear
-bias
-
-linear_0_bias_0F
+linearF
 weight<
 :
-8stack_block_1_layer_1_EncDecAttention_k_weight_quantized
+8stack_block_1_layer_1_EncDecAttention_k_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 encoder_hidden_states%
@@ -4581,13 +4581,13 @@ variance_9#
 
 "
 op_380Õ
-linear
-bias
-
-linear_0_bias_0F
+linearF
 weight<
 :
-8stack_block_1_layer_1_EncDecAttention_v_weight_quantized
+8stack_block_1_layer_1_EncDecAttention_v_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 encoder_hidden_states%
@@ -4701,13 +4701,13 @@ variance_9#
 
 "
 transpose_55_perm_0”
-	transpose
-x
-	
-var_380
+	transpose
 perm
 
-transpose_55_perm_0/
+transpose_55_perm_0
+x
+	
+var_380/
 transpose_55
 
 
@@ -4718,13 +4718,13 @@ variance_9#
 
 "
 transpose_106“
-	transpose
-x
-	
-var_373
+	transpose
 perm
 
-transpose_54_perm_0.
+transpose_54_perm_0
+x
+	
+var_373.
 transpose_54
 
 
@@ -4735,19 +4735,19 @@ variance_9#
 
 "
 transpose_107Ô
-matmul
-y
-
-transpose_55
-x
-
-transpose_54(
+matmul(
 transpose_y
 
 var_388_transpose_y_0(
 transpose_x
 
-var_388_transpose_x_0*
+var_388_transpose_x_0
+y
+
+transpose_55
+x
+
+transpose_54*
 var_388
 
 
@@ -4818,13 +4818,13 @@ variance_9#
 "
  "
 attn_output_13_transpose_y_0Š
-	transpose
-x
-	
-var_385
+	transpose
 perm
 
-value_7_perm_0*
+value_7_perm_0
+x
+	
+var_385*
 value_7
 
 
@@ -4835,20 +4835,20 @@ variance_9#
 
 "
 transpose_105ç
-matmul
+matmul/
+transpose_y 
+
+attn_output_13_transpose_y_0/
+transpose_x 
+
+attn_output_13_transpose_x_0
 y
 	
 value_7
 x
 
 
-input_39/
-transpose_y 
-
-attn_output_13_transpose_y_0/
-transpose_x 
-
-attn_output_13_transpose_x_00
+input_390
 attn_output_13
 
 
@@ -4891,13 +4891,13 @@ variance_9#
 
 "
 op_398
-	transpose
-x
-
-attn_output_13
+	transpose
 perm
 
-var_396_perm_0)
+var_396_perm_0
+x
+
+attn_output_13)
 var_396
 
 
@@ -4925,13 +4925,13 @@ variance_9#
 
 "
 op_399Ç
-linear
-bias
-
-linear_0_bias_0F
+linearF
 weight<
 :
-8stack_block_1_layer_1_EncDecAttention_o_weight_quantized
+8stack_block_1_layer_1_EncDecAttention_o_weight_quantized
+bias
+
+linear_0_bias_0
 x
 	
 var_399%
@@ -5081,13 +5081,13 @@ variance_9#
 
 "
 op_414_epsilon_0~
-rsqrt
-x
-	
-var_413 
+rsqrt 
 epsilon
 
-var_414_epsilon_0#
+var_414_epsilon_0
+x
+	
+var_413#
 var_414
 
 
@@ -5131,13 +5131,13 @@ variance_9#
 "
 
 input_45È
-linear
-bias
-
-linear_8_bias_0F
+linearF
 weight<
 :
-8stack_block_1_layer_2_DenseReluDense_wi_weight_quantized
+8stack_block_1_layer_2_DenseReluDense_wi_weight_quantized
+bias
+
+linear_8_bias_0
 x
 
 
@@ -5166,13 +5166,13 @@ variance_9#
 "
 
 input_49È
-linear
-bias
-
-linear_0_bias_0F
+linearF
 weight<
 :
-8stack_block_1_layer_2_DenseReluDense_wo_weight_quantized
+8stack_block_1_layer_2_DenseReluDense_wo_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 
@@ -5336,13 +5336,13 @@ variance_9#
 
 "
 op_457_epsilon_0~
-rsqrt
-x
-	
-var_456 
+rsqrt 
 epsilon
 
-var_457_epsilon_0#
+var_457_epsilon_0
+x
+	
+var_456#
 var_457
 
 
@@ -5385,13 +5385,13 @@ variance_9#
 
 "
 hidden_states_51Í
-linear
-bias
-
-linear_0_bias_0D
+linearD
 weight:
 8
-6stack_block_2_layer_0_SelfAttention_q_weight_quantized
+6stack_block_2_layer_0_SelfAttention_q_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 hidden_states_51$
@@ -5438,13 +5438,13 @@ variance_9#
 
 "
 op_472Í
-linear
-bias
-
-linear_0_bias_0D
+linearD
 weight:
 8
-6stack_block_2_layer_0_SelfAttention_k_weight_quantized
+6stack_block_2_layer_0_SelfAttention_k_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 hidden_states_51$
@@ -5491,13 +5491,13 @@ variance_9#
 
 "
 op_479Í
-linear
-bias
-
-linear_0_bias_0D
+linearD
 weight:
 8
-6stack_block_2_layer_0_SelfAttention_v_weight_quantized
+6stack_block_2_layer_0_SelfAttention_v_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 hidden_states_51$
@@ -5611,13 +5611,13 @@ variance_9#
 
 "
 transpose_57_perm_0“
-	transpose
-x
-	
-var_479
+	transpose
 perm
 
-transpose_57_perm_0.
+transpose_57_perm_0
+x
+	
+var_479.
 transpose_57
 
 
@@ -5628,13 +5628,13 @@ variance_9#
 
 "
 transpose_102“
-	transpose
-x
-	
-var_472
+	transpose
 perm
 
-transpose_56_perm_0.
+transpose_56_perm_0
+x
+	
+var_472.
 transpose_56
 
 
@@ -5645,19 +5645,19 @@ variance_9#
 
 "
 transpose_103Ó
-matmul
-y
-
-transpose_57
-x
-
-transpose_56(
+matmul(
 transpose_y
 
 var_487_transpose_y_0(
 transpose_x
 
-var_487_transpose_x_0)
+var_487_transpose_x_0
+y
+
+transpose_57
+x
+
+transpose_56)
 var_487
 
 
@@ -5745,13 +5745,13 @@ variance_9#
 "
  "
 attn_output_17_transpose_y_0‰
-	transpose
-x
-	
-var_484
+	transpose
 perm
 
-value_9_perm_0)
+value_9_perm_0
+x
+	
+var_484)
 value_9
 
 
@@ -5762,20 +5762,20 @@ variance_9#
 
 "
 transpose_101ç
-matmul
+matmul/
+transpose_y 
+
+attn_output_17_transpose_y_0/
+transpose_x 
+
+attn_output_17_transpose_x_0
 y
 	
 value_9
 x
 
 
-input_57/
-transpose_y 
-
-attn_output_17_transpose_y_0/
-transpose_x 
-
-attn_output_17_transpose_x_00
+input_570
 attn_output_17
 
 
@@ -5818,13 +5818,13 @@ variance_9#
 
 "
 op_497
-	transpose
-x
-
-attn_output_17
+	transpose
 perm
 
-var_495_perm_0)
+var_495_perm_0
+x
+
+attn_output_17)
 var_495
 
 
@@ -5852,13 +5852,13 @@ variance_9#
 
 "
 op_498Å
-linear
-bias
-
-linear_0_bias_0D
+linearD
 weight:
 8
-6stack_block_2_layer_0_SelfAttention_o_weight_quantized
+6stack_block_2_layer_0_SelfAttention_o_weight_quantized
+bias
+
+linear_0_bias_0
 x
 	
 var_498%
@@ -6008,13 +6008,13 @@ variance_9#
 
 "
 op_513_epsilon_0~
-rsqrt
-x
-	
-var_512 
+rsqrt 
 epsilon
 
-var_513_epsilon_0#
+var_513_epsilon_0
+x
+	
+var_512#
 var_513
 
 
@@ -6057,13 +6057,13 @@ variance_9#
 
 "
 hidden_states_59Ï
-linear
-bias
-
-linear_0_bias_0F
+linearF
 weight<
 :
-8stack_block_2_layer_1_EncDecAttention_q_weight_quantized
+8stack_block_2_layer_1_EncDecAttention_q_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 hidden_states_59$
@@ -6110,13 +6110,13 @@ variance_9#
 
 "
 op_528Õ
-linear
-bias
-
-linear_0_bias_0F
+linearF
 weight<
 :
-8stack_block_2_layer_1_EncDecAttention_k_weight_quantized
+8stack_block_2_layer_1_EncDecAttention_k_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 encoder_hidden_states%
@@ -6163,13 +6163,13 @@ variance_9#
 
 "
 op_535Õ
-linear
-bias
-
-linear_0_bias_0F
+linearF
 weight<
 :
-8stack_block_2_layer_1_EncDecAttention_v_weight_quantized
+8stack_block_2_layer_1_EncDecAttention_v_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 encoder_hidden_states%
@@ -6283,13 +6283,13 @@ variance_9#
 
 "
 transpose_59_perm_0“
-	transpose
-x
-	
-var_535
+	transpose
 perm
 
-transpose_59_perm_0/
+transpose_59_perm_0
+x
+	
+var_535/
 transpose_59
 
 
@@ -6300,13 +6300,13 @@ variance_9#
 
 "
 transpose_98’
-	transpose
-x
-	
-var_528
+	transpose
 perm
 
-transpose_58_perm_0.
+transpose_58_perm_0
+x
+	
+var_528.
 transpose_58
 
 
@@ -6317,19 +6317,19 @@ variance_9#
 
 "
 transpose_99Ô
-matmul
-y
-
-transpose_59
-x
-
-transpose_58(
+matmul(
 transpose_y
 
 var_543_transpose_y_0(
 transpose_x
 
-var_543_transpose_x_0*
+var_543_transpose_x_0
+y
+
+transpose_59
+x
+
+transpose_58*
 var_543
 
 
@@ -6400,13 +6400,13 @@ variance_9#
 "
  "
 attn_output_21_transpose_y_0‹
-	transpose
-x
-	
-var_540
+	transpose
 perm
 
-value_11_perm_0+
+value_11_perm_0
+x
+	
+var_540+
 value_11
 
 
@@ -6417,7 +6417,13 @@ variance_9#
 
 "
 transpose_97è
-matmul
+matmul/
+transpose_y 
+
+attn_output_21_transpose_y_0/
+transpose_x 
+
+attn_output_21_transpose_x_0
 y
 
 
@@ -6425,13 +6431,7 @@ variance_9#
 x
 
 
-input_65/
-transpose_y 
-
-attn_output_21_transpose_y_0/
-transpose_x 
-
-attn_output_21_transpose_x_00
+input_650
 attn_output_21
 
 
@@ -6474,13 +6474,13 @@ variance_9#
 
 "
 op_553
-	transpose
-x
-
-attn_output_21
+	transpose
 perm
 
-var_551_perm_0)
+var_551_perm_0
+x
+
+attn_output_21)
 var_551
 
 
@@ -6508,13 +6508,13 @@ variance_9#
 
 "
 op_554Ç
-linear
-bias
-
-linear_0_bias_0F
+linearF
 weight<
 :
-8stack_block_2_layer_1_EncDecAttention_o_weight_quantized
+8stack_block_2_layer_1_EncDecAttention_o_weight_quantized
+bias
+
+linear_0_bias_0
 x
 	
 var_554%
@@ -6664,13 +6664,13 @@ variance_9#
 
 "
 op_569_epsilon_0~
-rsqrt
-x
-	
-var_568 
+rsqrt 
 epsilon
 
-var_569_epsilon_0#
+var_569_epsilon_0
+x
+	
+var_568#
 var_569
 
 
@@ -6714,13 +6714,13 @@ variance_9#
 "
 
 input_71È
-linear
-bias
-
-linear_8_bias_0F
+linearF
 weight<
 :
-8stack_block_2_layer_2_DenseReluDense_wi_weight_quantized
+8stack_block_2_layer_2_DenseReluDense_wi_weight_quantized
+bias
+
+linear_8_bias_0
 x
 
 
@@ -6749,13 +6749,13 @@ variance_9#
 "
 
 input_75È
-linear
-bias
-
-linear_0_bias_0F
+linearF
 weight<
 :
-8stack_block_2_layer_2_DenseReluDense_wo_weight_quantized
+8stack_block_2_layer_2_DenseReluDense_wo_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 
@@ -6919,13 +6919,13 @@ variance_9#
 
 "
 op_612_epsilon_0~
-rsqrt
-x
-	
-var_611 
+rsqrt 
 epsilon
 
-var_612_epsilon_0#
+var_612_epsilon_0
+x
+	
+var_611#
 var_612
 
 
@@ -6968,13 +6968,13 @@ variance_9#
 
 "
 hidden_states_73Í
-linear
-bias
-
-linear_0_bias_0D
+linearD
 weight:
 8
-6stack_block_3_layer_0_SelfAttention_q_weight_quantized
+6stack_block_3_layer_0_SelfAttention_q_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 hidden_states_73$
@@ -7021,13 +7021,13 @@ variance_9#
 
 "
 op_627Í
-linear
-bias
-
-linear_0_bias_0D
+linearD
 weight:
 8
-6stack_block_3_layer_0_SelfAttention_k_weight_quantized
+6stack_block_3_layer_0_SelfAttention_k_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 hidden_states_73$
@@ -7074,13 +7074,13 @@ variance_9#
 
 "
 op_634Í
-linear
-bias
-
-linear_0_bias_0D
+linearD
 weight:
 8
-6stack_block_3_layer_0_SelfAttention_v_weight_quantized
+6stack_block_3_layer_0_SelfAttention_v_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 hidden_states_73$
@@ -7194,13 +7194,13 @@ variance_9#
 
 "
 transpose_61_perm_0’
-	transpose
-x
-	
-var_634
+	transpose
 perm
 
-transpose_61_perm_0.
+transpose_61_perm_0
+x
+	
+var_634.
 transpose_61
 
 
@@ -7211,13 +7211,13 @@ variance_9#
 
 "
 transpose_94’
-	transpose
-x
-	
-var_627
+	transpose
 perm
 
-transpose_60_perm_0.
+transpose_60_perm_0
+x
+	
+var_627.
 transpose_60
 
 
@@ -7228,19 +7228,19 @@ variance_9#
 
 "
 transpose_95Ó
-matmul
-y
-
-transpose_61
-x
-
-transpose_60(
+matmul(
 transpose_y
 
 var_642_transpose_y_0(
 transpose_x
 
-var_642_transpose_x_0)
+var_642_transpose_x_0
+y
+
+transpose_61
+x
+
+transpose_60)
 var_642
 
 
@@ -7328,13 +7328,13 @@ variance_9#
 "
  "
 attn_output_25_transpose_y_0Š
-	transpose
-x
-	
-var_639
+	transpose
 perm
 
-value_13_perm_0*
+value_13_perm_0
+x
+	
+var_639*
 value_13
 
 
@@ -7345,7 +7345,13 @@ variance_9#
 
 "
 transpose_93è
-matmul
+matmul/
+transpose_y 
+
+attn_output_25_transpose_y_0/
+transpose_x 
+
+attn_output_25_transpose_x_0
 y
 
 
@@ -7353,13 +7359,7 @@ variance_9#
 x
 
 
-input_83/
-transpose_y 
-
-attn_output_25_transpose_y_0/
-transpose_x 
-
-attn_output_25_transpose_x_00
+input_830
 attn_output_25
 
 
@@ -7402,13 +7402,13 @@ variance_9#
 
 "
 op_652
-	transpose
-x
-
-attn_output_25
+	transpose
 perm
 
-var_650_perm_0)
+var_650_perm_0
+x
+
+attn_output_25)
 var_650
 
 
@@ -7436,13 +7436,13 @@ variance_9#
 
 "
 op_653Å
-linear
-bias
-
-linear_0_bias_0D
+linearD
 weight:
 8
-6stack_block_3_layer_0_SelfAttention_o_weight_quantized
+6stack_block_3_layer_0_SelfAttention_o_weight_quantized
+bias
+
+linear_0_bias_0
 x
 	
 var_653%
@@ -7592,13 +7592,13 @@ variance_9#
 
 "
 op_668_epsilon_0~
-rsqrt
-x
-	
-var_667 
+rsqrt 
 epsilon
 
-var_668_epsilon_0#
+var_668_epsilon_0
+x
+	
+var_667#
 var_668
 
 
@@ -7641,13 +7641,13 @@ variance_9#
 
 "
 hidden_states_81Ï
-linear
-bias
-
-linear_0_bias_0F
+linearF
 weight<
 :
-8stack_block_3_layer_1_EncDecAttention_q_weight_quantized
+8stack_block_3_layer_1_EncDecAttention_q_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 hidden_states_81$
@@ -7694,13 +7694,13 @@ variance_9#
 
 "
 op_683Õ
-linear
-bias
-
-linear_0_bias_0F
+linearF
 weight<
 :
-8stack_block_3_layer_1_EncDecAttention_k_weight_quantized
+8stack_block_3_layer_1_EncDecAttention_k_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 encoder_hidden_states%
@@ -7747,13 +7747,13 @@ variance_9#
 
 "
 op_690Õ
-linear
-bias
-
-linear_0_bias_0F
+linearF
 weight<
 :
-8stack_block_3_layer_1_EncDecAttention_v_weight_quantized
+8stack_block_3_layer_1_EncDecAttention_v_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 encoder_hidden_states%
@@ -7867,13 +7867,13 @@ variance_9#
 
 "
 transpose_63_perm_0“
-	transpose
-x
-	
-var_690
+	transpose
 perm
 
-transpose_63_perm_0/
+transpose_63_perm_0
+x
+	
+var_690/
 transpose_63
 
 
@@ -7884,13 +7884,13 @@ variance_9#
 
 "
 transpose_90’
-	transpose
-x
-	
-var_683
+	transpose
 perm
 
-transpose_62_perm_0.
+transpose_62_perm_0
+x
+	
+var_683.
 transpose_62
 
 
@@ -7901,19 +7901,19 @@ variance_9#
 
 "
 transpose_91Ô
-matmul
-y
-
-transpose_63
-x
-
-transpose_62(
+matmul(
 transpose_y
 
 var_698_transpose_y_0(
 transpose_x
 
-var_698_transpose_x_0*
+var_698_transpose_x_0
+y
+
+transpose_63
+x
+
+transpose_62*
 var_698
 
 
@@ -7984,13 +7984,13 @@ variance_9#
 "
  "
 attn_output_29_transpose_y_0‹
-	transpose
-x
-	
-var_695
+	transpose
 perm
 
-value_15_perm_0+
+value_15_perm_0
+x
+	
+var_695+
 value_15
 
 
@@ -8001,7 +8001,13 @@ variance_9#
 
 "
 transpose_89è
-matmul
+matmul/
+transpose_y 
+
+attn_output_29_transpose_y_0/
+transpose_x 
+
+attn_output_29_transpose_x_0
 y
 
 
@@ -8009,13 +8015,7 @@ variance_9#
 x
 
 
-input_91/
-transpose_y 
-
-attn_output_29_transpose_y_0/
-transpose_x 
-
-attn_output_29_transpose_x_00
+input_910
 attn_output_29
 
 
@@ -8058,13 +8058,13 @@ variance_9#
 
 "
 op_708
-	transpose
-x
-
-attn_output_29
+	transpose
 perm
 
-var_706_perm_0)
+var_706_perm_0
+x
+
+attn_output_29)
 var_706
 
 
@@ -8092,13 +8092,13 @@ variance_9#
 
 "
 op_709Ç
-linear
-bias
-
-linear_0_bias_0F
+linearF
 weight<
 :
-8stack_block_3_layer_1_EncDecAttention_o_weight_quantized
+8stack_block_3_layer_1_EncDecAttention_o_weight_quantized
+bias
+
+linear_0_bias_0
 x
 	
 var_709%
@@ -8248,13 +8248,13 @@ variance_9#
 
 "
 op_724_epsilon_0~
-rsqrt
-x
-	
-var_723 
+rsqrt 
 epsilon
 
-var_724_epsilon_0#
+var_724_epsilon_0
+x
+	
+var_723#
 var_724
 
 
@@ -8298,13 +8298,13 @@ variance_9#
 "
 
 input_97È
-linear
-bias
-
-linear_8_bias_0F
+linearF
 weight<
 :
-8stack_block_3_layer_2_DenseReluDense_wi_weight_quantized
+8stack_block_3_layer_2_DenseReluDense_wi_weight_quantized
+bias
+
+linear_8_bias_0
 x
 
 
@@ -8332,13 +8332,13 @@ variance_9#
 
 "
 	input_101Ê
-linear
-bias
-
-linear_0_bias_0F
+linearF
 weight<
 :
-8stack_block_3_layer_2_DenseReluDense_wo_weight_quantized
+8stack_block_3_layer_2_DenseReluDense_wo_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 	input_101&
@@ -8500,13 +8500,13 @@ variance_9#
 
 "
 op_767_epsilon_0~
-rsqrt
-x
-	
-var_766 
+rsqrt 
 epsilon
 
-var_767_epsilon_0#
+var_767_epsilon_0
+x
+	
+var_766#
 var_767
 
 
@@ -8549,13 +8549,13 @@ variance_9#
 
 "
 hidden_states_95Í
-linear
-bias
-
-linear_0_bias_0D
+linearD
 weight:
 8
-6stack_block_4_layer_0_SelfAttention_q_weight_quantized
+6stack_block_4_layer_0_SelfAttention_q_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 hidden_states_95$
@@ -8602,13 +8602,13 @@ variance_9#
 
 "
 op_782Í
-linear
-bias
-
-linear_0_bias_0D
+linearD
 weight:
 8
-6stack_block_4_layer_0_SelfAttention_k_weight_quantized
+6stack_block_4_layer_0_SelfAttention_k_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 hidden_states_95$
@@ -8655,13 +8655,13 @@ variance_9#
 
 "
 op_789Í
-linear
-bias
-
-linear_0_bias_0D
+linearD
 weight:
 8
-6stack_block_4_layer_0_SelfAttention_v_weight_quantized
+6stack_block_4_layer_0_SelfAttention_v_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 hidden_states_95$
@@ -8775,13 +8775,13 @@ variance_9#
 
 "
 transpose_65_perm_0’
-	transpose
-x
-	
-var_789
+	transpose
 perm
 
-transpose_65_perm_0.
+transpose_65_perm_0
+x
+	
+var_789.
 transpose_65
 
 
@@ -8792,13 +8792,13 @@ variance_9#
 
 "
 transpose_86’
-	transpose
-x
-	
-var_782
+	transpose
 perm
 
-transpose_64_perm_0.
+transpose_64_perm_0
+x
+	
+var_782.
 transpose_64
 
 
@@ -8809,19 +8809,19 @@ variance_9#
 
 "
 transpose_87Ó
-matmul
-y
-
-transpose_65
-x
-
-transpose_64(
+matmul(
 transpose_y
 
 var_797_transpose_y_0(
 transpose_x
 
-var_797_transpose_x_0)
+var_797_transpose_x_0
+y
+
+transpose_65
+x
+
+transpose_64)
 var_797
 
 
@@ -8906,13 +8906,13 @@ variance_9#
 "
  "
 attn_output_33_transpose_y_0Š
-	transpose
-x
-	
-var_794
+	transpose
 perm
 
-value_17_perm_0*
+value_17_perm_0
+x
+	
+var_794*
 value_17
 
 
@@ -8923,20 +8923,20 @@ variance_9#
 
 "
 transpose_85é
-matmul
+matmul/
+transpose_y 
+
+attn_output_33_transpose_y_0/
+transpose_x 
+
+attn_output_33_transpose_x_0
 y
 
 
 value_17
 x
 
-	input_109/
-transpose_y 
-
-attn_output_33_transpose_y_0/
-transpose_x 
-
-attn_output_33_transpose_x_00
+	input_1090
 attn_output_33
 
 
@@ -8979,13 +8979,13 @@ variance_9#
 
 "
 op_807
-	transpose
-x
-
-attn_output_33
+	transpose
 perm
 
-var_805_perm_0)
+var_805_perm_0
+x
+
+attn_output_33)
 var_805
 
 
@@ -9013,13 +9013,13 @@ variance_9#
 
 "
 op_808Æ
-linear
-bias
-
-linear_0_bias_0D
+linearD
 weight:
 8
-6stack_block_4_layer_0_SelfAttention_o_weight_quantized
+6stack_block_4_layer_0_SelfAttention_o_weight_quantized
+bias
+
+linear_0_bias_0
 x
 	
 var_808&
@@ -9168,13 +9168,13 @@ variance_9#
 
 "
 op_823_epsilon_0~
-rsqrt
-x
-	
-var_822 
+rsqrt 
 epsilon
 
-var_823_epsilon_0#
+var_823_epsilon_0
+x
+	
+var_822#
 var_823
 
 
@@ -9217,13 +9217,13 @@ variance_9#
 
 "
 hidden_states_103Ð
-linear
-bias
-
-linear_0_bias_0F
+linearF
 weight<
 :
-8stack_block_4_layer_1_EncDecAttention_q_weight_quantized
+8stack_block_4_layer_1_EncDecAttention_q_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 hidden_states_103$
@@ -9270,13 +9270,13 @@ variance_9#
 
 "
 op_838Õ
-linear
-bias
-
-linear_0_bias_0F
+linearF
 weight<
 :
-8stack_block_4_layer_1_EncDecAttention_k_weight_quantized
+8stack_block_4_layer_1_EncDecAttention_k_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 encoder_hidden_states%
@@ -9323,13 +9323,13 @@ variance_9#
 
 "
 op_845Õ
-linear
-bias
-
-linear_0_bias_0F
+linearF
 weight<
 :
-8stack_block_4_layer_1_EncDecAttention_v_weight_quantized
+8stack_block_4_layer_1_EncDecAttention_v_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 encoder_hidden_states%
@@ -9443,13 +9443,13 @@ variance_9#
 
 "
 transpose_67_perm_0“
-	transpose
-x
-	
-var_845
+	transpose
 perm
 
-transpose_67_perm_0/
+transpose_67_perm_0
+x
+	
+var_845/
 transpose_67
 
 
@@ -9460,13 +9460,13 @@ variance_9#
 
 "
 transpose_82’
-	transpose
-x
-	
-var_838
+	transpose
 perm
 
-transpose_66_perm_0.
+transpose_66_perm_0
+x
+	
+var_838.
 transpose_66
 
 
@@ -9477,19 +9477,19 @@ variance_9#
 
 "
 transpose_83Ô
-matmul
-y
-
-transpose_67
-x
-
-transpose_66(
+matmul(
 transpose_y
 
 var_853_transpose_y_0(
 transpose_x
 
-var_853_transpose_x_0*
+var_853_transpose_x_0
+y
+
+transpose_67
+x
+
+transpose_66*
 var_853
 
 
@@ -9557,13 +9557,13 @@ variance_9#
 "
  "
 attn_output_37_transpose_y_0‹
-	transpose
-x
-	
-var_850
+	transpose
 perm
 
-value_19_perm_0+
+value_19_perm_0
+x
+	
+var_850+
 value_19
 
 
@@ -9574,20 +9574,20 @@ variance_9#
 
 "
 transpose_81é
-matmul
+matmul/
+transpose_y 
+
+attn_output_37_transpose_y_0/
+transpose_x 
+
+attn_output_37_transpose_x_0
 y
 
 
 value_19
 x
 
-	input_117/
-transpose_y 
-
-attn_output_37_transpose_y_0/
-transpose_x 
-
-attn_output_37_transpose_x_00
+	input_1170
 attn_output_37
 
 
@@ -9630,13 +9630,13 @@ variance_9#
 
 "
 op_863
-	transpose
-x
-
-attn_output_37
+	transpose
 perm
 
-var_861_perm_0)
+var_861_perm_0
+x
+
+attn_output_37)
 var_861
 
 
@@ -9664,13 +9664,13 @@ variance_9#
 
 "
 op_864È
-linear
-bias
-
-linear_0_bias_0F
+linearF
 weight<
 :
-8stack_block_4_layer_1_EncDecAttention_o_weight_quantized
+8stack_block_4_layer_1_EncDecAttention_o_weight_quantized
+bias
+
+linear_0_bias_0
 x
 	
 var_864&
@@ -9819,13 +9819,13 @@ variance_9#
 
 "
 op_879_epsilon_0~
-rsqrt
-x
-	
-var_878 
+rsqrt 
 epsilon
 
-var_879_epsilon_0#
+var_879_epsilon_0
+x
+	
+var_878#
 var_879
 
 
@@ -9868,13 +9868,13 @@ variance_9#
 
 "
 	input_123Ê
-linear
-bias
-
-linear_8_bias_0F
+linearF
 weight<
 :
-8stack_block_4_layer_2_DenseReluDense_wi_weight_quantized
+8stack_block_4_layer_2_DenseReluDense_wi_weight_quantized
+bias
+
+linear_8_bias_0
 x
 
 	input_123&
@@ -9900,13 +9900,13 @@ variance_9#
 
 "
 	input_127Ê
-linear
-bias
-
-linear_0_bias_0F
+linearF
 weight<
 :
-8stack_block_4_layer_2_DenseReluDense_wo_weight_quantized
+8stack_block_4_layer_2_DenseReluDense_wo_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 	input_127&
@@ -10068,13 +10068,13 @@ variance_9#
 
 "
 op_922_epsilon_0~
-rsqrt
-x
-	
-var_921 
+rsqrt 
 epsilon
 
-var_922_epsilon_0#
+var_922_epsilon_0
+x
+	
+var_921#
 var_922
 
 
@@ -10117,13 +10117,13 @@ variance_9#
 
 "
 hidden_states_117Î
-linear
-bias
-
-linear_0_bias_0D
+linearD
 weight:
 8
-6stack_block_5_layer_0_SelfAttention_q_weight_quantized
+6stack_block_5_layer_0_SelfAttention_q_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 hidden_states_117$
@@ -10170,13 +10170,13 @@ variance_9#
 
 "
 op_937Î
-linear
-bias
-
-linear_0_bias_0D
+linearD
 weight:
 8
-6stack_block_5_layer_0_SelfAttention_k_weight_quantized
+6stack_block_5_layer_0_SelfAttention_k_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 hidden_states_117$
@@ -10223,13 +10223,13 @@ variance_9#
 
 "
 op_944Î
-linear
-bias
-
-linear_0_bias_0D
+linearD
 weight:
 8
-6stack_block_5_layer_0_SelfAttention_v_weight_quantized
+6stack_block_5_layer_0_SelfAttention_v_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 hidden_states_117$
@@ -10343,13 +10343,13 @@ variance_9#
 
 "
 transpose_69_perm_0’
-	transpose
-x
-	
-var_944
+	transpose
 perm
 
-transpose_69_perm_0.
+transpose_69_perm_0
+x
+	
+var_944.
 transpose_69
 
 
@@ -10360,13 +10360,13 @@ variance_9#
 
 "
 transpose_78’
-	transpose
-x
-	
-var_937
+	transpose
 perm
 
-transpose_68_perm_0.
+transpose_68_perm_0
+x
+	
+var_937.
 transpose_68
 
 
@@ -10377,19 +10377,19 @@ variance_9#
 
 "
 transpose_79Ó
-matmul
-y
-
-transpose_69
-x
-
-transpose_68(
+matmul(
 transpose_y
 
 var_952_transpose_y_0(
 transpose_x
 
-var_952_transpose_x_0)
+var_952_transpose_x_0
+y
+
+transpose_69
+x
+
+transpose_68)
 var_952
 
 
@@ -10474,13 +10474,13 @@ variance_9#
 "
  "
 attn_output_41_transpose_y_0Š
-	transpose
-x
-	
-var_949
+	transpose
 perm
 
-value_21_perm_0*
+value_21_perm_0
+x
+	
+var_949*
 value_21
 
 
@@ -10491,20 +10491,20 @@ variance_9#
 
 "
 transpose_77é
-matmul
+matmul/
+transpose_y 
+
+attn_output_41_transpose_y_0/
+transpose_x 
+
+attn_output_41_transpose_x_0
 y
 
 
 value_21
 x
 
-	input_135/
-transpose_y 
-
-attn_output_41_transpose_y_0/
-transpose_x 
-
-attn_output_41_transpose_x_00
+	input_1350
 attn_output_41
 
 
@@ -10547,13 +10547,13 @@ variance_9#
 
 "
 op_962
-	transpose
-x
-
-attn_output_41
+	transpose
 perm
 
-var_960_perm_0)
+var_960_perm_0
+x
+
+attn_output_41)
 var_960
 
 
@@ -10581,13 +10581,13 @@ variance_9#
 
 "
 op_963Æ
-linear
-bias
-
-linear_0_bias_0D
+linearD
 weight:
 8
-6stack_block_5_layer_0_SelfAttention_o_weight_quantized
+6stack_block_5_layer_0_SelfAttention_o_weight_quantized
+bias
+
+linear_0_bias_0
 x
 	
 var_963&
@@ -10736,13 +10736,13 @@ variance_9#
 
 "
 op_978_epsilon_0~
-rsqrt
-x
-	
-var_977 
+rsqrt 
 epsilon
 
-var_978_epsilon_0#
+var_978_epsilon_0
+x
+	
+var_977#
 var_978
 
 
@@ -10785,13 +10785,13 @@ variance_9#
 
 "
 hidden_states_125Ð
-linear
-bias
-
-linear_0_bias_0F
+linearF
 weight<
 :
-8stack_block_5_layer_1_EncDecAttention_q_weight_quantized
+8stack_block_5_layer_1_EncDecAttention_q_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 hidden_states_125$
@@ -10838,13 +10838,13 @@ variance_9#
 
 "
 op_993Õ
-linear
-bias
-
-linear_0_bias_0F
+linearF
 weight<
 :
-8stack_block_5_layer_1_EncDecAttention_k_weight_quantized
+8stack_block_5_layer_1_EncDecAttention_k_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 encoder_hidden_states%
@@ -10890,13 +10890,13 @@ variance_9#
 
 "	
 op_1000Ö
-linear
-bias
-
-linear_0_bias_0F
+linearF
 weight<
 :
-8stack_block_5_layer_1_EncDecAttention_v_weight_quantized
+8stack_block_5_layer_1_EncDecAttention_v_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 encoder_hidden_states&
@@ -11010,14 +11010,14 @@ variance_9#
 
 "
 transpose_71_perm_0”
-	transpose
+	transpose
+perm
+
+transpose_71_perm_0
 x
 
 
-var_1000
-perm
-
-transpose_71_perm_0/
+var_1000/
 transpose_71
 
 
@@ -11028,13 +11028,13 @@ variance_9#
 
 "
 transpose_74’
-	transpose
-x
-	
-var_993
+	transpose
 perm
 
-transpose_70_perm_0.
+transpose_70_perm_0
+x
+	
+var_993.
 transpose_70
 
 
@@ -11045,19 +11045,19 @@ variance_9#
 
 "
 transpose_75Ø
-matmul
-y
-
-transpose_71
-x
-
-transpose_70)
+matmul)
 transpose_y
 
 var_1008_transpose_y_0)
 transpose_x
 
-var_1008_transpose_x_0+
+var_1008_transpose_x_0
+y
+
+transpose_71
+x
+
+transpose_70+
 var_1008
 
 
@@ -11125,14 +11125,14 @@ variance_9#
 "
  "
 attn_output_45_transpose_y_0†
-	transpose
+	transpose
+perm
+
+value_perm_0
 x
 
 
-var_1005
-perm
-
-value_perm_0(
+var_1005(
 value
 
 
@@ -11143,19 +11143,19 @@ variance_9#
 
 "
 transpose_73æ
-matmul
-y	
-
-value
-x
-
-	input_143/
+matmul/
 transpose_y 
 
 attn_output_45_transpose_y_0/
 transpose_x 
 
-attn_output_45_transpose_x_00
+attn_output_45_transpose_x_0
+y	
+
+value
+x
+
+	input_1430
 attn_output_45
 
 
@@ -11197,13 +11197,13 @@ variance_9#
 
 "	
 op_1018‘
-	transpose
-x
-
-attn_output_45
+	transpose
 perm
 
-var_1016_perm_0*
+var_1016_perm_0
+x
+
+attn_output_45*
 var_1016
 
 
@@ -11232,13 +11232,13 @@ variance_9#
 
 "	
 op_1019É
-linear
-bias
-
-linear_0_bias_0F
+linearF
 weight<
 :
-8stack_block_5_layer_1_EncDecAttention_o_weight_quantized
+8stack_block_5_layer_1_EncDecAttention_o_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 
@@ -11387,14 +11387,14 @@ variance_9#
 
 "
 op_1034_epsilon_0‚
-rsqrt
+rsqrt!
+epsilon
+
+var_1034_epsilon_0
 x
 
 
-var_1033!
-epsilon
-
-var_1034_epsilon_0$
+var_1033$
 var_1034
 
 
@@ -11437,13 +11437,13 @@ variance_9#
 
 "
 	input_149Ê
-linear
-bias
-
-linear_8_bias_0F
+linearF
 weight<
 :
-8stack_block_5_layer_2_DenseReluDense_wi_weight_quantized
+8stack_block_5_layer_2_DenseReluDense_wi_weight_quantized
+bias
+
+linear_8_bias_0
 x
 
 	input_149&
@@ -11469,13 +11469,13 @@ variance_9#
 
 "
 	input_153Ê
-linear
-bias
-
-linear_0_bias_0F
+linearF
 weight<
 :
-8stack_block_5_layer_2_DenseReluDense_wo_weight_quantized
+8stack_block_5_layer_2_DenseReluDense_wo_weight_quantized
+bias
+
+linear_0_bias_0
 x
 
 	input_153&
@@ -11625,14 +11625,14 @@ variance_9#
 
 "
 op_1064_epsilon_0‚
-rsqrt
+rsqrt!
+epsilon
+
+var_1064_epsilon_0
 x
 
 
-var_1063!
-epsilon
-
-var_1064_epsilon_0$
+var_1063$
 var_1064
 
 
@@ -11752,17 +11752,17 @@ variance_9#
 
 	"
 add_1‚
-select
-cond
-
-greater_equal_1
+select
 b	
 
 add_1
 a
 
 
-position
+position
+cond
+
+greater_equal_1
 select_1
 
 
@@ -11826,17 +11826,17 @@ variance_9#
 
 "	
 add_1_1Š
-select
-cond
-
-greater_equal_1_1
+select
 b
 	
 add_1_1
 a
 
 
-select_1
+select_1
+cond
+
+greater_equal_1_1
 
 select_1_1
 
@@ -11858,25 +11858,25 @@ select_1_1]
 
 "
 op_1068_axis_0ó
-gather
-indices
-
-
-select_1_13
+gather3
 validate_indices
 
-var_1068_validate_indices_0
-x
-
-
-hidden'
+var_1068_validate_indices_0'
 
 batch_dims
 
 var_1068_batch_dims_0
 axis
 
-op_1068_axis_0$
+op_1068_axis_0
+x
+
+
+hidden
+indices
+
+
+select_1_1$
 op_1068
 
 
@@ -11928,13 +11928,13 @@ batch_dims
 
 "
 linear_60_bias_0²
-linear
-bias
-
-linear_60_bias_01
+linear1
 weight'
 %
-#stack_embed_tokens_weight_quantized
+#stack_embed_tokens_weight_quantized
+bias
+
+linear_60_bias_0
 x	
 
 input&
@@ -11984,14 +11984,14 @@ batch_dims
 reduce_argmax%
 	keep_dims
 
-var_1075_keep_dims_0
+var_1075_keep_dims_0+
+output_dtype
+
+var_1075_output_dtype_0
 x
 
 
-var_1072+
-output_dtype
-
-var_1075_output_dtype_0
+var_1072
 axis
 
 var_1075_axis_0 

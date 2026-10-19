@@ -1,0 +1,152 @@
+[
+ {
+  "name": "iPhone 13",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.1\" Super Retina XDR"
+   },
+   {
+    "label": "Chip",
+    "value": "Apple A15 Bionic"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Camera",
+    "value": "12MP"
+   },
+   {
+    "label": "Memory",
+    "value": "4GB"
+   },
+   {
+    "label": "Battery",
+    "value": "3240 mAh"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "Galaxy S23",
+  "category": "smartphones",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "6.1\" Dynamic AMOLED 2X"
+   },
+   {
+    "label": "Chip",
+    "value": "Snapdragon 8 Gen 2"
+   },
+   {
+    "label": "Storage",
+    "value": "128GB"
+   },
+   {
+    "label": "Camera",
+    "value": "50MP"
+   },
+   {
+    "label": "Memory",
+    "value": "8GB"
+   },
+   {
+    "label": "Battery",
+    "value": "3900 mAh"
+   },
+   {
+    "label": "5G",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "MacBook Air M1",
+  "category": "laptops",
+  "specs": [
+   {
+    "label": "Display",
+    "value": "13.3\" Retina"
+   },
+   {
+    "label": "Chip",
+    "value": "Apple M1"
+   },
+   {
+    "label": "Memory",
+    "value": "8GB"
+   },
+   {
+    "label": "Storage",
+    "value": "256GB SSD"
+   },
+   {
+    "label": "Battery",
+    "value": "49.9 Wh"
+   },
+   {
+    "label": "Weight",
+    "value": "1.29 kg"
+   }
+  ]
+ },
+ {
+  "name": "WH-1000XM4",
+  "category": "headphones",
+  "specs": [
+   {
+    "label": "Driver",
+    "value": "40mm"
+   },
+   {
+    "label": "Battery",
+    "value": "Up to 30 hours"
+   },
+   {
+    "label": "Weight",
+    "value": "254g"
+   },
+   {
+    "label": "Connectivity",
+    "value": "Bluetooth 5.0"
+   },
+   {
+    "label": "Noise Cancellation",
+    "value": "Yes"
+   }
+  ]
+ },
+ {
+  "name": "QuietComfort 45",
+  "category": "headphones",
+  "specs": [
+   {
+    "label": "Driver",
+    "value": "35mm"
+   },
+   {
+    "label": "Battery",
+    "value": "Up to 24 hours"
+   },
+   {
+    "label": "Weight",
+    "value": "240g"
+   },
+   {
+    "label": "Connectivity",
+    "value": "Bluetooth 5.1"
+   },
+   {
+    "label": "Noise Cancellation",
+    "value": "Yes"
+   }
+  ]
+ }
+]

@@ -23,7 +23,17 @@ def main():
         {"decoder_input_ids": o, "encoder_hidden_states": h, "encoder_attention_mask": m, "position": p})["next_token"].item()
 
     _, val = split(load_examples())
-    examples = val[:count]
+    report = json.loads(METRICS.read_text()) if METRICS.exists() else {}
+    for key, examples in [
+        ("coreml_metrics", [e for e in val if e["variant"] == "full"][:count]),
+        ("coreml_upgrade_metrics", [e for e in val if e["variant"] == "upgrade"]),
+    ]:
+        report[key] = measure(examples, tokenizer, encode, decode)
+        print(key, json.dumps(report[key], indent=2), flush=True)
+    METRICS.write_text(json.dumps(report, indent=2))
+
+
+def measure(examples, tokenizer, encode, decode):
     scores, correct, stated, expected, recalled, unsupported = [], 0, 0, 0, 0, 0
     for index, example in enumerate(examples, 1):
         text = greedy(encode, decode, tokenizer, example["input"])
@@ -37,17 +47,13 @@ def main():
         if index % 50 == 0:
             print(f"{index}/{len(examples)}", flush=True)
 
-    metrics = {
+    return {
         "validation_pairs": len(examples),
         "rouge_l": round(sum(scores) / len(scores), 4),
         "claim_precision": round(correct / max(stated, 1), 4),
         "claim_recall": round(recalled / max(expected, 1), 4),
         "summaries_with_unsupported_numbers": unsupported,
     }
-    report = json.loads(METRICS.read_text()) if METRICS.exists() else {}
-    report["coreml_metrics"] = metrics
-    METRICS.write_text(json.dumps(report, indent=2))
-    print(json.dumps(metrics, indent=2))
 
 
 if __name__ == "__main__":
