@@ -31,7 +31,7 @@ struct ProductDetailView: View {
                     }
                     retailerComparison
                     if product.listings.count > 1 {
-                        ListingMatchCard(category: product.category, match: product.listingMatch)
+                        ListingMatchCard(product: product, match: product.listingMatch)
                     }
                     ValueScoreCard(valueScore: product.valueScore)
                     PriceHistoryChart(fullHistory: product.priceHistory)

@@ -153,7 +153,8 @@ struct Product: Identifiable, Hashable {
     static func == (lhs: Product, rhs: Product) -> Bool { lhs.id == rhs.id }
     func hash(into hasher: inout Hasher) { hasher.combine(id) }
 
-    var fullName: String { "\(brand) \(name)" }
+    /// Brand + name, without repeating the brand for names that already start with it ("HONOR 400 256GB").
+    var fullName: String { name.hasPrefix("\(brand) ") ? name : "\(brand) \(name)" }
 
     /// False for older reference models that none of the retailers list any more.
     var isSold: Bool { !listings.isEmpty }
