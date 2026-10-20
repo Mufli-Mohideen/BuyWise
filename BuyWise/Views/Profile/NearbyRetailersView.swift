@@ -219,7 +219,7 @@ private struct SelectedBranchCard: View {
                 metric(symbol: "location.north.line", title: "Distance", value: DistanceFormatter.string(LocationProvider.shared.distance(to: branch)))
                 metric(symbol: "car.fill", title: route == nil && !isRouting ? "Est. drive" : "Drive", value: driveText)
                 metric(symbol: "clock", title: branch.statusText, value: branch.shortHoursText,
-                       tint: branch.isOpenNow ? BuyWiseColors.success : branch.hasHours ? BuyWiseColors.error : BuyWiseColors.textSecondary)
+                       tint: branch.statusColor)
             }
 
             if let product, let listing = product.listing(for: branch.retailer) {
@@ -340,7 +340,7 @@ private struct StoreBranchRow: View {
                 Label(branch.hoursText, systemImage: "circle.fill")
                     .font(BuyWiseTypography.caption)
                     .labelStyle(StatusDotLabelStyle())
-                    .foregroundStyle(branch.isOpenNow ? BuyWiseColors.success : branch.hasHours ? BuyWiseColors.error : BuyWiseColors.textSecondary)
+                    .foregroundStyle(branch.statusColor)
             }
 
             Spacer()
@@ -363,6 +363,13 @@ private struct StoreBranchRow: View {
             RoundedRectangle(cornerRadius: BuyWiseTheme.controlRadius, style: .continuous)
                 .strokeBorder(isSelected ? BuyWiseColors.brand.opacity(0.5) : BuyWiseColors.border, lineWidth: 1)
         )
+    }
+}
+
+private extension StoreBranch {
+    var statusColor: Color {
+        if isOpenNow { return BuyWiseColors.success }
+        return hasHours ? BuyWiseColors.error : BuyWiseColors.textSecondary
     }
 }
 

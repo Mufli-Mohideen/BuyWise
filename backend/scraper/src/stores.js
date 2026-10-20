@@ -33,7 +33,7 @@ export async function scrapeAbansStores() {
     .filter((store) => store.latitude !== null && store.longitude !== null);
 }
 
-/// The store locator page embeds every store as a JSON object in its script.
+// The store locator page embeds every store as a JSON object in its script.
 export async function scrapeSingerStores() {
   const html = await get("https://www.singersl.com/store-locator");
   const stores = new Map();

@@ -2,7 +2,7 @@
 // Celltronics, Abans and Singer, maps specs onto the app's labels and backfills a clearly flagged demo price history.
 import { createHash } from "node:crypto";
 import { readFile, writeFile } from "node:fs/promises";
-import { canonicalSpecs, formatGB, keySpec, parseTitle, productName, specsFromText } from "./normalize.js";
+import { canonicalSpecs, escapeRegExp, formatGB, keySpec, parseTitle, productName, specsFromText } from "./normalize.js";
 
 const RAW = new URL("../data/raw/", import.meta.url);
 const OUT = new URL("../../supabase/seed.sql", import.meta.url);
@@ -43,6 +43,9 @@ function dice(a, b) {
 
 // ---------- parse + group ----------
 
+// A retailer item code appended to the title would otherwise split colours into separate products.
+const stripTrailingSku = (title, sku) => title.replace(new RegExp(`\\s*-?\\s*${escapeRegExp(sku)}\\s*$`, "i"), "");
+
 const seen = new Set();
 const listings = RETAILERS.flatMap((r) => raw[r])
   .filter((listing) => listing.price && listing.title)
@@ -52,9 +55,8 @@ const listings = RETAILERS.flatMap((r) => raw[r])
     seen.add(key);
     return true;
   })
-  // Strip a retailer item code appended to the title, which would otherwise split colours into separate products.
   .map((listing) => {
-    const title = listing.sku ? listing.title.replace(new RegExp(`\\s*-?\\s*${listing.sku.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s*$`, "i"), "") : listing.title;
+    const title = listing.sku ? stripTrailingSku(listing.title, listing.sku) : listing.title;
     return { ...listing, parsed: parseTitle(title, listing.category), form: formFactor(listing) };
   })
   .filter(({ parsed, category }) => parsed.modelKey && (category === "headphones" || parsed.storage));
@@ -71,7 +73,14 @@ const modelId = ({ category, parsed }) =>
   category === "laptops" && parsed.codes[0] ? parsed.codes[0] : parsed.modelKey;
 
 const groupKey = (listing) =>
-  [listing.category, listing.parsed.brandKey, modelId(listing), listing.parsed.storage ?? "", listing.parsed.ram ?? "", listing.form].join("|");
+  [
+    listing.category,
+    listing.parsed.brandKey,
+    modelId(listing),
+    listing.parsed.storage ?? "",
+    listing.parsed.ram ?? "",
+    listing.form,
+  ].join("|");
 
 function groupByKey(items) {
   const groups = new Map();
@@ -102,7 +111,9 @@ function matchScore(product, group) {
     const codesA = a.parsed.codes;
     const codesB = b.parsed.codes;
     if (codesA.some((code) => codesB.includes(code))) return 1;
-    if (codesA.some((x) => codesB.some((y) => x.length >= 7 && y.length >= 7 && (x.startsWith(y.slice(0, 7)) || y.startsWith(x.slice(0, 7)))))) return 0.9;
+    // Same base model code with a different configuration suffix.
+    const sharePrefix = (x, y) => x.length >= 7 && y.length >= 7 && (x.startsWith(y.slice(0, 7)) || y.startsWith(x.slice(0, 7)));
+    if (codesA.some((x) => codesB.some((y) => sharePrefix(x, y)))) return 0.9;
   }
   // Chip names ("A18 Pro", "M4 Max") are not model tiers; some retailers leave the chip out of the title.
   const tierWords = (key) => tokens(key.replace(/\b([am]\d{1,2})\s+(pro|max)\b/g, "$1"));
@@ -195,7 +206,10 @@ for (const row of productRows) {
 }
 for (const row of productRows) {
   if (nameCounts.get(`${row.brand}|${row.name}`.toLowerCase()) > 1 && row.memoryGb) {
-    row.name = row.storageGb ? `${row.name.replace(/\s+\S+$/, "")} ${row.memoryGb}GB/${formatGB(row.storageGb)}` : `${row.name} ${row.memoryGb}GB`;
+    const withoutStorage = row.name.replace(/\s+\S+$/, "");
+    row.name = row.storageGb
+      ? `${withoutStorage} ${row.memoryGb}GB/${formatGB(row.storageGb)}`
+      : `${row.name} ${row.memoryGb}GB`;
   }
 }
 const slugs = new Set();
@@ -270,10 +284,12 @@ for (const row of productRows) {
     const ratios = backfillRatios(`${row.id}:${retailer}`);
     for (const listing of group) {
       const id = uuid(`listing:${listing.retailer}|${listing.url}|${listing.sku ?? ""}`);
+      const originalPrice = listing.originalPrice && listing.originalPrice > listing.price ? listing.originalPrice : null;
+      const rawSpecs = listing.specs?.length ? listing.specs : specsFromText(listing.descriptionText);
       listingValues.push([
         q(id), q(row.id), q(listing.retailer), q(listing.title), q(listing.url), q(listing.sku), q(listing.modelNumber ?? null),
-        num(listing.price), num(listing.originalPrice && listing.originalPrice > listing.price ? listing.originalPrice : null),
-        String(Boolean(listing.inStock)), String(Boolean(listing.isPreorder)), q(listing.imageUrl), json(listing.specs?.length ? listing.specs : specsFromText(listing.descriptionText)), q(scrapedAt),
+        num(listing.price), num(originalPrice), String(Boolean(listing.inStock)), String(Boolean(listing.isPreorder)),
+        q(listing.imageUrl), json(rawSpecs), q(scrapedAt),
       ]);
       if (!listing.isPreorder) {
         BACKFILL_DAYS.forEach((days, index) => {

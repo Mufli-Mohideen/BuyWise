@@ -24,7 +24,9 @@ export async function get(url, { json = false, headers = {} } = {}) {
   try {
     const cached = await readFile(file, "utf8");
     return json ? JSON.parse(cached) : cached;
-  } catch {}
+  } catch {
+    // Not cached yet.
+  }
 
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
     const wait = lastRequestAt + DELAY_MS - Date.now();

@@ -257,10 +257,7 @@ struct UpgradeResultView: View {
                     priceStat("Current", PriceFormatter.lkr(price.current))
                     priceStat("90-day average", PriceFormatter.lkr(price.average))
                 }
-                Label(
-                    "The current price is \(price.description).",
-                    systemImage: price.percentVsAverage < -2 ? "arrow.down.right" : price.percentVsAverage > 2 ? "arrow.up.right" : "equal"
-                )
+                Label("The current price is \(price.description).", systemImage: trendSymbol(for: price))
                     .font(BuyWiseTypography.subheadline)
                     .foregroundStyle(BuyWiseColors.textPrimary)
                     .padding(12)
@@ -268,6 +265,12 @@ struct UpgradeResultView: View {
                     .bwSecondarySurface()
             }
         }
+    }
+
+    private func trendSymbol(for price: PricePosition) -> String {
+        if price.percentVsAverage < -2 { return "arrow.down.right" }
+        if price.percentVsAverage > 2 { return "arrow.up.right" }
+        return "equal"
     }
 
     private func priceStat(_ title: String, _ value: String) -> some View {
@@ -317,8 +320,8 @@ struct UpgradeResultView: View {
                 "A numerical comparison only, not a recommendation. Improvements under 5% are left out because the figure isn't meaningful.",
                 systemImage: "info.circle"
             )
-                .font(BuyWiseTypography.caption)
-                .foregroundStyle(BuyWiseColors.textSecondary)
+            .font(BuyWiseTypography.caption)
+            .foregroundStyle(BuyWiseColors.textSecondary)
         }
     }
 

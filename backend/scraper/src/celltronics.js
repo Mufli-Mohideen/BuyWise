@@ -30,7 +30,7 @@ function price(value, minorUnit) {
   return Number.isFinite(amount) && amount > 0 ? Math.round(amount / 10 ** minorUnit) : null;
 }
 
-/// First feature bullet ("48MP Fusion camera with variable aperture"), used as the product tagline.
+// First feature bullet ("48MP Fusion camera with variable aperture"), used as the product tagline.
 function tagline(shortDescription) {
   const $ = cheerio.load(`<div>${shortDescription ?? ""}</div>`);
   const bullet = cleanText($("li").first().text()) || htmlText(shortDescription).split(/(?<=[.!?])\s/)[0];
@@ -75,7 +75,7 @@ export async function scrapeCelltronicsListings(log) {
   return listings;
 }
 
-/// The showroom on the contact page: address and hours in the text, coordinates in the map embed.
+// The showroom on the contact page: address and hours in the text, coordinates in the map embed.
 export async function scrapeCelltronicsStores() {
   const html = await get(CONTACT);
   const $ = cheerio.load(html);

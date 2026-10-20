@@ -61,6 +61,8 @@ export function toGB(amount, unit) {
 
 export const formatGB = (gb) => (gb >= 1024 && gb % 1024 === 0 ? `${gb / 1024}TB` : `${gb}GB`);
 
+export const escapeRegExp = (text) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
 const words = (text) => text.toLowerCase().replace(/&quot;|"/g, " ").split(/[^a-z0-9.+-]+/).filter(Boolean);
 
 export function detectBrand(title) {
@@ -174,7 +176,7 @@ export function parseTitle(title, category) {
     .replace(/\s+/g, " ")
     .trim();
 
-  const brandPattern = new RegExp(`^${brand.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s+`, "i");
+  const brandPattern = new RegExp(`^${escapeRegExp(brand.name)}\\s+`, "i");
   let display = text
     .replace(brandPattern, "")
     .replace(/^laptop\s+/i, "")
@@ -280,8 +282,16 @@ const CHIP_WORDS = { snapdragon: "Snapdragon", dimensity: "Dimensity", helio: "H
   tiger: "Tiger", tensor: "Tensor", kirin: "Kirin", gen: "Gen", elite: "Elite", ultra: "Ultra", ultimate: "Ultimate",
   extreme: "Extreme", turbo: "Turbo", pro: "Pro", max: "Max", bionic: "Bionic", apple: "Apple" };
 
-/// One spelling per chip, whatever the retailer wrote: "Qualcomm SM6225 Snapdragon 685", "Snapdragon 685 Mobile
-/// Platform" → "Snapdragon 685"; "A19 Pro", "Apple A19 Pro chip" → "Apple A19 Pro". Falls back to the title.
+// Known chip words get one spelling; "6s" stays lower case and other model numbers are upper case.
+function chipWord(word) {
+  const known = CHIP_WORDS[word.toLowerCase()];
+  if (known) return known;
+  if (/^\d+s$/i.test(word)) return word.toLowerCase();
+  return /\d/.test(word) ? word.toUpperCase() : word;
+}
+
+// One spelling per chip: "Qualcomm SM6225 Snapdragon 685" → "Snapdragon 685", "A19 Pro chip" → "Apple A19 Pro".
+// Falls back to the title when the spec doesn't name a known chip.
 function chipName(text, title = "") {
   for (const source of [text, title]) {
     const found = clean(source).match(CHIP_PATTERN)?.[0];
@@ -290,7 +300,7 @@ function chipName(text, title = "") {
       .replace(/-/g, " ")
       .replace(/\s+/g, " ")
       .split(" ")
-      .map((word) => CHIP_WORDS[word.toLowerCase()] ?? (/^\d+s$/i.test(word) ? word.toLowerCase() : /\d/.test(word) ? word.toUpperCase() : word))
+      .map(chipWord)
       .join(" ");
     return /^[AM]\d/.test(name) ? `Apple ${name}` : name;
   }
@@ -323,8 +333,8 @@ const CHIP_PATTERN = new RegExp(
   "i",
 );
 
-/// Celltronics has no spec table, only marketing copy ("6.77-inch AMOLED", "5000mAh", "A20 Pro 2nm chip").
-/// Pull the measurable specs out of that text, labelled like a retailer spec table.
+// Celltronics has no spec table, only marketing copy ("6.77-inch AMOLED", "5000mAh", "A20 Pro 2nm chip"),
+// so pull the measurable specs out of that text, labelled like a retailer spec table.
 export function specsFromText(text) {
   const t = String(text ?? "").replace(/\s+/g, " ");
   const specs = [];
@@ -382,13 +392,15 @@ export function canonicalSpecs(category, specs, { ram, storage, title }) {
     add("Battery", capacity ? `${capacity} mAh` : null);
     add("Weight", weightText(pick(specs, /^weight/i), "g"));
     const fiveG = pick(specs, /5g network/i, /^5g$/i, /network technology/i);
-    add("5G", fiveG && /5g|nr\b/i.test(`${fiveG}`) ? "Yes" : /\b5g\b/i.test(title) ? "Yes" : null);
+    const hasFiveG = (fiveG && /5g|nr\b/i.test(`${fiveG}`)) || /\b5g\b/i.test(title);
+    add("5G", hasFiveG ? "Yes" : null);
   }
 
   if (category === "laptops") {
     add("Chip", chipName(pick(specs, /^processor$/i, /processor/i, /^cpu/i, /chip/i), title));
     const memory = pick(specs, /^memory$/i, /^ram$/i, /memory size|installed memory|ram/i);
-    add("Memory", ram ? `${ram}GB` : firstNumber(memory) ? `${firstNumber(memory)}GB` : null);
+    const memoryGb = ram || firstNumber(memory);
+    add("Memory", memoryGb ? `${memoryGb}GB` : null);
     if (storage) add("Storage", `${formatGB(storage)} SSD`);
     const size = firstNumber(pick(specs, /panel size/i, /display.*size/i, /screen size/i, /^display$/i));
     const resolution = (pick(specs, /resolution/i) ?? "").match(/\b(FHD\+?|WUXGA|QHD\+?|WQXGA|2\.8K|2K|3K|4K|UHD|OLED|HD\+?|Retina|Liquid Retina)\b/i)?.[0];
@@ -414,7 +426,13 @@ export function canonicalSpecs(category, specs, { ram, storage, title }) {
     const bluetooth = (pick(specs, /^bluetooth/i, /bluetooth version/i, /connectivity/i, /wireless/i) ?? "").match(/\b[456]\.\d\b(?!\s*ghz)/i)?.[0];
     add("Connectivity", bluetooth ? `Bluetooth ${bluetooth}` : null);
     const anc = pick(specs, /noise cancel/i, /\banc\b/i);
-    add("Noise Cancellation", anc ? (/^(yes|active|anc)/i.test(anc) || /active noise/i.test(anc) ? "Yes" : clean(anc).slice(0, 40)) : /\b(anc|noise cancel)/i.test(title) ? "Yes" : null);
+    let noiseCancellation = null;
+    if (anc) {
+      noiseCancellation = /^(yes|active|anc)/i.test(anc) || /active noise/i.test(anc) ? "Yes" : clean(anc).slice(0, 40);
+    } else if (/\b(anc|noise cancel)/i.test(title)) {
+      noiseCancellation = "Yes";
+    }
+    add("Noise Cancellation", noiseCancellation);
     add("Weight", weightText(pick(specs, /^weight/i), "g"));
   }
 

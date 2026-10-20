@@ -57,10 +57,16 @@ struct RetailerPriceCard: View {
             .fixedSize()
     }
 
+    private var availabilityStatus: (text: String, symbol: String, color: Color) {
+        if listing.isAvailable { return ("Available", "checkmark.circle.fill", BuyWiseColors.success) }
+        if listing.isPreorder { return ("Pre-order", "clock", BuyWiseColors.brand) }
+        return ("Unavailable", "xmark.circle", BuyWiseColors.textSecondary)
+    }
+
     private var availability: some View {
-        Label(listing.isAvailable ? "Available" : listing.isPreorder ? "Pre-order" : "Unavailable",
-              systemImage: listing.isAvailable ? "checkmark.circle.fill" : listing.isPreorder ? "clock" : "xmark.circle")
+        let status = availabilityStatus
+        return Label(status.text, systemImage: status.symbol)
             .font(BuyWiseTypography.caption)
-            .foregroundStyle(listing.isAvailable ? BuyWiseColors.success : listing.isPreorder ? BuyWiseColors.brand : BuyWiseColors.textSecondary)
+            .foregroundStyle(status.color)
     }
 }

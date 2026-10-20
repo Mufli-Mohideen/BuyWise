@@ -15,11 +15,15 @@ ROW = re.compile(
     r"'(?P<category>\w+)'::public\.product_category, .*?, '(?P<specs>\[(?:[^']|'')*\])'::jsonb"
 )
 
+
+def unquote(text):
+    return text.replace("''", "'")
+
+
 def main():
     products_sql = SEED.read_text().split("insert into public.listings")[0]
     products = []
     for match in ROW.finditer(products_sql):
-        unquote = lambda text: text.replace("''", "'")
         products.append({
             "name": unquote(match["name"]),
             "brand": unquote(match["brand"]),
@@ -33,12 +37,18 @@ def main():
 
     owned = []
     for block in re.findall(r"Product\((.*?)\n    \)", OWNED.read_text(), re.S):
-        specs = [{"label": label, "value": value.replace('\\"', '"')}
-                 for label, value in re.findall(r'Specification\("([^"]+)", "((?:[^"\\]|\\.)*)"\)', block)]
-        owned.append({"name": re.search(r'name: "([^"]+)"', block)[1],
-                      "category": re.search(r"category: \.(\w+)", block)[1], "specs": specs})
+        specs = [
+            {"label": label, "value": value.replace('\\"', '"')}
+            for label, value in re.findall(r'Specification\("([^"]+)", "((?:[^"\\]|\\.)*)"\)', block)
+        ]
+        owned.append({
+            "name": re.search(r'name: "([^"]+)"', block)[1],
+            "category": re.search(r"category: \.(\w+)", block)[1],
+            "specs": specs,
+        })
     OWNED_OUT.write_text(json.dumps(owned, indent=1))
     print(f"exported {len(owned)} owned devices -> {OWNED_OUT}")
+
 
 if __name__ == "__main__":
     main()
