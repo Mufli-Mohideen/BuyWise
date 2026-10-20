@@ -199,11 +199,7 @@ private struct SelectedBranchCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
             HStack(spacing: 12) {
-                Circle()
-                    .fill(Color.white)
-                    .frame(width: 48, height: 48)
-                    .overlay(Image(branch.retailer.logoAssetName).resizable().scaledToFit().padding(8))
-                    .overlay(Circle().strokeBorder(BuyWiseColors.border, lineWidth: 1))
+                RetailerLogoCircle(retailer: branch.retailer, size: 48, padding: 8)
                 VStack(alignment: .leading, spacing: 2) {
                     Text(branch.branchName)
                         .font(BuyWiseTypography.headline)
@@ -318,16 +314,7 @@ private struct StoreBranchRow: View {
 
     var body: some View {
         HStack(spacing: 14) {
-            Circle()
-                .fill(Color.white)
-                .frame(width: 44, height: 44)
-                .overlay(
-                    Image(branch.retailer.logoAssetName)
-                        .resizable()
-                        .scaledToFit()
-                        .padding(7)
-                )
-                .overlay(Circle().strokeBorder(BuyWiseColors.border, lineWidth: 1))
+            RetailerLogoCircle(retailer: branch.retailer, size: 44, padding: 7)
 
             VStack(alignment: .leading, spacing: 3) {
                 Text(branch.branchName)

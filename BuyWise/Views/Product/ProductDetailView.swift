@@ -44,13 +44,7 @@ struct ProductDetailView: View {
             }
 
             if let toastMessage {
-                Label(toastMessage, systemImage: "checkmark.circle.fill")
-                    .font(BuyWiseTypography.captionBold)
-                    .padding(.horizontal, 14)
-                    .padding(.vertical, 10)
-                    .background(Capsule().fill(BuyWiseColors.textPrimary))
-                    .foregroundStyle(BuyWiseColors.background)
-                    .padding(.top, 8)
+                ConfirmationToast(message: toastMessage)
                     .transition(.move(edge: .top).combined(with: .opacity))
             }
         }
@@ -260,9 +254,7 @@ struct ProductDetailView: View {
                             NearbyRetailersView(initialRetailer: retailer, focusProduct: product)
                         } label: {
                             HStack(spacing: 12) {
-                                Circle().fill(Color.white).frame(width: 42, height: 42)
-                                    .overlay(Image(retailer.logoAssetName).resizable().scaledToFit().padding(7))
-                                    .overlay(Circle().strokeBorder(BuyWiseColors.border, lineWidth: 1))
+                                RetailerLogoCircle(retailer: retailer, size: 42, padding: 7)
                                 VStack(alignment: .leading, spacing: 2) {
                                     Text(branch.branchName)
                                         .font(BuyWiseTypography.subheadline)

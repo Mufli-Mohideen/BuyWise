@@ -313,9 +313,7 @@ struct HomeView: View {
                         ForEach(Retailer.allCases) { retailer in
                             if let branch = StoreBranches.nearest(retailer) {
                                 HStack(spacing: 10) {
-                                    Circle().fill(Color.white).frame(width: 36, height: 36)
-                                        .overlay(Image(retailer.logoAssetName).resizable().scaledToFit().padding(6))
-                                        .overlay(Circle().strokeBorder(BuyWiseColors.border, lineWidth: 1))
+                                    RetailerLogoCircle(retailer: retailer, size: 36, padding: 6)
                                     VStack(alignment: .leading, spacing: 1) {
                                         Text(branch.branchName)
                                             .font(BuyWiseTypography.captionBold)

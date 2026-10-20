@@ -125,7 +125,7 @@ enum ProductSummarizer {
         }
         for product in [first, second] {
             if let wins = advantages[product], !wins.isEmpty {
-                sentences.append("The \(product.name) has \(list(Array(wins.prefix(3)))).")
+                sentences.append("The \(product.name) has \(Array(wins.prefix(3)).joinedAsList()).")
             }
         }
         if advantages.isEmpty {
@@ -141,13 +141,5 @@ enum ProductSummarizer {
             .replacingOccurrences(of: #"[\d.,\s"]+"#, with: " ", options: .regularExpression)
             .components(separatedBy: " ")
         return words.last { !$0.isEmpty && $0.count <= 5 && $0.allSatisfy(\.isLetter) }
-    }
-
-    private static func list(_ items: [String]) -> String {
-        switch items.count {
-        case 0: return ""
-        case 1: return items[0]
-        default: return items.dropLast().joined(separator: ", ") + " and " + items.last!
-        }
     }
 }

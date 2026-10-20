@@ -57,7 +57,7 @@ struct CompareView: View {
 
                 UpgradeAnalysisEntryCard()
 
-                categorySelector
+                CategoryPicker(selection: $selectedCategory)
                 selectors
 
                 VStack(spacing: 12) {
@@ -138,24 +138,6 @@ struct CompareView: View {
         .padding(16)
         .frame(maxWidth: .infinity, alignment: .leading)
         .bwCard()
-    }
-
-    private var categorySelector: some View {
-        HStack(spacing: 8) {
-            ForEach(ProductCategory.allCases) { category in
-                Button {
-                    withAnimation(.easeInOut(duration: 0.15)) { selectedCategory = category }
-                } label: {
-                    Text(category.rawValue)
-                        .font(BuyWiseTypography.subheadline)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 9)
-                        .background(Capsule().fill(selectedCategory == category ? BuyWiseColors.brand : BuyWiseColors.surfaceSecondary))
-                        .foregroundStyle(selectedCategory == category ? .white : BuyWiseColors.textPrimary)
-                }
-                .buttonStyle(.plain)
-            }
-        }
     }
 
     private var selectors: some View {

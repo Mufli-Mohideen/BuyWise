@@ -30,7 +30,7 @@ struct UpgradeAnalysisView: View {
                         .foregroundStyle(BuyWiseColors.textSecondary)
                 }
 
-                categorySelector
+                CategoryPicker(selection: $category)
 
                 VStack(spacing: 0) {
                     ProductChoiceCard(role: "I own", product: current, options: ownable, exclude: candidate) { current = $0 }
@@ -64,24 +64,6 @@ struct UpgradeAnalysisView: View {
         .onChange(of: category) { _, newCategory in
             candidate = Self.defaultCandidate(for: newCategory)
             current = Self.defaultOwned(for: newCategory, excluding: candidate)
-        }
-    }
-
-    private var categorySelector: some View {
-        HStack(spacing: 8) {
-            ForEach(ProductCategory.allCases) { option in
-                Button {
-                    withAnimation(.easeInOut(duration: 0.15)) { category = option }
-                } label: {
-                    Text(option.rawValue)
-                        .font(BuyWiseTypography.subheadline)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 9)
-                        .background(Capsule().fill(category == option ? BuyWiseColors.brand : BuyWiseColors.surfaceSecondary))
-                        .foregroundStyle(category == option ? .white : BuyWiseColors.textPrimary)
-                }
-                .buttonStyle(.plain)
-            }
         }
     }
 

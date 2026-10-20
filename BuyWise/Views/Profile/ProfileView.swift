@@ -136,13 +136,7 @@ struct ProfileView: View {
         }
         .overlay(alignment: .top) {
             if let demoMessage {
-                Label(demoMessage, systemImage: "checkmark.circle.fill")
-                    .font(BuyWiseTypography.captionBold)
-                    .padding(.horizontal, 14)
-                    .padding(.vertical, 10)
-                    .background(Capsule().fill(BuyWiseColors.textPrimary))
-                    .foregroundStyle(BuyWiseColors.background)
-                    .padding(.top, 8)
+                ConfirmationToast(message: demoMessage)
                     .transition(.move(edge: .top).combined(with: .opacity))
             }
         }

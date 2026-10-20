@@ -18,3 +18,18 @@ struct RetailerLogoView: View {
             )
     }
 }
+
+/// The retailer's logo in a white circle, shown beside store names.
+struct RetailerLogoCircle: View {
+    let retailer: Retailer
+    let size: CGFloat
+    let padding: CGFloat
+
+    var body: some View {
+        Circle()
+            .fill(Color.white)
+            .frame(width: size, height: size)
+            .overlay(Image(retailer.logoAssetName).resizable().scaledToFit().padding(padding))
+            .overlay(Circle().strokeBorder(BuyWiseColors.border, lineWidth: 1))
+    }
+}

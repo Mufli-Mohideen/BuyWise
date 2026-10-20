@@ -112,11 +112,11 @@ struct UpgradeAnalysis {
             let extra = additions.count - shown.count
             let text = extra > 0
                 ? shown.joined(separator: ", ") + " and \(extra) other change\(extra == 1 ? "" : "s")"
-                : Self.list(shown)
+                : shown.joinedAsList()
             sentences.append("The new model adds \(text).")
         }
         if !features.lost.isEmpty {
-            sentences.append("It no longer has \(Self.list(features.lost)).")
+            sentences.append("It no longer has \(features.lost.joinedAsList()).")
         }
         if let price {
             sentences.append("The current price is \(price.description).")
@@ -134,7 +134,7 @@ struct UpgradeAnalysis {
                 let direction = metric.lowerIsBetter ? "lower" : "higher"
                 return "\(metric.title.lowercased()) is approximately \(Self.percentText(abs(metric.changePercent))) \(direction)"
             }
-            sentences.append(Self.sentenceCase(Self.list(parts)) + ".")
+            sentences.append(Self.sentenceCase(parts.joinedAsList()) + ".")
         }
 
         let worse = metrics.filter { $0.status == .worse && $0.showsPercent }
@@ -143,7 +143,7 @@ struct UpgradeAnalysis {
                 let direction = metric.changePercent > 0 ? "higher" : "lower"
                 return "\(metric.title.lowercased()) is approximately \(Self.percentText(abs(metric.changePercent))) \(direction)"
             }
-            sentences.append("On the other hand, \(Self.list(parts)).")
+            sentences.append("On the other hand, \(parts.joinedAsList()).")
         }
 
         for metric in metrics where !metric.showsPercent && metric.status != .unchanged {
@@ -152,18 +152,10 @@ struct UpgradeAnalysis {
 
         let unchanged = metrics.filter { $0.status == .unchanged }
         if !unchanged.isEmpty {
-            sentences.append("\(Self.sentenceCase(Self.list(unchanged.map { $0.title.lowercased() }))) \(unchanged.count == 1 ? "is" : "are") unchanged.")
+            sentences.append("\(Self.sentenceCase(unchanged.map { $0.title.lowercased() }.joinedAsList())) \(unchanged.count == 1 ? "is" : "are") unchanged.")
         }
 
         return (sentences + closingSentences).joined(separator: " ")
-    }
-
-    private static func list(_ items: [String]) -> String {
-        switch items.count {
-        case 0: return ""
-        case 1: return items[0]
-        default: return items.dropLast().joined(separator: ", ") + " and " + items.last!
-        }
     }
 
     private static func sentenceCase(_ text: String) -> String {

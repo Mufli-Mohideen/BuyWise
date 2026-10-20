@@ -24,3 +24,14 @@ enum PriceFormatter {
         return formatter.string(from: date)
     }
 }
+
+extension Array where Element == String {
+    /// "a", "a and b", "a, b and c". Unlike `ListFormatter`, never adds a comma before "and".
+    func joinedAsList() -> String {
+        switch count {
+        case 0: return ""
+        case 1: return self[0]
+        default: return dropLast().joined(separator: ", ") + " and " + last!
+        }
+    }
+}
