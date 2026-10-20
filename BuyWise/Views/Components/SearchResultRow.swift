@@ -61,18 +61,14 @@ struct SearchResultRow: View {
         .bwCard(radius: BuyWiseTheme.controlRadius)
     }
 
-    private func retailerPrice(_ name: String, listing: RetailerListing?) -> some View {
+    private func retailerPrice(_ name: String, listing: RetailerListing) -> some View {
         VStack(alignment: .leading, spacing: 1) {
             Text(name)
                 .font(BuyWiseTypography.caption)
                 .foregroundStyle(BuyWiseColors.textSecondary)
-            if let listing {
-                Text(PriceFormatter.lkr(listing.price))
-                    .font(BuyWiseTypography.captionBold)
-                    .foregroundStyle(BuyWiseColors.textPrimary)
-            }
+            Text(PriceFormatter.lkr(listing.price))
+                .font(BuyWiseTypography.captionBold)
+                .foregroundStyle(BuyWiseColors.textPrimary)
         }
     }
 }
-
-extension ProductBadgeKind: Hashable {}

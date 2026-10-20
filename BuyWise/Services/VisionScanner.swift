@@ -24,8 +24,7 @@ enum VisionScanner {
             let observations = try await request.perform(on: cgImage, orientation: image.cgOrientation)
             payloads = observations.compactMap(\.payloadString)
         } catch {
-            // The latest detector revision isn't available everywhere (e.g. the Simulator);
-            // fall back to the original Vision barcode detector.
+            // The new detector isn't available everywhere (e.g. the Simulator), so use the old one.
             payloads = try legacyBarcodes(in: cgImage, orientation: image.cgOrientation)
         }
         guard !payloads.isEmpty else { throw IdentificationError.noBarcodeFound }
@@ -41,8 +40,7 @@ enum VisionScanner {
     }
 }
 
-/// Sample images for trying the scanners without a camera (e.g. in the Simulator).
-/// They are real rendered images that go through the same Vision pipeline as photos.
+/// Rendered sample images for trying the scanners without a camera.
 enum SampleImages {
     static func priceTag(for product: Product) -> UIImage {
         let size = CGSize(width: 900, height: 560)
@@ -54,10 +52,15 @@ enum SampleImages {
             UIColor.white.setFill()
             UIBezierPath(roundedRect: card, cornerRadius: 28).fill()
             UIColor(red: 1, green: 0.42, blue: 0, alpha: 1).setFill()
-            UIBezierPath(roundedRect: CGRect(x: card.minX, y: card.minY, width: card.width, height: 90), byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 28, height: 28)).fill()
+            UIBezierPath(
+                roundedRect: CGRect(x: card.minX, y: card.minY, width: card.width, height: 90),
+                byRoundingCorners: [.topLeft, .topRight],
+                cornerRadii: CGSize(width: 28, height: 28)
+            ).fill()
 
             draw("IN-STORE PRICE", at: CGPoint(x: card.minX + 36, y: card.minY + 26), font: .systemFont(ofSize: 32, weight: .heavy), color: .white)
-            draw(product.brand.uppercased(), at: CGPoint(x: card.minX + 36, y: card.minY + 124), font: .systemFont(ofSize: 34, weight: .semibold), color: .darkGray)
+            draw(product.brand.uppercased(), at: CGPoint(x: card.minX + 36, y: card.minY + 124),
+                 font: .systemFont(ofSize: 34, weight: .semibold), color: .darkGray)
             let textWidth = card.width - 72
             let nameFont: UIFont = .systemFont(ofSize: product.name.count > 18 ? 42 : 60, weight: .bold)
             (product.name as NSString).draw(
@@ -68,7 +71,8 @@ enum SampleImages {
             )
             draw(product.tagline.isEmpty ? product.keySpec : product.tagline, at: CGPoint(x: card.minX + 36, y: card.minY + 276),
                  font: .systemFont(ofSize: 26, weight: .regular), color: .darkGray)
-            draw(PriceFormatter.lkr(product.highestListing.price), at: CGPoint(x: card.minX + 36, y: card.minY + 318), font: .systemFont(ofSize: 72, weight: .heavy), color: .black)
+            draw(PriceFormatter.lkr(product.highestListing.price), at: CGPoint(x: card.minX + 36, y: card.minY + 318),
+                 font: .systemFont(ofSize: 72, weight: .heavy), color: .black)
         }
     }
 

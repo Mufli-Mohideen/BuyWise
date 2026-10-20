@@ -33,11 +33,13 @@ struct CompareView: View {
     }
 
     private var priceWinner: ComparisonWinner {
-        productA.startingPrice == productB.startingPrice ? .none : (productA.startingPrice < productB.startingPrice ? .first : .second)
+        let a = productA.startingPrice, b = productB.startingPrice
+        return a == b ? .none : (a < b ? .first : .second)
     }
 
     private var valueWinner: ComparisonWinner {
-        productA.valueScore.overall == productB.valueScore.overall ? .none : (productA.valueScore.overall > productB.valueScore.overall ? .first : .second)
+        let a = productA.valueScore.overall, b = productB.valueScore.overall
+        return a == b ? .none : (a > b ? .first : .second)
     }
 
     var body: some View {
@@ -59,7 +61,12 @@ struct CompareView: View {
                 selectors
 
                 VStack(spacing: 12) {
-                    ComparisonRow(title: "Price", valueA: PriceFormatter.lkr(productA.startingPrice), valueB: PriceFormatter.lkr(productB.startingPrice), winner: priceWinner)
+                    ComparisonRow(
+                        title: "Price",
+                        valueA: PriceFormatter.lkr(productA.startingPrice),
+                        valueB: PriceFormatter.lkr(productB.startingPrice),
+                        winner: priceWinner
+                    )
 
                     ForEach(commonSpecLabels, id: \.self) { label in
                         ComparisonRow(

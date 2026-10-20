@@ -1,7 +1,6 @@
 import SwiftUI
 
-/// Centralized BuyWise color system. All colors resolve correctly whether the
-/// app is following the system appearance or a `.preferredColorScheme` override.
+/// Colors work with both the system appearance and a `.preferredColorScheme` override.
 enum BuyWiseColors {
     // MARK: Brand
 

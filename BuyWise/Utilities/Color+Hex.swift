@@ -3,8 +3,7 @@ import UIKit
 
 extension UIColor {
     convenience init(hex: String) {
-        var sanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines)
-        sanitized = sanitized.replacingOccurrences(of: "#", with: "")
+        let sanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: "#", with: "")
         var value: UInt64 = 0
         Scanner(string: sanitized).scanHexInt64(&value)
         let r = Double((value >> 16) & 0xFF) / 255

@@ -22,23 +22,15 @@ struct ListingMatch: Hashable {
     let titles: [RetailerTitle]
     /// The weakest pairwise comparison against the first title, so one mismatched store isn't hidden.
     let comparison: ListingComparison
-
-    var modelMatched: Bool { comparison.modelMatched }
-    var storageMatched: Bool { comparison.storageMatched }
-    var variantMatched: Bool { comparison.variantMatched }
 }
 
-/// Decides whether two retailer listings describe the same product, entirely on device:
-/// normalisation → Apple Natural Language sentence-embedding similarity → rule checks
-/// (model number, storage, screen size, variant tier) → threshold decision.
+/// Checks whether two listings are the same product, using text similarity plus model, storage and variant rules.
 final class ListingMatcher {
     static let shared = ListingMatcher()
 
     private let embedding = NLEmbedding.sentenceEmbedding(for: .english)
     private var comparisonCache: [String: ListingComparison] = [:]
     private var matchCache: [UUID: ListingMatch] = [:]
-
-    var isUsingLanguageModel: Bool { embedding != nil }
 
     func match(for product: Product) -> ListingMatch {
         if let cached = matchCache[product.id] { return cached }
@@ -54,10 +46,7 @@ final class ListingMatcher {
             ? titles.dropFirst().map { compare(reference, $0.title) }.min { $0.confidence < $1.confidence }!
             : compare(reference, product.fullName)
 
-        let match = ListingMatch(
-            titles: titles,
-            comparison: comparison
-        )
+        let match = ListingMatch(titles: titles, comparison: comparison)
         matchCache[product.id] = match
         return match
     }
@@ -167,17 +156,17 @@ struct ParsedListing {
             guard let value = Int(groups[0]) else { return nil }
             return groups[1] == "tb" ? value * 1024 : value
         }
-        storage = gbValues.count >= 1 ? gbValues.max() : nil
+        storage = gbValues.max()
 
         screenSize = ParsedListing.matches(in: lower, pattern: #"(\d{2}(?:\.\d)?)\s*(?:"|-inch|inch)"#)
             .compactMap { Double($0[0]) }
             .first
 
-        var working = lower
+        let working = lower
             .replacingOccurrences(of: #"(\d+)\s*(gb|tb)"#, with: " ", options: .regularExpression)
             .replacingOccurrences(of: #"\d{2}(?:\.\d)?\s*(?:"|-inch|inch)"#, with: " ", options: .regularExpression)
             .replacingOccurrences(of: #"\d+(st|nd|rd|th)\b"#, with: " ", options: .regularExpression)
-        working = working.replacingOccurrences(of: #"[()/,"'+:]"#, with: " ", options: .regularExpression)
+            .replacingOccurrences(of: #"[()/,"'+:]"#, with: " ", options: .regularExpression)
 
         var tokens: [String] = []
         for raw in working.split(whereSeparator: { $0 == " " }) {

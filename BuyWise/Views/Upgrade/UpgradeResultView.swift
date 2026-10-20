@@ -28,7 +28,7 @@ struct UpgradeResultView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
 
-    // MARK: 1–2. Current → New
+    // MARK: Current → New
 
     private var productsHeader: some View {
         HStack(alignment: .top, spacing: 10) {
@@ -64,7 +64,7 @@ struct UpgradeResultView: View {
         .bwCard()
     }
 
-    // MARK: 3. Upgrade cost
+    // MARK: Upgrade cost
 
     private var costCard: some View {
         VStack(alignment: .leading, spacing: 14) {
@@ -108,7 +108,7 @@ struct UpgradeResultView: View {
         .bwCard()
     }
 
-    // MARK: 4. Key changes
+    // MARK: Key changes
 
     private var keyChanges: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -131,7 +131,7 @@ struct UpgradeResultView: View {
         }
     }
 
-    // MARK: 5. Specification comparison
+    // MARK: Specification comparison
 
     private var specificationComparison: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -175,7 +175,7 @@ struct UpgradeResultView: View {
         }
     }
 
-    // MARK: 6. Feature changes
+    // MARK: Feature changes
 
     private var featureChanges: some View {
         let features = analysis.features
@@ -246,7 +246,7 @@ struct UpgradeResultView: View {
             .foregroundStyle(BuyWiseColors.textPrimary)
     }
 
-    // MARK: 7. Price history
+    // MARK: Price history
 
     @ViewBuilder
     private var priceHistory: some View {
@@ -257,7 +257,10 @@ struct UpgradeResultView: View {
                     priceStat("Current", PriceFormatter.lkr(price.current))
                     priceStat("90-day average", PriceFormatter.lkr(price.average))
                 }
-                Label("The current price is \(price.description).", systemImage: price.percentVsAverage < -2 ? "arrow.down.right" : price.percentVsAverage > 2 ? "arrow.up.right" : "equal")
+                Label(
+                    "The current price is \(price.description).",
+                    systemImage: price.percentVsAverage < -2 ? "arrow.down.right" : price.percentVsAverage > 2 ? "arrow.up.right" : "equal"
+                )
                     .font(BuyWiseTypography.subheadline)
                     .foregroundStyle(BuyWiseColors.textPrimary)
                     .padding(12)
@@ -281,7 +284,7 @@ struct UpgradeResultView: View {
         .bwCard()
     }
 
-    // MARK: 8. Cost per improvement
+    // MARK: Cost per improvement
 
     private var costPerImprovement: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -310,13 +313,16 @@ struct UpgradeResultView: View {
             }
             .padding(.horizontal, 14)
             .bwCard()
-            Label("A numerical comparison only, not a recommendation. Improvements under 5% are left out because the figure isn't meaningful.", systemImage: "info.circle")
+            Label(
+                "A numerical comparison only, not a recommendation. Improvements under 5% are left out because the figure isn't meaningful.",
+                systemImage: "info.circle"
+            )
                 .font(BuyWiseTypography.caption)
                 .foregroundStyle(BuyWiseColors.textSecondary)
         }
     }
 
-    // MARK: 9. Neutral summary
+    // MARK: Neutral summary
 
     private var summaryCard: some View {
         VStack(alignment: .leading, spacing: 10) {

@@ -1,7 +1,6 @@
 import Foundation
 
-/// Reading numbers out of spec values and ranking chips. Plain Foundation with no app types, so the
-/// summary model's training-data script (ml/summarizer) compiles this exact file.
+/// Keep it free of app types: ml/summarizer compiles this file to make training data.
 nonisolated enum SpecMath {
     /// First number in a spec value, e.g. "Up to 27 hours video" → 27.
     static func number(_ text: String?) -> Double? {
@@ -15,8 +14,7 @@ nonisolated enum SpecMath {
         return text?.range(of: "TB", options: .caseInsensitive) != nil ? value * 1024 : value
     }
 
-    /// Approximate performance tier (0–10) from the chip name. A heuristic for comparing chips within
-    /// a category, not a benchmark score.
+    /// A rough 0–10 tier for comparing chips, not a benchmark score.
     static func chipTier(_ chip: String) -> Double {
         let chip = chip.lowercased()
         func generation(after prefix: String) -> Int? {

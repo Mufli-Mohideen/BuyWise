@@ -1,8 +1,6 @@
 import Foundation
 
-/// Short, neutral comparison summaries. The price sentence is computed in code; a T5-small model fine-tuned
-/// for BuyWise (ml/summarizer) and run with Core ML describes the specification differences. If the model
-/// can't run, or writes a number that isn't in the specs, a rule-based summary of the same facts is used.
+/// Comparison summaries from the Core ML model, falling back to rules if it fails or writes something unsupported.
 enum ProductSummarizer {
     enum Source: Equatable {
         case coreML
@@ -21,8 +19,7 @@ enum ProductSummarizer {
         return Summary(text: [priceSentence(first, second), written].compactMap { $0 }.joined(separator: " "), source: .coreML)
     }
 
-    /// Upgrade analysis: the cost, feature and price sentences come from code; the Core ML model describes how
-    /// the device you own and the one you're considering differ.
+    /// The model only writes the spec differences; cost, feature and price sentences come from code.
     static func upgrade(_ analysis: UpgradeAnalysis) async -> Summary {
         guard let written = await specSummary(analysis.current, analysis.new) else {
             return Summary(text: analysis.summary, source: .rules)
@@ -59,9 +56,7 @@ enum ProductSummarizer {
         ("larger drivers", "drivers"), ("newer Bluetooth", "newer Bluetooth"),
     ]
 
-    /// Guards against a model mistake reaching the user. Every number must come from the specs, and every
-    /// advantage the summary states must be true of the product it names. A summary that states no advantage
-    /// at all must say the products are similar.
+    /// Rejects invented numbers, false or repeated claims, and summaries that claim nothing without saying "similar".
     private static func isFaithful(_ text: String, input: String, facts: [SpecComparison.Fact], first: String, second: String) -> Bool {
         guard !text.isEmpty else { return false }
         let numbers = text.matches(of: /\d+(?:\.\d+)?/).map { String($0.output) }
@@ -80,8 +75,7 @@ enum ProductSummarizer {
         return !claims.isEmpty || text.localizedCaseInsensitiveContains("similar")
     }
 
-    /// The product named most recently before `position`; the longer name wins when one contains the other
-    /// ("iPhone 13 128GB" vs "iPhone 13").
+    /// The longer name wins when one contains the other ("iPhone 13 128GB" vs "iPhone 13").
     private static func owner(of position: String.Index, in text: String, first: String, second: String) -> String? {
         let before = text[..<position]
         let candidates = [("first", first), ("second", second)].compactMap { side, name in
@@ -110,12 +104,12 @@ enum ProductSummarizer {
     }
 
     private static let measures: [Measure] = [
-        Measure(label: "Chip", noun: "faster chip") { $0.specValue(for: "Chip").map(ValueScoreCalculator.chipTier) },
-        Measure(label: "Memory", noun: "more memory") { ValueScoreCalculator.number($0.specValue(for: "Memory")) },
-        Measure(label: "Storage", noun: "more storage") { ValueScoreCalculator.gigabytes($0.specValue(for: "Storage")) },
-        Measure(label: "Camera", noun: "a higher-resolution camera") { ValueScoreCalculator.number($0.specValue(for: "Camera")) },
-        Measure(label: "Battery", noun: "a bigger battery") { ValueScoreCalculator.number($0.specValue(for: "Battery")) },
-        Measure(label: "Weight", noun: "a lighter build", lowerIsBetter: true) { ValueScoreCalculator.number($0.specValue(for: "Weight")) },
+        Measure(label: "Chip", noun: "faster chip") { $0.specValue(for: "Chip").map(SpecMath.chipTier) },
+        Measure(label: "Memory", noun: "more memory") { SpecMath.number($0.specValue(for: "Memory")) },
+        Measure(label: "Storage", noun: "more storage") { SpecMath.gigabytes($0.specValue(for: "Storage")) },
+        Measure(label: "Camera", noun: "a higher-resolution camera") { SpecMath.number($0.specValue(for: "Camera")) },
+        Measure(label: "Battery", noun: "a bigger battery") { SpecMath.number($0.specValue(for: "Battery")) },
+        Measure(label: "Weight", noun: "a lighter build", lowerIsBetter: true) { SpecMath.number($0.specValue(for: "Weight")) },
     ]
 
     static func ruleBasedComparison(_ first: Product, _ second: Product) -> String {

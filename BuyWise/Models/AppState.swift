@@ -101,8 +101,7 @@ struct AppNotification: Identifiable, Hashable {
     var isRead: Bool
 }
 
-/// The signed-in user's data, kept in sync with Supabase. Every change is applied locally first
-/// so the UI stays instant, then written to the backend.
+/// The signed-in user's data. Changes are applied locally first so the UI stays instant, then saved to Supabase.
 @MainActor
 final class AppState: ObservableObject {
     @Published private(set) var userID: UUID?
@@ -275,7 +274,11 @@ final class AppState: ObservableObject {
     }
 
     private func apply(_ profile: ProfileRow) {
-        userName = profile.fullName?.isEmpty == false ? profile.fullName! : (isGuest ? "Guest" : userEmail.components(separatedBy: "@").first ?? "")
+        if let fullName = profile.fullName, !fullName.isEmpty {
+            userName = fullName
+        } else {
+            userName = isGuest ? "Guest" : userEmail.components(separatedBy: "@").first ?? ""
+        }
         signInMethod = isGuest ? "Guest" : Self.displayName(forProvider: profile.signInMethod)
         appearanceMode = AppearanceMode(databaseValue: profile.appearanceMode)
         shoppingPriority = ShoppingPriority(databaseValue: profile.shoppingPriority)
@@ -324,8 +327,7 @@ final class AppState: ObservableObject {
         Task { await write { try await supabase.from("profiles").update(changes).eq("id", value: userID).execute() } }
     }
 
-    /// Saves the name, and starts Supabase's confirm-new-email flow when the email changed.
-    /// Returns true when a confirmation email was sent.
+    /// Returns true when the email changed and a confirmation email was sent.
     func updatePersonalInformation(name: String, email: String) async throws -> Bool {
         guard let userID else { return false }
         let trimmedName = name.trimmingCharacters(in: .whitespaces)
@@ -391,8 +393,7 @@ final class AppState: ObservableObject {
         alertsChannel = nil
     }
 
-    /// Reloads the inbox. With `alertNew`, unread price drops that weren't there before are shown as
-    /// a notification (or an in-app banner when notifications aren't allowed).
+    /// With `alertNew`, new unread price drops are also shown as a notification or in-app banner.
     func refreshInbox(alertNew: Bool) async {
         guard isSignedIn else { return }
         guard let rows: [NotificationRecord] = try? await supabase.from("notifications").select()
@@ -429,8 +430,7 @@ final class AppState: ObservableObject {
 
     // MARK: Demo price feed
 
-    /// Asks the backend to drop the product's price. The database trigger records the change and creates
-    /// the alert; it reaches the app over Realtime (with a re-fetch as a fallback).
+    /// The database trigger creates the alert, which arrives over Realtime (with a re-fetch as a fallback).
     func simulatePriceDrop(for product: Product) async {
         if await NotificationManager.shared.authorizationStatus() == .notDetermined {
             await NotificationManager.shared.requestAuthorization()
@@ -514,7 +514,11 @@ final class AppState: ObservableObject {
     func setPriceAlerts(_ enabled: Bool, for product: Product) {
         guard trackedEntries[product.id] != nil else { return }
         trackedEntries[product.id]?.priceAlertsEnabled = enabled
-        Task { await write { try await supabase.from("tracked_products").update(["alerts_enabled": enabled]).eq("product_id", value: product.id).execute() } }
+        Task {
+            await write {
+                try await supabase.from("tracked_products").update(["alerts_enabled": enabled]).eq("product_id", value: product.id).execute()
+            }
+        }
     }
 
     func previousPrice(for product: Product) -> Double? {
@@ -555,7 +559,12 @@ final class AppState: ObservableObject {
             Task { await write { try await supabase.from("saved_products").delete().eq("product_id", value: product.id).execute() } }
         } else {
             savedProductIDs.insert(product.id)
-            Task { await write { try await supabase.from("saved_products").upsert(ProductRefRow(productId: product.id), onConflict: "user_id,product_id").execute() } }
+            Task {
+                await write {
+                    try await supabase.from("saved_products")
+                        .upsert(ProductRefRow(productId: product.id), onConflict: "user_id,product_id").execute()
+                }
+            }
         }
     }
 
@@ -602,8 +611,7 @@ final class AppState: ObservableObject {
 
     // MARK: Helpers
 
-    /// Runs a backend write. On failure it shows a short message and reloads the user's data, so an
-    /// optimistic change on screen (e.g. "Tracking") is replaced by what was actually saved.
+    /// On failure, reloads the user's data so optimistic changes on screen are rolled back.
     private func write(_ operation: () async throws -> Void) async {
         do {
             try await operation()
@@ -615,19 +623,5 @@ final class AppState: ObservableObject {
 
     func dismissError() {
         lastError = nil
-    }
-}
-
-extension ProductCatalog {
-    /// In-stock products the retailer itself has marked down (a crossed-out regular price on its site), biggest discount first.
-    /// Uses real retailer prices only, never the simulated part of the price history.
-    static var priceDrops: [(product: Product, previousPrice: Double)] {
-        all.compactMap { product -> (Product, Double)? in
-            guard product.isSold else { return nil }
-            let listing = product.lowestListing
-            guard listing.isAvailable, let regular = listing.originalPrice, regular > listing.price else { return nil }
-            return (product, regular)
-        }
-        .sorted { ($0.1 - $0.0.startingPrice) / $0.1 > ($1.1 - $1.0.startingPrice) / $1.1 }
     }
 }

@@ -48,7 +48,7 @@ struct ValueScoreBadge: View {
     }
 }
 
-enum ProductBadgeKind {
+enum ProductBadgeKind: Hashable {
     case bestPrice, priceDrop, strongValue, sameProduct
 
     var title: String {

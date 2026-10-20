@@ -2,8 +2,7 @@ import Foundation
 
 // MARK: - Older reference products
 
-/// Models a user may already own. They are no longer sold by Celltronics, Abans or Singer, so they have
-/// no listings and only appear as the "current product" in Upgrade Analysis.
+/// Older models a user may own. No retailer sells them, so they only appear as the current product in Upgrade Analysis.
 extension ProductCatalog {
     static let iPhone13 = Product(
         id: UUID(), name: "iPhone 13", brand: "Apple", category: .smartphones,
@@ -83,8 +82,7 @@ extension ProductCatalog {
 
 // MARK: - Upgrade metadata
 
-/// Extra data for the reference devices used in Upgrade Analysis: benchmark-style scores that aren't in the
-/// specification sheet, and feature lists for the gained / lost / unchanged comparison.
+/// Benchmark scores and feature lists for the reference devices, which the spec sheets don't include.
 enum UpgradeReferenceData {
     struct Entry {
         var performanceScore: Double? = nil

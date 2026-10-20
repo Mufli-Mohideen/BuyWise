@@ -1,8 +1,6 @@
 import SwiftUI
 
-/// Centralized BuyWise type scale, built on semantic text styles so every size
-/// scales correctly with the user's Dynamic Type setting. Prices use a rounded
-/// design for a friendlier, more commercial feel than the rest of the UI.
+/// Built on semantic text styles so every size follows the user's Dynamic Type setting.
 enum BuyWiseTypography {
     static let display = Font.system(.largeTitle, design: .rounded).weight(.bold)
     static let titleXL = Font.system(.title, design: .default).weight(.bold)

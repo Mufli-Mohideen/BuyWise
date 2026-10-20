@@ -23,8 +23,7 @@ struct HomeView: View {
     }
 
     private var deals: [(product: Product, previousPrice: Double)] {
-        let drops = ProductCatalog.priceDrops
-        return Array(drops.prefix(5))
+        Array(ProductCatalog.priceDrops.prefix(5))
     }
 
     var body: some View {
@@ -322,7 +321,8 @@ struct HomeView: View {
                                             .font(BuyWiseTypography.captionBold)
                                             .foregroundStyle(BuyWiseColors.textPrimary)
                                             .lineLimit(1)
-                                        Text("\(DistanceFormatter.string(LocationProvider.shared.distance(to: branch))) · \(branch.hasHours ? branch.statusText : "Hours not listed")")
+                                        let distance = DistanceFormatter.string(LocationProvider.shared.distance(to: branch))
+                                        Text("\(distance) · \(branch.hasHours ? branch.statusText : "Hours not listed")")
                                             .font(BuyWiseTypography.caption)
                                             .foregroundStyle(branch.isOpenNow ? BuyWiseColors.success : BuyWiseColors.textSecondary)
                                     }

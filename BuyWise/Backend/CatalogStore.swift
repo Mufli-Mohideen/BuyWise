@@ -3,8 +3,7 @@ import CoreLocation
 import Observation
 import Supabase
 
-/// The live Celltronics/Abans/Singer catalogue from Supabase. Products are loaded once; offers and price
-/// history refresh per product after a price change so open screens update in place.
+/// The live catalogue from Supabase. Offers and price history refresh per product so open screens update in place.
 @Observable
 final class CatalogStore {
     static let shared = CatalogStore()
@@ -77,8 +76,7 @@ final class CatalogStore {
         }
     }
 
-    // PostgREST returns at most 1,000 rows per request: read the total from the first page,
-    // then fetch the remaining pages in parallel (price history is several pages).
+    // PostgREST returns at most 1,000 rows per request, so fetch the remaining pages in parallel.
     private func fetchAll<Row: Decodable & Sendable>(_ table: String, orderedBy columns: [String]) async throws -> [Row] {
         let pageSize = 1000
         let first: PostgrestResponse<[Row]> = try await page(table, columns, from: 0, size: pageSize, counted: true).execute()

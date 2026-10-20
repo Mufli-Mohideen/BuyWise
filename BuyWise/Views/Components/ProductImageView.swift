@@ -1,7 +1,6 @@
 import SwiftUI
 
-/// The product's photo: the bundled image for reference devices, otherwise the retailer's
-/// product image. Shows the category glyph while loading or when there's no photo.
+/// Shows the category glyph while loading or when there's no photo.
 struct ProductPhoto: View {
     let product: Product?
     var category: ProductCategory = .smartphones
@@ -34,16 +33,13 @@ struct ProductPhoto: View {
     }
 }
 
-/// A rounded tile with the product's photo, falling back to a neutral tile with a
-/// product-accurate glyph (never an empty placeholder).
 struct ProductImageView: View {
     let category: ProductCategory
     var product: Product? = nil
     var brand: String? = nil
     var cornerRadius: CGFloat = BuyWiseTheme.cardRadius
     var emphasized: Bool = false
-    /// Only enable where the surrounding layout has no brand text of its own —
-    /// most cards already show the brand as a caption, so the tag would duplicate it.
+    /// Most cards already show the brand, so only enable this where they don't.
     var showsBrandTag: Bool = false
 
     init(product: Product, cornerRadius: CGFloat = BuyWiseTheme.cardRadius, emphasized: Bool = false, showsBrandTag: Bool = false) {

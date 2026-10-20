@@ -1,7 +1,5 @@
 import SwiftUI
 
-/// A distinctive "BuyWise Insight" callout — a short, generated-feeling observation,
-/// not a chatbot or conversational surface.
 struct InsightCard: View {
     let message: String
 

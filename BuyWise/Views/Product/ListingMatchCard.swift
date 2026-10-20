@@ -5,25 +5,27 @@ struct ListingMatchCard: View {
     let product: Product
     let match: ListingMatch
 
+    private var isMatch: Bool { match.comparison.isMatch }
+
     private var storeNames: String {
         ListFormatter.localizedString(byJoining: match.titles.map(\.retailer.rawValue))
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
-            SectionHeader(title: match.comparison.isMatch ? "Same product at every store" : "Check the model")
+            SectionHeader(title: isMatch ? "Same product at every store" : "Check the model")
 
             FlowLayout(spacing: 10) {
                 ForEach(match.titles, id: \.retailer) { item in
                     HStack(spacing: 6) {
                         RetailerLogoView(retailer: item.retailer, height: 14)
-                        Image(systemName: match.comparison.isMatch ? "checkmark.circle.fill" : "exclamationmark.circle.fill")
-                            .foregroundStyle(match.comparison.isMatch ? BuyWiseColors.success : BuyWiseColors.warning)
+                        Image(systemName: isMatch ? "checkmark.circle.fill" : "exclamationmark.circle.fill")
+                            .foregroundStyle(isMatch ? BuyWiseColors.success : BuyWiseColors.warning)
                     }
                 }
             }
 
-            Text(match.comparison.isMatch
+            Text(isMatch
                  ? "\(storeNames) \(match.titles.count == 2 ? "both" : "all") sell the \(product.fullName), so the prices above are for the same product."
                  : "The listings at \(storeNames) may not be the same model, so check before you buy.")
                 .font(BuyWiseTypography.caption)

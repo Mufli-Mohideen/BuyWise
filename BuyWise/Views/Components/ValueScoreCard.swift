@@ -119,9 +119,12 @@ struct ValueScoreCard: View {
             }
 
             VStack(spacing: 16) {
-                ValueMetricRow(title: "Specs for the price", weight: ValueScoreCalculator.weightD, score: valueScore.specificationValue, detail: valueScore.specDetail)
-                ValueMetricRow(title: "Price position", weight: ValueScoreCalculator.weightP, score: valueScore.pricePosition, detail: valueScore.priceDetail)
-                ValueMetricRow(title: "Price history", weight: ValueScoreCalculator.weightH, score: valueScore.priceStability, detail: valueScore.historyDetail)
+                ValueMetricRow(title: "Specs for the price", weight: ValueScoreCalculator.weightD,
+                               score: valueScore.specificationValue, detail: valueScore.specDetail)
+                ValueMetricRow(title: "Price position", weight: ValueScoreCalculator.weightP,
+                               score: valueScore.pricePosition, detail: valueScore.priceDetail)
+                ValueMetricRow(title: "Price history", weight: ValueScoreCalculator.weightH,
+                               score: valueScore.priceStability, detail: valueScore.historyDetail)
             }
 
             VStack(alignment: .leading, spacing: 10) {

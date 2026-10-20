@@ -1,8 +1,7 @@
 import CoreML
 import Foundation
 
-/// Runs the fine-tuned T5-small summary model (ml/summarizer) with Core ML, entirely on device.
-/// The encoder reads the comparison once; the decoder is then called once per word piece (greedy decoding).
+/// Runs the fine-tuned T5-small model on device: encode once, then decode one token at a time.
 nonisolated final class T5Summarizer: @unchecked Sendable {
     /// Fixed lengths the models were converted with (ml/summarizer/train.py).
     static let maxInputTokens = 256
@@ -68,8 +67,7 @@ nonisolated final class T5Summarizer: @unchecked Sendable {
     }
 }
 
-/// T5's SentencePiece unigram tokenizer: each word gets a "▁" prefix and is split into the vocabulary pieces
-/// with the highest total score (Viterbi). Matches the Hugging Face tokenizer the model was trained with.
+/// T5's SentencePiece unigram tokenizer, matching the Hugging Face tokenizer used in training.
 nonisolated struct UnigramTokenizer {
     static let pad = 0
     static let endOfText = 1

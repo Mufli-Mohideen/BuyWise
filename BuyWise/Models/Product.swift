@@ -159,8 +159,7 @@ struct Product: Identifiable, Hashable {
     /// False for older reference models that none of the retailers list any more.
     var isSold: Bool { !listings.isEmpty }
 
-    // Live values: read through the catalogue store, so any view showing a price
-    // re-renders automatically when the backend reports a price change.
+    // Read through the catalogue store so views re-render when a price changes.
     var listings: [RetailerListing] { CatalogStore.shared.listings(for: self) }
     var priceHistory: [PricePoint] { CatalogStore.shared.history(for: self) }
 

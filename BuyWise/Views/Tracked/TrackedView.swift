@@ -46,8 +46,18 @@ struct TrackedView: View {
 
     private var summary: some View {
         HStack(spacing: 12) {
-            summaryTile(value: PriceFormatter.lkr(appState.totalTrackedSavings), label: "Saved since tracking", symbol: "arrow.down.right.circle.fill", tint: BuyWiseColors.success)
-            summaryTile(value: "\(appState.trackedProducts.filter { appState.priceAlertsEnabled(for: $0) }.count) of \(appState.trackedProducts.count)", label: "Alerts on", symbol: "bell.badge.fill", tint: BuyWiseColors.brand)
+            summaryTile(
+                value: PriceFormatter.lkr(appState.totalTrackedSavings),
+                label: "Saved since tracking",
+                symbol: "arrow.down.right.circle.fill",
+                tint: BuyWiseColors.success
+            )
+            summaryTile(
+                value: "\(appState.trackedProducts.filter { appState.priceAlertsEnabled(for: $0) }.count) of \(appState.trackedProducts.count)",
+                label: "Alerts on",
+                symbol: "bell.badge.fill",
+                tint: BuyWiseColors.brand
+            )
         }
     }
 

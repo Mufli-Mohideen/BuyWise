@@ -79,7 +79,7 @@ struct FaceIDPromptView: View {
                 }
             }
         } else {
-            // No biometrics enrolled (common in Simulator) — provide a graceful demo state.
+            // No biometrics enrolled (e.g. Simulator): pretend setup succeeded so the demo can continue.
             Task {
                 statusMessage = "Face ID isn't available on this device. Simulating a successful setup for this demo."
                 try? await Task.sleep(nanoseconds: 900_000_000)

@@ -45,8 +45,7 @@ struct ValueScore: Hashable {
     }
 }
 
-/// The transparent, rule-based value score from the proposal (not a trained model):
-/// Value = 10 × (0.5·D + 0.3·P + 0.2·H)
+/// Rule-based value score: Value = 10 × (0.5·D + 0.3·P + 0.2·H).
 @Observable
 final class ValueScoreCalculator {
     static let shared = ValueScoreCalculator()
@@ -57,8 +56,7 @@ final class ValueScoreCalculator {
 
     var priority: ShoppingPriority = .balanced
 
-    // Scores depend on every product in the category, so compute a category at a time and cache it
-    // until prices or the shopping priority change.
+    // Scores depend on the whole category, so they're cached until prices or the priority change.
     @ObservationIgnored private var cache: [UUID: ValueScore] = [:]
     @ObservationIgnored private var cacheKey = ""
 
@@ -115,8 +113,7 @@ final class ValueScoreCalculator {
         return result
     }
 
-    /// Weighted sum of key specs, each normalised 0.3–1 within the category.
-    /// A spec a product doesn't list counts as the category median, so missing data neither helps nor hurts.
+    /// Missing specs count as the category median, so they neither help nor hurt.
     private func normalisedSpecScores(_ peers: [Product]) -> [UUID: Double] {
         let features = features(for: peers.first?.category ?? .smartphones)
         var totals: [UUID: Double] = [:]
@@ -150,38 +147,33 @@ final class ValueScoreCalculator {
     private func features(for category: ProductCategory) -> [SpecFeature] {
         let measured: (Product, String, String) -> Double? = { product, label, unit in
             guard let text = product.specValue(for: label), text.localizedCaseInsensitiveContains(unit) else { return nil }
-            return Self.number(text)
+            return SpecMath.number(text)
         }
         switch category {
         case .smartphones:
             return [
-                SpecFeature(kind: .performance, weight: 0.35) { $0.specValue(for: "Chip").map(Self.chipTier) },
-                SpecFeature(kind: .performance, weight: 0.2) { Self.gigabytes($0.specValue(for: "Storage")).map(log2) },
-                SpecFeature(kind: .other, weight: 0.2) { Self.number($0.specValue(for: "Camera")) },
+                SpecFeature(kind: .performance, weight: 0.35) { $0.specValue(for: "Chip").map(SpecMath.chipTier) },
+                SpecFeature(kind: .performance, weight: 0.2) { SpecMath.gigabytes($0.specValue(for: "Storage")).map(log2) },
+                SpecFeature(kind: .other, weight: 0.2) { SpecMath.number($0.specValue(for: "Camera")) },
                 SpecFeature(kind: .battery, weight: 0.25) { measured($0, "Battery", "mAh") }
             ]
         case .laptops:
             return [
-                SpecFeature(kind: .performance, weight: 0.3) { $0.specValue(for: "Chip").map(Self.chipTier) },
-                SpecFeature(kind: .performance, weight: 0.2) { Self.number($0.specValue(for: "Memory")) },
-                SpecFeature(kind: .performance, weight: 0.15) { Self.gigabytes($0.specValue(for: "Storage")).map(log2) },
+                SpecFeature(kind: .performance, weight: 0.3) { $0.specValue(for: "Chip").map(SpecMath.chipTier) },
+                SpecFeature(kind: .performance, weight: 0.2) { SpecMath.number($0.specValue(for: "Memory")) },
+                SpecFeature(kind: .performance, weight: 0.15) { SpecMath.gigabytes($0.specValue(for: "Storage")).map(log2) },
                 SpecFeature(kind: .battery, weight: 0.2) { measured($0, "Battery", "Wh") },
                 SpecFeature(kind: .weight, weight: 0.15, higherIsBetter: false) { measured($0, "Weight", "kg") }
             ]
         case .headphones:
             return [
                 SpecFeature(kind: .battery, weight: 0.35) { measured($0, "Battery", "hour") },
-                SpecFeature(kind: .weight, weight: 0.25, higherIsBetter: false) { Self.number($0.specValue(for: "Weight")) },
-                SpecFeature(kind: .other, weight: 0.2) { Self.number($0.specValue(for: "Driver")) },
-                SpecFeature(kind: .other, weight: 0.2) { Self.number($0.specValue(for: "Connectivity")) }
+                SpecFeature(kind: .weight, weight: 0.25, higherIsBetter: false) { SpecMath.number($0.specValue(for: "Weight")) },
+                SpecFeature(kind: .other, weight: 0.2) { SpecMath.number($0.specValue(for: "Driver")) },
+                SpecFeature(kind: .other, weight: 0.2) { SpecMath.number($0.specValue(for: "Connectivity")) }
             ]
         }
     }
-
-    // The spec maths lives in `SpecMath` so the summary model's training script can compile it on its own.
-    nonisolated static func number(_ text: String?) -> Double? { SpecMath.number(text) }
-    nonisolated static func gigabytes(_ text: String?) -> Double? { SpecMath.gigabytes(text) }
-    nonisolated static func chipTier(_ chip: String) -> Double { SpecMath.chipTier(chip) }
 
     private func clamp(_ value: Double, _ low: Double, _ high: Double) -> Double {
         min(high, max(low, value))
@@ -195,11 +187,4 @@ private struct SpecFeature {
     let weight: Double
     var higherIsBetter = true
     let value: (Product) -> Double?
-
-    init(kind: Kind, weight: Double, higherIsBetter: Bool = true, value: @escaping (Product) -> Double?) {
-        self.kind = kind
-        self.weight = weight
-        self.higherIsBetter = higherIsBetter
-        self.value = value
-    }
 }

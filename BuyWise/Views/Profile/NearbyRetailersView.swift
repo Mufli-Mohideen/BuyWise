@@ -174,7 +174,8 @@ struct NearbyRetailersView: View {
             guard branch.id == selectedID, let first = response.routes.first else { return }
             withAnimation(.easeInOut(duration: 0.35)) {
                 route = first
-                position = .rect(first.polyline.boundingMapRect.insetBy(dx: -first.polyline.boundingMapRect.width * 0.35, dy: -first.polyline.boundingMapRect.height * 0.35))
+                let bounds = first.polyline.boundingMapRect
+                position = .rect(bounds.insetBy(dx: -bounds.width * 0.35, dy: -bounds.height * 0.35))
             }
         } catch {
             // Routing unavailable here; the card shows an estimate instead.

@@ -223,17 +223,17 @@ enum UpgradeAnalyzer {
     }
 
     private static func definitions(for category: ProductCategory) -> [MetricDefinition] {
-        let spec: (String) -> (Product) -> Double? = { label in { ValueScoreCalculator.number($0.specValue(for: label)) } }
+        let spec: (String) -> (Product) -> Double? = { label in { SpecMath.number($0.specValue(for: label)) } }
         // Only compare a measurement when both products state it in the same unit (e.g. mAh, not hours).
         let measured: (String, String) -> (Product) -> Double? = { label, unit in
             { product in
                 guard let text = product.specValue(for: label), text.localizedCaseInsensitiveContains(unit) else { return nil }
-                return ValueScoreCalculator.number(text)
+                return SpecMath.number(text)
             }
         }
-        let storage: (Product) -> Double? = { ValueScoreCalculator.gigabytes($0.specValue(for: "Storage")) }
+        let storage: (Product) -> Double? = { SpecMath.gigabytes($0.specValue(for: "Storage")) }
         let chipTier = MetricDefinition(title: "Chip tier (est.)", unit: "/10", specLabel: "Chip") {
-            $0.specValue(for: "Chip").map(ValueScoreCalculator.chipTier)
+            $0.specValue(for: "Chip").map(SpecMath.chipTier)
         }
 
         switch category {
@@ -269,8 +269,9 @@ enum UpgradeAnalyzer {
         }
 
         let oldSet = Set(a.features)
+        let newSet = Set(b.features)
         var gained = b.features.filter { !oldSet.contains($0) }
-        var lost = a.features.filter { !Set(b.features).contains($0) }
+        var lost = a.features.filter { !newSet.contains($0) }
         let unchanged = b.features.filter { oldSet.contains($0) }
 
         var changed: [VersionedChange] = []

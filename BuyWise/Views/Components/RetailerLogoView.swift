@@ -1,7 +1,6 @@
 import SwiftUI
 
-/// Displays a retailer's real logo on a small neutral chip, consistent across
-/// light and dark mode since the source logos carry their own brand colors.
+/// Logos sit on a white chip because they carry their own brand colors.
 struct RetailerLogoView: View {
     let retailer: Retailer
     var height: CGFloat = 20

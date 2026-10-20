@@ -32,6 +32,20 @@ enum ProductCatalog {
             .prefix(limit)
             .map { $0 }
     }
+
+    /// Products a retailer has marked down on its own site, biggest discount first. Ignores the simulated history.
+    static var priceDrops: [(product: Product, previousPrice: Double)] {
+        all.compactMap { product -> (product: Product, previousPrice: Double)? in
+            guard product.isSold else { return nil }
+            let listing = product.lowestListing
+            guard listing.isAvailable, let regular = listing.originalPrice, regular > listing.price else { return nil }
+            return (product, regular)
+        }
+        .sorted {
+            ($0.previousPrice - $0.product.startingPrice) / $0.previousPrice
+                > ($1.previousPrice - $1.product.startingPrice) / $1.previousPrice
+        }
+    }
 }
 
 /// Celltronics, Abans and Singer stores from the retailers' websites.

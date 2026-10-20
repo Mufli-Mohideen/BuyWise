@@ -33,8 +33,7 @@ enum IdentificationError: LocalizedError {
     }
 }
 
-/// The three-way product finder. The backend narrows the catalogue (fuzzy name search, listing URL,
-/// barcode or retailer item code); the on-device listing matcher makes the final call on free text.
+/// The backend narrows the candidates; the on-device listing matcher makes the final call on free text.
 enum ProductIdentifier {
     static func identify(text: String, method: IdentificationResult.Method) async throws -> IdentificationResult {
         let query = text.replacingOccurrences(of: "\n", with: " ").trimmingCharacters(in: .whitespaces)

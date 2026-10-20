@@ -1,8 +1,6 @@
 import Foundation
 
-/// Turns two products' specifications into facts ("B has more storage") and into the text the Core ML
-/// summary model reads. Plain Foundation with no app types: the training-data script in ml/summarizer
-/// compiles this exact file, so the model is trained on precisely the input the app gives it.
+/// Builds the model's input. Keep it free of app types: ml/summarizer compiles this file to make training data.
 nonisolated enum SpecComparison {
     struct Fact: Codable, Equatable, Sendable {
         let label: String
@@ -84,8 +82,7 @@ nonisolated enum SpecComparison {
         }
     }
 
-    /// Features one product has and the other explicitly doesn't ("Yes" vs "No"). A spec that isn't listed is
-    /// unknown, not "No": retailer pages often leave out 5G or noise cancellation on products that have it.
+    /// A missing spec is unknown, not "No": retailers often leave out features a product has.
     private static func present(_ advantage: String) -> Rule {
         { a, b in
             guard let a, let b else { return nil }
