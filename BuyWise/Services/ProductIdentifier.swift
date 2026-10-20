@@ -43,13 +43,16 @@ enum ProductIdentifier {
             try await supabase.rpc("search_products", params: SearchParams(query: query, maxResults: 8)).execute().value
         }
 
+        // A photo of a web page or box has many unrelated words, which drags down the similarity to a short
+        // product name. So the rules are checked against all the text, and similarity is also scored per line.
+        let lines = text.split(separator: "\n").map { $0.trimmingCharacters(in: .whitespaces) }.filter { $0.count >= 4 }
+        let passages = [query] + (lines.count > 1 ? lines : [])
+
         var best: (Product, Double)?
         for row in candidates {
             guard let product = ProductCatalog.product(id: row.id) else { continue }
             let score = ([product.fullName] + product.listings.map(\.title))
-                .map { ListingMatcher.shared.compare(query, $0) }
-                .filter { $0.conflictReason == nil && $0.modelMatched }
-                .map(\.confidence)
+                .map { name in matchConfidence(of: name, query: query, passages: passages) }
                 .max() ?? 0
             if score > (best?.1 ?? 0) {
                 best = (product, score)
@@ -58,6 +61,18 @@ enum ProductIdentifier {
 
         guard let (product, confidence) = best, confidence >= 0.55 else { throw IdentificationError.notFound }
         return IdentificationResult(product: product, confidence: confidence, method: method, evidence: text)
+    }
+
+    /// Zero when the full text conflicts with the name (different storage, model or variant); otherwise the
+    /// best confidence from the full text or any single line.
+    private static func matchConfidence(of name: String, query: String, passages: [String]) -> Double {
+        let full = ListingMatcher.shared.compare(query, name)
+        guard full.conflictReason == nil, full.modelMatched else { return 0 }
+        return passages
+            .map { ListingMatcher.shared.compare($0, name) }
+            .filter { $0.conflictReason == nil && $0.modelMatched }
+            .map(\.confidence)
+            .max() ?? 0
     }
 
     static func identify(barcode: String) async throws -> IdentificationResult {

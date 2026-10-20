@@ -8,7 +8,7 @@ struct ImageScannerSheetView: View {
         case choose
         case analyzing(UIImage)
         case identified(IdentificationResult, UIImage, [String])
-        case failed(String, UIImage?)
+        case failed(String, UIImage?, [String])
     }
 
     @Environment(\.dismiss) private var dismiss
@@ -68,8 +68,8 @@ struct ImageScannerSheetView: View {
                 .padding(20)
                 .padding(.top, 20)
             }
-        case .failed(let message, let image):
-            failedView(message, image: image)
+        case .failed(let message, let image, let lines):
+            failedView(message, image: image, lines: lines)
         }
     }
 
@@ -162,46 +162,78 @@ struct ImageScannerSheetView: View {
         }
     }
 
-    private func failedView(_ message: String, image: UIImage?) -> some View {
-        VStack(spacing: 18) {
-            Spacer()
-            if let image {
-                Image(uiImage: image).resizable().scaledToFit().frame(maxHeight: 200)
-                    .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
-                    .opacity(0.6)
+    private func failedView(_ message: String, image: UIImage?, lines: [String]) -> some View {
+        VStack(spacing: 16) {
+            ScrollView {
+                VStack(spacing: 18) {
+                    if let image {
+                        Image(uiImage: image).resizable().scaledToFit().frame(maxHeight: lines.isEmpty ? 200 : 150)
+                            .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                            .opacity(0.6)
+                    }
+                    Image(systemName: "exclamationmark.magnifyingglass")
+                        .font(.system(size: 40))
+                        .foregroundStyle(BuyWiseColors.warning)
+                    Text("No match found")
+                        .font(BuyWiseTypography.title)
+                        .foregroundStyle(.white)
+                    Text(message)
+                        .font(BuyWiseTypography.body)
+                        .foregroundStyle(.white.opacity(0.7))
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 32)
+                    if !lines.isEmpty {
+                        recognisedText(lines)
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.top, 48)
             }
-            Image(systemName: "exclamationmark.magnifyingglass")
-                .font(.system(size: 40))
-                .foregroundStyle(BuyWiseColors.warning)
-            Text("No match found")
-                .font(BuyWiseTypography.title)
-                .foregroundStyle(.white)
-            Text(message)
-                .font(BuyWiseTypography.body)
-                .foregroundStyle(.white.opacity(0.7))
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 32)
-            Spacer()
             PrimaryButton(title: "Try again", symbolName: "arrow.counterclockwise") { withAnimation { phase = .choose } }
                 .padding(.horizontal, 24)
                 .padding(.bottom, 16)
         }
     }
 
+    // Shows that the text was read even when no product matched it.
+    private func recognisedText(_ lines: [String]) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Label("Text we read · \(lines.count) \(lines.count == 1 ? "line" : "lines")", systemImage: "text.viewfinder")
+                .font(BuyWiseTypography.captionBold)
+                .foregroundStyle(.white.opacity(0.7))
+            ForEach(Array(lines.enumerated()), id: \.offset) { _, line in
+                Text(line)
+                    .font(.system(.callout, design: .monospaced))
+                    .foregroundStyle(.white)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }
+        .textSelection(.enabled)
+        .padding(14)
+        .background(RoundedRectangle(cornerRadius: 12, style: .continuous).fill(Color.white.opacity(0.1)))
+        .padding(.horizontal, 24)
+    }
+
     private func analyze(_ image: UIImage) async {
         withAnimation { phase = .analyzing(image) }
         let started = Date()
+        var lines: [String] = []
         do {
-            let lines = try await VisionScanner.recognizeText(in: image)
-            let result = try await ProductIdentifier.identify(text: lines.joined(separator: " "), method: .text)
+            lines = try await VisionScanner.recognizeText(in: image)
+            let result = try await ProductIdentifier.identify(text: lines.joined(separator: "\n"), method: .text)
             await minimumDelay(since: started)
             withAnimation(.spring(response: 0.45, dampingFraction: 0.85)) {
                 phase = .identified(result, image, lines)
             }
         } catch {
             await minimumDelay(since: started)
-            let message = (error as? IdentificationError)?.errorDescription ?? "Try a clearer photo of the product name or price tag."
-            withAnimation { phase = .failed(message, image) }
+            let message: String
+            if case IdentificationError.notFound = error, !lines.isEmpty {
+                message = "We read the text below, but it doesn't match a product sold by Celltronics, Abans or Singer."
+            } else {
+                message = (error as? IdentificationError)?.errorDescription ?? "Try a clearer photo of the product name or price tag."
+            }
+            withAnimation { phase = .failed(message, image, lines) }
         }
     }
 
