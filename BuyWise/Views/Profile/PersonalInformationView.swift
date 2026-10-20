@@ -29,9 +29,7 @@ struct PersonalInformationView: View {
                 .padding(.bottom, 4)
 
                 field(title: "Full name", text: $name)
-                if !appState.isGuest {
-                    field(title: "Email", text: $email, keyboard: .emailAddress)
-                }
+                field(title: "Email", text: $email, keyboard: .emailAddress)
 
                 if let message {
                     Text(message)

@@ -10,13 +10,9 @@ struct LoginView: View {
     @State private var isPasswordVisible = false
     @AppStorage("rememberMe") private var rememberMe = true
     @State private var resetMessage: String?
-    @State private var showGoogleUnavailable = false
-    @State private var appleErrorMessage: String?
     @State private var errorMessage: String?
     @State private var isWorking = false
-    @State private var appleNonce = ""
     @EnvironmentObject private var appState: AppState
-    @Environment(\.colorScheme) private var colorScheme
 
     private var canSignIn: Bool {
         !email.trimmingCharacters(in: .whitespaces).isEmpty && !password.isEmpty
@@ -118,44 +114,16 @@ struct LoginView: View {
                         Rectangle().fill(BuyWiseColors.border).frame(height: 1)
                     }
 
-                    VStack(spacing: 12) {
-                        SignInWithAppleButton(.signIn) { request in
-                            appleNonce = AppleSignInNonce.random()
-                            request.requestedScopes = [.fullName, .email]
-                            request.nonce = AppleSignInNonce.sha256(appleNonce)
-                        } onCompletion: { result in
-                            handleApple(result)
-                        }
-                        .signInWithAppleButtonStyle(colorScheme == .dark ? .white : .black)
-                        .frame(height: 50)
-                        .clipShape(RoundedRectangle(cornerRadius: BuyWiseTheme.controlRadius, style: .continuous))
-
-                        googleButton
-                    }
+                    googleButton
                 }
 
-                VStack(spacing: 16) {
-                    HStack(spacing: 4) {
-                        Text("Don't have an account?")
-                            .font(BuyWiseTypography.body)
-                            .foregroundStyle(BuyWiseColors.textSecondary)
-                        Button("Create account", action: onCreateAccount)
-                            .font(BuyWiseTypography.subheadline)
-                            .foregroundStyle(BuyWiseColors.brand)
-                    }
-
-                    Button {
-                        run { try await appState.continueAsGuest() }
-                    } label: {
-                        HStack(spacing: 6) {
-                            Image(systemName: "sparkles")
-                                .font(.system(size: 12))
-                            Text("Continue as Demo User")
-                                .font(BuyWiseTypography.caption)
-                        }
+                HStack(spacing: 4) {
+                    Text("Don't have an account?")
+                        .font(BuyWiseTypography.body)
                         .foregroundStyle(BuyWiseColors.textSecondary)
-                    }
-                    .disabled(isWorking)
+                    Button("Create account", action: onCreateAccount)
+                        .font(BuyWiseTypography.subheadline)
+                        .foregroundStyle(BuyWiseColors.brand)
                 }
                 .padding(.bottom, 16)
             }
@@ -166,19 +134,6 @@ struct LoginView: View {
             Button("OK", role: .cancel) {}
         } message: {
             Text(resetMessage ?? "")
-        }
-        .alert("Google sign-in", isPresented: $showGoogleUnavailable) {
-            Button("OK", role: .cancel) {}
-        } message: {
-            Text("Google sign-in isn't part of this prototype. Use Sign in with Apple or your email instead.")
-        }
-        .alert("Sign in with Apple", isPresented: Binding(get: { appleErrorMessage != nil }, set: { if !$0 { appleErrorMessage = nil } })) {
-            Button("Continue as Demo User") {
-                run { try await appState.continueAsGuest() }
-            }
-            Button("Cancel", role: .cancel) {}
-        } message: {
-            Text(appleErrorMessage ?? "")
         }
     }
 
@@ -204,7 +159,7 @@ struct LoginView: View {
 
     private var googleButton: some View {
         Button {
-            showGoogleUnavailable = true
+            run { try await appState.signInWithGoogle() }
         } label: {
             HStack(spacing: 10) {
                 Image("GoogleLogo")
@@ -227,24 +182,7 @@ struct LoginView: View {
             )
         }
         .buttonStyle(PressableButtonStyle())
-    }
-
-    private func handleApple(_ result: Result<ASAuthorization, Error>) {
-        switch result {
-        case .success(let authorization):
-            guard let credential = authorization.credential as? ASAuthorizationAppleIDCredential,
-                  let tokenData = credential.identityToken,
-                  let idToken = String(data: tokenData, encoding: .utf8) else {
-                appleErrorMessage = "Apple didn't return a sign-in token. Please try again."
-                return
-            }
-            let fullName = credential.fullName.map { PersonNameComponentsFormatter().string(from: $0) }
-            let nonce = appleNonce
-            run { try await appState.signInWithApple(idToken: idToken, nonce: nonce, fullName: fullName) }
-        case .failure(let error):
-            if (error as? ASAuthorizationError)?.code == .canceled { return }
-            appleErrorMessage = "Sign in with Apple isn't enabled for this build. It needs a paid Apple Developer account."
-        }
+        .disabled(isWorking)
     }
 
     private func run(_ signIn: @escaping () async throws -> Void) {
@@ -254,6 +192,8 @@ struct LoginView: View {
             do {
                 try await signIn()
                 onSignedIn()
+            } catch ASWebAuthenticationSessionError.canceledLogin {
+                // The user closed the Google sheet; nothing to report.
             } catch {
                 errorMessage = error.userFacingMessage
             }

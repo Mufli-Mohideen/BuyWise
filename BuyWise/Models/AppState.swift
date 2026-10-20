@@ -105,7 +105,6 @@ struct AppNotification: Identifiable, Hashable {
 @MainActor
 final class AppState: ObservableObject {
     @Published private(set) var userID: UUID?
-    @Published private(set) var isGuest = false
 
     @Published private(set) var trackedEntries: [UUID: TrackedEntry] = [:]
     @Published private(set) var savedProductIDs: Set<UUID> = []
@@ -130,6 +129,8 @@ final class AppState: ObservableObject {
     @Published var deepLinkProduct: Product?
     /// In-app banner for alerts when system notifications aren't allowed.
     @Published var inAppBanner: AppNotification?
+    /// Set after opening a password reset link, to ask for the new password.
+    @Published var needsNewPassword = false
 
     @Published var shoppingPriority: ShoppingPriority = .balanced {
         didSet {
@@ -160,6 +161,11 @@ final class AppState: ObservableObject {
     func restoreSession() async -> Bool {
         // `session` refreshes an expired access token when the refresh token is still valid.
         guard supabase.auth.currentSession != nil, let session = try? await supabase.auth.session else { return false }
+        // Demo (anonymous) accounts are no longer supported.
+        if session.user.isAnonymous {
+            await signOut()
+            return false
+        }
         await didSignIn(session.user)
         return true
     }
@@ -181,26 +187,31 @@ final class AppState: ObservableObject {
         return true
     }
 
-    func signInWithApple(idToken: String, nonce: String, fullName: String?) async throws {
-        let session = try await supabase.auth.signInWithIdToken(
-            credentials: OpenIDConnectCredentials(provider: .apple, idToken: idToken, nonce: nonce)
+    /// Opens Google's sign-in page in a secure browser sheet; Supabase handles the OAuth exchange.
+    func signInWithGoogle() async throws {
+        let session = try await supabase.auth.signInWithOAuth(
+            provider: .google,
+            redirectTo: SupabaseConfig.authCallbackURL
         )
-        // Apple only shares the name on the very first sign-in, so store it straight away.
-        if let fullName, !fullName.isEmpty {
-            _ = try? await supabase.auth.update(user: UserAttributes(data: ["full_name": .string(fullName)]))
-            _ = try? await supabase.from("profiles").update(["full_name": fullName]).eq("id", value: session.user.id).execute()
-        }
-        await didSignIn(session.user)
-    }
-
-    /// "Continue as Demo User": a real, anonymous Supabase account so every feature works without signing up.
-    func continueAsGuest() async throws {
-        let session = try await supabase.auth.signInAnonymously()
         await didSignIn(session.user)
     }
 
     func sendPasswordReset(email: String) async throws {
-        try await supabase.auth.resetPasswordForEmail(email.trimmingCharacters(in: .whitespaces))
+        try await supabase.auth.resetPasswordForEmail(
+            email.trimmingCharacters(in: .whitespaces),
+            redirectTo: SupabaseConfig.passwordResetURL
+        )
+    }
+
+    /// Signs in from the link in a password reset email. Returns false for links that aren't reset links.
+    func openPasswordResetLink(_ url: URL) async throws -> Bool {
+        guard url.scheme == SupabaseConfig.passwordResetURL.scheme, url.host == SupabaseConfig.passwordResetURL.host else {
+            return false
+        }
+        let session = try await supabase.auth.session(from: url)
+        await didSignIn(session.user)
+        needsNewPassword = true
+        return true
     }
 
     func changePassword(_ password: String) async throws {
@@ -215,7 +226,6 @@ final class AppState: ObservableObject {
 
     private func didSignIn(_ user: User) async {
         userID = user.id
-        isGuest = user.isAnonymous
         userEmail = user.email ?? ""
         await CatalogStore.shared.loadIfNeeded()
         await loadUserData()
@@ -226,7 +236,6 @@ final class AppState: ObservableObject {
     private func clearUserState() {
         isApplyingRemoteState = true
         userID = nil
-        isGuest = false
         trackedEntries = [:]
         savedProductIDs = []
         recentSearches = []
@@ -241,6 +250,7 @@ final class AppState: ObservableObject {
         appearanceMode = .light
         isFaceIDEnabled = false
         inAppBanner = nil
+        needsNewPassword = false
         alertedNotificationIDs = []
         isApplyingRemoteState = false
     }
@@ -277,9 +287,9 @@ final class AppState: ObservableObject {
         if let fullName = profile.fullName, !fullName.isEmpty {
             userName = fullName
         } else {
-            userName = isGuest ? "Guest" : userEmail.components(separatedBy: "@").first ?? ""
+            userName = userEmail.components(separatedBy: "@").first ?? ""
         }
-        signInMethod = isGuest ? "Guest" : Self.displayName(forProvider: profile.signInMethod)
+        signInMethod = Self.displayName(forProvider: profile.signInMethod)
         appearanceMode = AppearanceMode(databaseValue: profile.appearanceMode)
         shoppingPriority = ShoppingPriority(databaseValue: profile.shoppingPriority)
         isFaceIDEnabled = profile.faceIdEnabled
@@ -295,9 +305,7 @@ final class AppState: ObservableObject {
 
     private static func displayName(forProvider provider: String) -> String {
         switch provider {
-        case "apple": return "Apple ID"
         case "google": return "Google"
-        case "anonymous": return "Guest"
         default: return "Email"
         }
     }

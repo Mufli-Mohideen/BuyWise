@@ -263,6 +263,7 @@
 				DEVELOPMENT_TEAM = 62RG6L84JH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "BuyWise-Info.plist";
 				INFOPLIST_KEY_NSCameraUsageDescription = "BuyWise uses the camera to scan product barcodes and price tags.";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "BuyWise uses Face ID to securely access your account.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "BuyWise uses your location to show the nearest Celltronics, Abans and Singer stores.";
@@ -298,6 +299,7 @@
 				DEVELOPMENT_TEAM = 62RG6L84JH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "BuyWise-Info.plist";
 				INFOPLIST_KEY_NSCameraUsageDescription = "BuyWise uses the camera to scan product barcodes and price tags.";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "BuyWise uses Face ID to securely access your account.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "BuyWise uses your location to show the nearest Celltronics, Abans and Singer stores.";

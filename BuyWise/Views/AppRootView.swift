@@ -15,6 +15,7 @@ struct AppRootView: View {
     @State private var showSignUp = false
     @State private var splashFinished = false
     @State private var startupPhase: AppPhase?
+    @State private var resetLinkError: String?
     @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = false
     @AppStorage("rememberMe") private var rememberMe = true
 
@@ -68,6 +69,26 @@ struct AppRootView: View {
         }
         .animation(.easeInOut(duration: 0.3), value: phase)
         .preferredColorScheme(appState.appearanceMode.colorScheme)
+        .onOpenURL { url in
+            Task { await openPasswordResetLink(url) }
+        }
+        .sheet(isPresented: $appState.needsNewPassword) {
+            SetNewPasswordView()
+        }
+        .alert("Reset link didn't work", isPresented: Binding(get: { resetLinkError != nil }, set: { if !$0 { resetLinkError = nil } })) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(resetLinkError ?? "")
+        }
+    }
+
+    private func openPasswordResetLink(_ url: URL) async {
+        do {
+            guard try await appState.openPasswordResetLink(url) else { return }
+            withAnimation { phase = .main }
+        } catch {
+            resetLinkError = "This link has expired or was already used. Request a new one with Forgot password."
+        }
     }
 
     /// Runs during the splash animation: load the catalogue and restore a saved session.

@@ -180,8 +180,8 @@ struct ProfileView: View {
                 Text(appState.userEmail)
                     .font(BuyWiseTypography.caption)
                     .foregroundStyle(.white.opacity(0.85))
-                Label(appState.isGuest ? "Guest account" : "Signed in with \(appState.signInMethod)",
-                      systemImage: appState.isGuest ? "person.fill" : appState.signInMethod == "Apple ID" ? "apple.logo" : "envelope.fill")
+                Label("Signed in with \(appState.signInMethod)",
+                      systemImage: appState.signInMethod == "Google" ? "g.circle.fill" : "envelope.fill")
                     .font(BuyWiseTypography.captionBold)
                     .padding(.horizontal, 10)
                     .padding(.vertical, 5)

@@ -56,18 +56,12 @@ struct SecurityView: View {
         .navigationTitle("Security")
         .navigationBarTitleDisplayMode(.inline)
         .alert("Change password", isPresented: $showChangePassword) {
-            if appState.isGuest {
-                Button("OK", role: .cancel) {}
-            } else {
-                SecureField("New password", text: $newPassword)
-                SecureField("Confirm new password", text: $confirmPassword)
-                Button("Update", action: updatePassword)
-                Button("Cancel", role: .cancel) { clearPasswordFields() }
-            }
+            SecureField("New password", text: $newPassword)
+            SecureField("Confirm new password", text: $confirmPassword)
+            Button("Update", action: updatePassword)
+            Button("Cancel", role: .cancel) { clearPasswordFields() }
         } message: {
-            Text(appState.isGuest
-                 ? "You're using a guest account. Create an account from the login screen to set a password."
-                 : "Use at least 6 characters.")
+            Text("Use at least 6 characters.")
         }
         .alert("Change password", isPresented: Binding(get: { passwordResult != nil }, set: { if !$0 { passwordResult = nil } })) {
             Button("OK", role: .cancel) {}
