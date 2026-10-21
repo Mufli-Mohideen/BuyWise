@@ -35,6 +35,7 @@ struct AppearanceSettingsView: View {
                             }
                             .padding(.vertical, 14)
                             .padding(.horizontal, 14)
+                            .contentShape(Rectangle())
                         }
                         .buttonStyle(.plain)
 

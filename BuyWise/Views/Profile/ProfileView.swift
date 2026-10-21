@@ -334,6 +334,7 @@ struct ProfileView: View {
             }
             .padding(.vertical, 12)
             .padding(.horizontal, 14)
+            .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
     }

@@ -122,5 +122,6 @@ struct SecurityView: View {
         }
         .padding(.vertical, 12)
         .padding(.horizontal, 14)
+        .contentShape(Rectangle())
     }
 }
