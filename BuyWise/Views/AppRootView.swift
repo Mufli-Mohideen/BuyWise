@@ -16,6 +16,7 @@ struct AppRootView: View {
     @State private var splashFinished = false
     @State private var startupPhase: AppPhase?
     @State private var resetLinkError: String?
+    @State private var pendingProductID: UUID?
     @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = false
     @AppStorage("rememberMe") private var rememberMe = true
 
@@ -70,8 +71,15 @@ struct AppRootView: View {
         .animation(.easeInOut(duration: 0.3), value: phase)
         .preferredColorScheme(appState.appearanceMode.colorScheme)
         .onOpenURL { url in
-            Task { await openPasswordResetLink(url) }
+            if let id = widgetProductID(url) {
+                pendingProductID = id
+                openPendingProduct()
+            } else {
+                Task { await openPasswordResetLink(url) }
+            }
         }
+        // A widget link can arrive before sign-in or Face ID, so open it once the main screen shows.
+        .onChange(of: phase) { openPendingProduct() }
         .sheet(isPresented: $appState.needsNewPassword) {
             SetNewPasswordView()
         }
@@ -89,6 +97,18 @@ struct AppRootView: View {
         } catch {
             resetLinkError = "This link has expired or was already used. Request a new one with Forgot password."
         }
+    }
+
+    /// The product in a widget link, e.g. buywise://product/<id>.
+    private func widgetProductID(_ url: URL) -> UUID? {
+        guard url.scheme == "buywise", url.host() == "product" else { return nil }
+        return UUID(uuidString: url.lastPathComponent)
+    }
+
+    private func openPendingProduct() {
+        guard phase == .main, let id = pendingProductID, let product = ProductCatalog.product(id: id) else { return }
+        pendingProductID = nil
+        appState.deepLinkProduct = product
     }
 
     /// Loads the catalogue and restores the saved session while the splash animation plays.

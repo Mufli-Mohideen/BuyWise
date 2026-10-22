@@ -8,10 +8,36 @@
 
 /* Begin PBXBuildFile section */
 		EBABFFB9D8F9C1EF6D3D9897 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 7165F2853C2C060EDF10F04A /* Supabase */; };
+		AA10000000000000000000A2 /* BuyWiseWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = AA10000000000000000000A1 /* BuyWiseWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AA10000000000000000000A3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9630559B306439B500B44774 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA10000000000000000000A9;
+			remoteInfo = BuyWiseWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		AA10000000000000000000A4 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				AA10000000000000000000A2 /* BuyWiseWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		963055A3306439B500B44774 /* BuyWise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BuyWise.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA10000000000000000000A1 /* BuyWiseWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BuyWiseWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -20,9 +46,21 @@
 			path = BuyWise;
 			sourceTree = "<group>";
 		};
+		AA10000000000000000000A5 /* BuyWiseWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = BuyWiseWidget;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		AA10000000000000000000A6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		963055A0306439B500B44774 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -38,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				963055A5306439B500B44774 /* BuyWise */,
+				AA10000000000000000000A5 /* BuyWiseWidget */,
 				963055A4306439B500B44774 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -46,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				963055A3306439B500B44774 /* BuyWise.app */,
+				AA10000000000000000000A1 /* BuyWiseWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -60,10 +100,12 @@
 				9630559F306439B500B44774 /* Sources */,
 				963055A0306439B500B44774 /* Frameworks */,
 				963055A1306439B500B44774 /* Resources */,
+				AA10000000000000000000A4 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				AA10000000000000000000AA /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				963055A5306439B500B44774 /* BuyWise */,
@@ -76,6 +118,26 @@
 			productReference = 963055A3306439B500B44774 /* BuyWise.app */;
 			productType = "com.apple.product-type.application";
 		};
+		AA10000000000000000000A9 /* BuyWiseWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA10000000000000000000AB /* Build configuration list for PBXNativeTarget "BuyWiseWidgetExtension" */;
+			buildPhases = (
+				AA10000000000000000000A7 /* Sources */,
+				AA10000000000000000000A6 /* Frameworks */,
+				AA10000000000000000000A8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				AA10000000000000000000A5 /* BuyWiseWidget */,
+			);
+			name = BuyWiseWidgetExtension;
+			productName = BuyWiseWidgetExtension;
+			productReference = AA10000000000000000000A1 /* BuyWiseWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -87,6 +149,9 @@
 				LastUpgradeCheck = 2650;
 				TargetAttributes = {
 					963055A2306439B500B44774 = {
+						CreatedOnToolsVersion = 26.5;
+					};
+					AA10000000000000000000A9 = {
 						CreatedOnToolsVersion = 26.5;
 					};
 				};
@@ -109,11 +174,19 @@
 			projectRoot = "";
 			targets = (
 				963055A2306439B500B44774 /* BuyWise */,
+				AA10000000000000000000A9 /* BuyWiseWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		AA10000000000000000000A8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		963055A1306439B500B44774 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -124,6 +197,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		AA10000000000000000000A7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9630559F306439B500B44774 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -133,7 +213,71 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		AA10000000000000000000AA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AA10000000000000000000A9 /* BuyWiseWidgetExtension */;
+			targetProxy = AA10000000000000000000A3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		AA10000000000000000000AC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 62RG6L84JH;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "BuyWiseWidget-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = BuyWise;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nibm.BuyWise.BuyWiseWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AA10000000000000000000AD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 62RG6L84JH;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "BuyWiseWidget-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = BuyWise;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nibm.BuyWise.BuyWiseWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		963055C2306439B600B44774 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -328,6 +472,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		AA10000000000000000000AB /* Build configuration list for PBXNativeTarget "BuyWiseWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA10000000000000000000AC /* Debug */,
+				AA10000000000000000000AD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		9630559E306439B500B44774 /* Build configuration list for PBXProject "BuyWise" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
