@@ -16,9 +16,9 @@ nonisolated enum SpecComparison {
     static func facts(first: [(label: String, value: String)], second: [(label: String, value: String)]) -> [Fact] {
         var labels = first.map(\.label)
         for spec in second where !labels.contains(spec.label) { labels.append(spec.label) }
-        let a = Dictionary(first.map { ($0.label, $0.value) }, uniquingKeysWith: { x, _ in x })
-        let b = Dictionary(second.map { ($0.label, $0.value) }, uniquingKeysWith: { x, _ in x })
-        return labels.map { fact(label: $0, a[$0], b[$0]) }
+        let firstValues = Dictionary(first.map { ($0.label, $0.value) }, uniquingKeysWith: { x, _ in x })
+        let secondValues = Dictionary(second.map { ($0.label, $0.value) }, uniquingKeysWith: { x, _ in x })
+        return labels.map { fact(label: $0, firstValues[$0], secondValues[$0]) }
     }
 
     /// e.g. "compare smartphones: A: Galaxy A36 5G 128GB. B: Redmi 15 128GB. Chip: Snapdragon 6 Gen 3 | Snapdragon 685 | A faster chip. …"

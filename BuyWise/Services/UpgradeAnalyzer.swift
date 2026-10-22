@@ -65,11 +65,11 @@ struct PricePosition {
     var percentVsAverage: Double { (current - average) / average * 100 }
 
     var description: String {
-        let pct = percentVsAverage
-        if abs(pct) <= 2 { return "close to its 90-day average" }
-        return pct < 0
-            ? "\(UpgradeAnalysis.percentText(abs(pct))) below its 90-day average"
-            : "\(UpgradeAnalysis.percentText(pct)) above its 90-day average"
+        let percent = percentVsAverage
+        if abs(percent) <= 2 { return "close to its 90-day average" }
+        return percent < 0
+            ? "\(UpgradeAnalysis.percentText(abs(percent))) below its 90-day average"
+            : "\(UpgradeAnalysis.percentText(percent)) above its 90-day average"
     }
 }
 
@@ -256,19 +256,19 @@ enum UpgradeAnalyzer {
 
     private static func featureChanges(current: Product, new: Product) -> FeatureChanges {
         // Only the bundled reference devices have feature lists, so skip this unless both products have one.
-        guard let a = UpgradeReferenceData.entry(for: current), let b = UpgradeReferenceData.entry(for: new) else {
+        guard let currentEntry = UpgradeReferenceData.entry(for: current), let newEntry = UpgradeReferenceData.entry(for: new) else {
             return FeatureChanges(gained: [], lost: [], changed: [], unchanged: [])
         }
 
-        let oldSet = Set(a.features)
-        let newSet = Set(b.features)
-        var gained = b.features.filter { !oldSet.contains($0) }
-        var lost = a.features.filter { !newSet.contains($0) }
-        let unchanged = b.features.filter { oldSet.contains($0) }
+        let oldSet = Set(currentEntry.features)
+        let newSet = Set(newEntry.features)
+        var gained = newEntry.features.filter { !oldSet.contains($0) }
+        var lost = currentEntry.features.filter { !newSet.contains($0) }
+        let unchanged = newEntry.features.filter { oldSet.contains($0) }
 
         var changed: [VersionedChange] = []
-        for key in (Array(a.versioned.keys) + b.versioned.keys.filter { a.versioned[$0] == nil }).sorted() {
-            switch (a.versioned[key], b.versioned[key]) {
+        for key in (Array(currentEntry.versioned.keys) + newEntry.versioned.keys.filter { currentEntry.versioned[$0] == nil }).sorted() {
+            switch (currentEntry.versioned[key], newEntry.versioned[key]) {
             case let (from?, to?) where from != to: changed.append(VersionedChange(name: key, from: from, to: to))
             case (nil, let to?): gained.append("\(key) \(to)")
             case (let from?, nil): lost.append("\(key) \(from)")

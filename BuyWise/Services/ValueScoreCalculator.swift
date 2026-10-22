@@ -96,8 +96,8 @@ final class ValueScoreCalculator {
             let history = product.priceHistory.map(\.price)
             let mean = history.reduce(0, +) / Double(max(history.count, 1))
             let variance = history.reduce(0) { $0 + pow($1 - mean, 2) } / Double(max(history.count, 1))
-            let cv = mean > 0 ? sqrt(variance) / mean : 0
-            let h = clamp(1 - cv * 7, 0.3, 1)
+            let variationCoefficient = mean > 0 ? sqrt(variance) / mean : 0
+            let h = clamp(1 - variationCoefficient * 7, 0.3, 1)
 
             let overall = 10 * (Self.weightD * d + Self.weightP * p + Self.weightH * h)
             result[product.id] = ValueScore(

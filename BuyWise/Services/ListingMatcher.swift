@@ -55,43 +55,43 @@ final class ListingMatcher {
         let key = "\(first)|\(second)"
         if let cached = comparisonCache[key] { return cached }
 
-        let a = ParsedListing(first)
-        let b = ParsedListing(second)
+        let firstListing = ParsedListing(first)
+        let secondListing = ParsedListing(second)
 
-        let similarity = semanticSimilarity(a.cleaned, b.cleaned, fallbackA: a.allTokens, fallbackB: b.allTokens)
+        let similarity = semanticSimilarity(firstListing.cleaned, secondListing.cleaned, fallbackA: firstListing.allTokens, fallbackB: secondListing.allTokens)
 
         var conflict: String?
         var storageMatched = true
         var variantMatched = true
 
-        if let sa = a.storage, let sb = b.storage, sa != sb {
+        if let firstStorage = firstListing.storage, let secondStorage = secondListing.storage, firstStorage != secondStorage {
             storageMatched = false
-            conflict = "Different storage (\(ParsedListing.format(gb: sb)) vs \(ParsedListing.format(gb: sa)))"
+            conflict = "Different storage (\(ParsedListing.format(gb: secondStorage)) vs \(ParsedListing.format(gb: firstStorage)))"
         }
-        if conflict == nil, let za = a.screenSize, let zb = b.screenSize, za != zb {
+        if conflict == nil, let firstScreen = firstListing.screenSize, let secondScreen = secondListing.screenSize, firstScreen != secondScreen {
             variantMatched = false
-            conflict = "Different screen size (\(ParsedListing.format(inches: zb)) vs \(ParsedListing.format(inches: za)))"
+            conflict = "Different screen size (\(ParsedListing.format(inches: secondScreen)) vs \(ParsedListing.format(inches: firstScreen)))"
         }
-        if conflict == nil, let generation = ParsedListing.generationConflict(a, b) {
+        if conflict == nil, let generation = ParsedListing.generationConflict(firstListing, secondListing) {
             conflict = "Different model (\(generation.1) vs \(generation.0))"
         }
-        if conflict == nil, let series = ParsedListing.seriesConflict(a, b) {
+        if conflict == nil, let series = ParsedListing.seriesConflict(firstListing, secondListing) {
             conflict = "Different model (\(series.1) vs \(series.0))"
         }
-        if conflict == nil, a.tiers != b.tiers {
+        if conflict == nil, firstListing.tiers != secondListing.tiers {
             variantMatched = false
             let describe: (Set<String>) -> String = { $0.isEmpty ? "standard" : ParsedListing.orderedTiers($0) }
-            conflict = "Different variant (\(describe(b.tiers)) vs \(describe(a.tiers)))"
+            conflict = "Different variant (\(describe(secondListing.tiers)) vs \(describe(firstListing.tiers)))"
         }
-        if conflict == nil, !a.lineWords.isEmpty, !b.lineWords.isEmpty, a.lineWords.isDisjoint(with: b.lineWords) {
+        if conflict == nil, !firstListing.lineWords.isEmpty, !secondListing.lineWords.isEmpty, firstListing.lineWords.isDisjoint(with: secondListing.lineWords) {
             let describe: (Set<String>) -> String = { $0.sorted().map(\.capitalized).joined(separator: " ") }
-            conflict = "Different model (\(describe(b.lineWords)) vs \(describe(a.lineWords)))"
+            conflict = "Different model (\(describe(secondListing.lineWords)) vs \(describe(firstListing.lineWords)))"
         }
 
-        let sharedModelTokens = !a.modelTokens.isDisjoint(with: b.modelTokens)
-        let lineOverlap = ParsedListing.jaccard(a.lineWords, b.lineWords)
+        let sharedModelTokens = !firstListing.modelTokens.isDisjoint(with: secondListing.modelTokens)
+        let lineOverlap = ParsedListing.jaccard(firstListing.lineWords, secondListing.lineWords)
         let modelMatched = conflict?.hasPrefix("Different model") != true
-            && (sharedModelTokens || (a.modelTokens.isEmpty && b.modelTokens.isEmpty && lineOverlap >= 0.6))
+            && (sharedModelTokens || (firstListing.modelTokens.isEmpty && secondListing.modelTokens.isEmpty && lineOverlap >= 0.6))
 
         let confidence: Double
         if conflict == nil {
@@ -221,12 +221,12 @@ struct ParsedListing {
             guard let groups = matches(in: token, pattern: #"^(.*[a-z])(\d+)$"#).first, groups.count == 2 else { return nil }
             return (groups[0], groups[1])
         }
-        for ta in a.modelTokens {
-            guard let (pa, na) = split(ta) else { continue }
-            for tb in b.modelTokens {
-                guard let (pb, nb) = split(tb), pa == pb, na != nb else { continue }
-                if !b.modelTokens.contains(ta) && !a.modelTokens.contains(tb) {
-                    return (ta.uppercased(), tb.uppercased())
+        for firstToken in a.modelTokens {
+            guard let (firstPrefix, firstNumber) = split(firstToken) else { continue }
+            for secondToken in b.modelTokens {
+                guard let (secondPrefix, secondNumber) = split(secondToken), firstPrefix == secondPrefix, firstNumber != secondNumber else { continue }
+                if !b.modelTokens.contains(firstToken) && !a.modelTokens.contains(secondToken) {
+                    return (firstToken.uppercased(), secondToken.uppercased())
                 }
             }
         }
