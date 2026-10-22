@@ -7,7 +7,7 @@ enum ProductCategory: String, CaseIterable, Identifiable, Hashable {
 
     var id: String { rawValue }
 
-    /// Value stored in the database `product_category` enum.
+    /// Matches the `product_category` enum in the database.
     var databaseValue: String { rawValue.lowercased() }
 
     init?(databaseValue: String) {
@@ -153,13 +153,13 @@ struct Product: Identifiable, Hashable {
     static func == (lhs: Product, rhs: Product) -> Bool { lhs.id == rhs.id }
     func hash(into hasher: inout Hasher) { hasher.combine(id) }
 
-    /// Brand + name, without repeating the brand for names that already start with it ("HONOR 400 256GB").
+    /// Brand and name, skipping the brand if the name already starts with it ("HONOR 400 256GB").
     var fullName: String { name.hasPrefix("\(brand) ") ? name : "\(brand) \(name)" }
 
     /// False for older reference models that none of the retailers list any more.
     var isSold: Bool { !listings.isEmpty }
 
-    // Read through the catalogue store so views re-render when a price changes.
+    // Read from the catalogue store so views update when a price changes.
     var listings: [RetailerListing] { CatalogStore.shared.listings(for: self) }
     var priceHistory: [PricePoint] { CatalogStore.shared.history(for: self) }
 

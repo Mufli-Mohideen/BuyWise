@@ -1,6 +1,6 @@
 import Foundation
 
-/// Comparison summaries from the Core ML model, falling back to rules if it fails or writes something unsupported.
+/// Writes comparison summaries with the Core ML model. Falls back to rules if the model fails or its output doesn't match the data.
 enum ProductSummarizer {
     enum Source: Equatable {
         case coreML
@@ -27,11 +27,11 @@ enum ProductSummarizer {
         return Summary(text: ([analysis.costSentence, written] + analysis.closingSentences).joined(separator: " "), source: .coreML)
     }
 
-    /// The model's description of the spec differences, or nil if it can't run or writes something unsupported.
+    /// The model's summary of the spec differences. Nil if the model can't run or its output fails the checks.
     private static func specSummary(_ first: Product, _ second: Product) async -> String? {
         let facts = comparisonFacts(first, second)
         let input = SpecComparison.modelInput(category: first.category.rawValue, firstName: first.name, secondName: second.name, facts: facts)
-        // Off the main thread: the decoder runs once per word piece.
+        // Run off the main thread since the decoder runs once per token.
         let written = await Task.detached(priority: .userInitiated) {
             try? T5Summarizer.shared?.summarize(input)
         }.value
@@ -39,7 +39,7 @@ enum ProductSummarizer {
         return written
     }
 
-    /// The spec-by-spec comparison the model reads, built by the same code that made its training data.
+    /// The model's input, built with the same code that generated its training data.
     private static func comparisonFacts(_ first: Product, _ second: Product) -> [SpecComparison.Fact] {
         SpecComparison.facts(
             first: first.specifications.map { ($0.label, $0.value) },
@@ -84,7 +84,7 @@ enum ProductSummarizer {
         return candidates.max { ($0.start, $0.length) < ($1.start, $1.length) }?.side
     }
 
-    /// Deterministic price comparison, e.g. "The vivo Y04 is LKR 15,000 cheaper, at LKR 29,999 from Abans."
+    /// Rule-based price sentence, e.g. "The vivo Y04 is LKR 15,000 cheaper, at LKR 29,999 from Abans."
     static func priceSentence(_ first: Product, _ second: Product) -> String? {
         guard first.isSold, second.isSold else { return nil }
         let (cheaper, pricier) = first.startingPrice <= second.startingPrice ? (first, second) : (second, first)

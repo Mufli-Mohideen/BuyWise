@@ -101,7 +101,7 @@ struct AppNotification: Identifiable, Hashable {
     var isRead: Bool
 }
 
-/// The signed-in user's data. Changes are applied locally first so the UI stays instant, then saved to Supabase.
+/// Keeps track of the signed-in user's data and syncs changes with Supabase.
 @MainActor
 final class AppState: ObservableObject {
     @Published private(set) var userID: UUID?
@@ -125,11 +125,11 @@ final class AppState: ObservableObject {
     @Published private(set) var inbox: [AppNotification] = []
     @Published private(set) var lastError: String?
 
-    /// Set to open a product from anywhere (e.g. tapping a notification).
+    /// Set to open a product from anywhere (Ex: tapping a notification).
     @Published var deepLinkProduct: Product?
-    /// In-app banner for alerts when system notifications aren't allowed.
+    /// Shows an in-app alert when system notifications aren't available.
     @Published var inAppBanner: AppNotification?
-    /// Set after opening a password reset link, to ask for the new password.
+    /// Prompts the user to set a new password after opening a reset link.
     @Published var needsNewPassword = false
 
     @Published var shoppingPriority: ShoppingPriority = .balanced {
@@ -157,7 +157,7 @@ final class AppState: ObservableObject {
 
     // MARK: Session
 
-    /// Restores a saved session on launch. Returns true when a user is still signed in.
+    /// Restores the saved session if the user is still signed in.
     func restoreSession() async -> Bool {
         // `session` refreshes an expired access token when the refresh token is still valid.
         guard supabase.auth.currentSession != nil, let session = try? await supabase.auth.session else { return false }
@@ -175,7 +175,7 @@ final class AppState: ObservableObject {
         await didSignIn(session.user)
     }
 
-    /// Returns false when the project requires email confirmation before the first sign-in.
+    /// Returns false if the user has to confirm their email before signing in.
     func signUp(name: String, email: String, password: String) async throws -> Bool {
         let response = try await supabase.auth.signUp(
             email: email.trimmingCharacters(in: .whitespaces),
@@ -187,7 +187,7 @@ final class AppState: ObservableObject {
         return true
     }
 
-    /// Opens Google's sign-in page in a secure browser sheet; Supabase handles the OAuth exchange.
+    /// Shows Google sign-in in a secure browser sheet. Supabase handles the OAuth exchange.
     func signInWithGoogle() async throws {
         let session = try await supabase.auth.signInWithOAuth(
             provider: .google,
@@ -203,7 +203,7 @@ final class AppState: ObservableObject {
         )
     }
 
-    /// Signs in from the link in a password reset email. Returns false for links that aren't reset links.
+    /// Signs in from a password reset link. Returns false for any other link.
     func openPasswordResetLink(_ url: URL) async throws -> Bool {
         guard url.scheme == SupabaseConfig.passwordResetURL.scheme, url.host == SupabaseConfig.passwordResetURL.host else {
             return false
@@ -229,7 +229,7 @@ final class AppState: ObservableObject {
         userEmail = user.email ?? ""
         await CatalogStore.shared.loadIfNeeded()
         await loadUserData()
-        // Connecting to Realtime can take several seconds; don't hold up launch or sign-in for it.
+        // Realtime can take a few seconds to connect, so don't block launch or sign-in on it.
         Task { await listenForAlerts(userID: user.id) }
     }
 
@@ -360,7 +360,7 @@ final class AppState: ObservableObject {
                 var avatarURL: String?
                 if let data {
                     try await bucket.upload(path, data: data, options: FileOptions(contentType: "image/jpeg", upsert: true))
-                    // Cache-busting suffix so other devices fetch the new photo, not a cached copy.
+                    // Add a timestamp so other devices load the new photo instead of a cached one.
                     avatarURL = try bucket.getPublicURL(path: path).absoluteString + "?v=\(Int(Date().timeIntervalSince1970))"
                 } else {
                     _ = try await bucket.remove(paths: [path])
@@ -401,7 +401,7 @@ final class AppState: ObservableObject {
         alertsChannel = nil
     }
 
-    /// With `alertNew`, new unread price drops are also shown as a notification or in-app banner.
+    /// When `alertNew` is true, new unread price drops also show as a notification or in-app banner.
     func refreshInbox(alertNew: Bool) async {
         guard isSignedIn else { return }
         guard let rows: [NotificationRecord] = try? await supabase.from("notifications").select()
@@ -438,7 +438,7 @@ final class AppState: ObservableObject {
 
     // MARK: Demo price feed
 
-    /// The database trigger creates the alert, which arrives over Realtime (with a re-fetch as a fallback).
+    /// A database trigger creates the alert. It arrives over Realtime, with a re-fetch as a fallback.
     func simulatePriceDrop(for product: Product) async {
         if await NotificationManager.shared.authorizationStatus() == .notDetermined {
             await NotificationManager.shared.requestAuthorization()
@@ -548,7 +548,7 @@ final class AppState: ObservableObject {
             .compactMap { ProductCatalog.product(id: $0.productID) }
     }
 
-    /// Total saved across tracked products versus the price when tracking started.
+    /// How much the user has saved on tracked products since they started tracking them.
     var totalTrackedSavings: Double {
         trackedProducts.reduce(0) { total, product in
             total + max(0, (previousPrice(for: product) ?? product.startingPrice) - product.startingPrice)
@@ -619,7 +619,7 @@ final class AppState: ObservableObject {
 
     // MARK: Helpers
 
-    /// On failure, reloads the user's data so optimistic changes on screen are rolled back.
+    /// Reloads the user's data if saving fails, undoing changes already shown on screen.
     private func write(_ operation: () async throws -> Void) async {
         do {
             try await operation()

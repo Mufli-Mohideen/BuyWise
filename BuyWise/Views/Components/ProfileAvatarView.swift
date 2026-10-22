@@ -62,7 +62,7 @@ struct NotificationBellButton: View {
 }
 
 extension UIImage {
-    /// Downscales a picked photo to a square-friendly size before saving.
+    /// Shrinks a picked photo so its longest side is at most `maxDimension` before saving.
     func resizedForAvatar(maxDimension: CGFloat = 600) -> UIImage {
         let scale = min(1, maxDimension / max(size.width, size.height))
         guard scale < 1 else { return self }

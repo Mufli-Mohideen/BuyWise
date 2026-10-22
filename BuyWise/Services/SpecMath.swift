@@ -1,6 +1,6 @@
 import Foundation
 
-/// Keep it free of app types: ml/summarizer compiles this file to make training data.
+/// Don't use app types here: the training script compiles this file to generate training data.
 nonisolated enum SpecMath {
     /// First number in a spec value, e.g. "Up to 27 hours video" → 27.
     static func number(_ text: String?) -> Double? {

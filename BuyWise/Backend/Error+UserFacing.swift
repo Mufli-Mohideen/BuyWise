@@ -1,7 +1,7 @@
 import Foundation
 
 extension Error {
-    /// The backend's own message when it has one ("Invalid login credentials"), otherwise the system description.
+    /// Returns the error message to show the user.
     var userFacingMessage: String {
         (self as? LocalizedError)?.errorDescription ?? localizedDescription
     }

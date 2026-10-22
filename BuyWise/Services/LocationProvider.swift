@@ -6,7 +6,7 @@ import Observation
 final class LocationProvider: NSObject, CLLocationManagerDelegate {
     static let shared = LocationProvider()
 
-    /// Colombo city centre: used when the device location is unavailable or not in Sri Lanka.
+    /// Colombo city centre. Used when the location is unavailable or outside Sri Lanka.
     static let demoLocation = CLLocation(latitude: 6.9271, longitude: 79.8612)
     private static let serviceRadius: CLLocationDistance = 60_000
 

@@ -1,7 +1,7 @@
 import Foundation
 import UserNotifications
 
-/// Shows backend alerts (delivered to the app over Supabase Realtime) as local notifications.
+/// Shows alerts received over Supabase Realtime as local notifications.
 final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
     static let shared = NotificationManager()
 
@@ -26,7 +26,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         (try? await center.requestAuthorization(options: [.alert, .sound, .badge])) ?? false
     }
 
-    /// Delivers an alert immediately; the title and message were written by the backend price-drop trigger.
+    /// Shows the alert right away. The title and message come from the backend price-drop trigger.
     func showAlert(id: UUID, title: String, message: String, productID: UUID?) async {
         let content = UNMutableNotificationContent()
         content.title = title

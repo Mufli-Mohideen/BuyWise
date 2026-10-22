@@ -33,7 +33,7 @@ enum IdentificationError: LocalizedError {
     }
 }
 
-/// The backend narrows the candidates; the on-device listing matcher makes the final call on free text.
+/// The backend narrows down the candidates, then the on-device matcher picks the match for free text.
 enum ProductIdentifier {
     static func identify(text: String, method: IdentificationResult.Method) async throws -> IdentificationResult {
         let query = text.replacingOccurrences(of: "\n", with: " ").trimmingCharacters(in: .whitespaces)
@@ -43,8 +43,8 @@ enum ProductIdentifier {
             try await supabase.rpc("search_products", params: SearchParams(query: query, maxResults: 8)).execute().value
         }
 
-        // A photo of a web page or box has many unrelated words, which drags down the similarity to a short
-        // product name. So the rules are checked against all the text, and similarity is also scored per line.
+        // Photos of web pages or boxes have lots of unrelated text, which lowers the similarity to a short
+        // product name. So check the rules against all the text, but also score similarity line by line.
         let lines = text.split(separator: "\n").map { $0.trimmingCharacters(in: .whitespaces) }.filter { $0.count >= 4 }
         let passages = [query] + (lines.count > 1 ? lines : [])
 

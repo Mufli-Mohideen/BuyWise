@@ -18,7 +18,7 @@ struct UpgradeMetric: Identifiable {
     /// Raw change: ((new − current) / current) × 100.
     var changePercent: Double { (newValue - currentValue) / currentValue * 100 }
 
-    /// Change expressed so that positive always means an improvement (weight is inverted).
+    /// Like `changePercent`, but positive always means better (flipped when lower is better).
     var improvementPercent: Double { lowerIsBetter ? -changePercent : changePercent }
 
     var status: Status {
@@ -98,12 +98,12 @@ struct UpgradeAnalysis {
         (value > 0 ? "+" : value < 0 ? "−" : "") + percentText(abs(value))
     }
 
-    /// The cost, computed in code so it's always exact. Opens both the Core ML and the rule-based summary.
+    /// The cost sentence, written in code so it's always exact. Starts both the Core ML and rule-based summaries.
     var costSentence: String {
         "Upgrading from the \(current.fullName) to the \(new.fullName) costs \(PriceFormatter.lkr(upgradeCost)) at \(costRetailer.rawValue)."
     }
 
-    /// Feature and price-trend sentences, computed in code. Close both the Core ML and the rule-based summary.
+    /// Feature and price-trend sentences, written in code. Ends both the Core ML and rule-based summaries.
     var closingSentences: [String] {
         var sentences: [String] = []
         let additions = features.gained + features.changed.map { "\($0.name) \($0.to) (was \($0.from))" }
@@ -124,7 +124,7 @@ struct UpgradeAnalysis {
         return sentences
     }
 
-    /// Rule-based summary, used when the Core ML model can't run. Describes the data only; never recommends.
+    /// Rule-based fallback for when the Core ML model can't run. Only describes the data and never recommends.
     var summary: String {
         var sentences: [String] = [costSentence]
 
@@ -255,7 +255,7 @@ enum UpgradeAnalyzer {
     }
 
     private static func featureChanges(current: Product, new: Product) -> FeatureChanges {
-        // Feature lists only exist for the bundled reference devices; without both, there's nothing honest to diff.
+        // Only the bundled reference devices have feature lists, so skip this unless both products have one.
         guard let a = UpgradeReferenceData.entry(for: current), let b = UpgradeReferenceData.entry(for: new) else {
             return FeatureChanges(gained: [], lost: [], changed: [], unchanged: [])
         }

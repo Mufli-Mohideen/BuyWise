@@ -3,7 +3,7 @@ import Foundation
 
 /// Runs the fine-tuned T5-small model on device: encode once, then decode one token at a time.
 nonisolated final class T5Summarizer: @unchecked Sendable {
-    /// Fixed lengths the models were converted with (ml/summarizer/train.py).
+    /// Fixed lengths set when the models were converted.
     static let maxInputTokens = 256
     static let maxOutputTokens = 96
 

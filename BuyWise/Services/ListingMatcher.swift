@@ -20,11 +20,11 @@ struct RetailerTitle: Hashable {
 struct ListingMatch: Hashable {
     /// One listing title per retailer selling the product, in `Retailer.allCases` order.
     let titles: [RetailerTitle]
-    /// The weakest pairwise comparison against the first title, so one mismatched store isn't hidden.
+    /// The lowest match against the first title, so a single mismatched store still shows up.
     let comparison: ListingComparison
 }
 
-/// Checks whether two listings are the same product, using text similarity plus model, storage and variant rules.
+/// Checks if two listings are the same product using text similarity and model, storage and variant rules.
 final class ListingMatcher {
     static let shared = ListingMatcher()
 
@@ -124,7 +124,7 @@ final class ListingMatcher {
     }
 }
 
-/// A retailer listing title broken into the parts the matcher reasons about.
+/// A listing title split into the parts the matcher compares.
 struct ParsedListing {
     let cleaned: String
     let allTokens: Set<String>

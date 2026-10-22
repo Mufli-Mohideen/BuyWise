@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Built on semantic text styles so every size follows the user's Dynamic Type setting.
+/// Uses system text styles so every size follows the user's Dynamic Type setting.
 enum BuyWiseTypography {
     static let display = Font.system(.largeTitle, design: .rounded).weight(.bold)
     static let titleXL = Font.system(.title, design: .default).weight(.bold)

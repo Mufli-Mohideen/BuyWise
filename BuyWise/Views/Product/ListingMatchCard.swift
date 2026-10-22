@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Confirms that every store's listing is the same product, so the prices above compare like for like.
+/// Confirms each store's listing is the same product, so the prices above are a fair comparison.
 struct ListingMatchCard: View {
     let product: Product
     let match: ListingMatch

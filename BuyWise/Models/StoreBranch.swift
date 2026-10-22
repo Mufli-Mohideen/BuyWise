@@ -8,7 +8,7 @@ struct StoreBranch: Identifiable, Hashable {
     let storeType: String?
     let address: String
     let coordinate: CLLocationCoordinate2D
-    /// Minutes after midnight, parsed from the retailer's listing; nil when the retailer doesn't publish hours.
+    /// Minutes after midnight. Nil if the retailer doesn't list opening hours.
     let opensAt: Int?
     let closesAt: Int?
 

@@ -1,6 +1,6 @@
 import Foundation
 
-/// Read-only access to the live Celltronics/Abans/Singer catalogue loaded by `CatalogStore`.
+/// Read-only access to the catalogue loaded by `CatalogStore`.
 enum ProductCatalog {
     static var all: [Product] { CatalogStore.shared.products }
 
@@ -12,7 +12,7 @@ enum ProductCatalog {
         CatalogStore.shared.product(id: id) ?? referenceProducts.first { $0.id == id }
     }
 
-    /// Best-value products that more than one retailer stocks: used wherever the app needs an example product.
+    /// Best-value products sold by more than one retailer. Used wherever the app needs an example product.
     static func featured(_ category: ProductCategory, count: Int = 1) -> [Product] {
         let sold = products(in: category).filter(\.isSold)
         let comparable = sold.filter { $0.listings.count > 1 && !$0.lowestListing.isPreorder }
@@ -33,7 +33,7 @@ enum ProductCatalog {
             .map { $0 }
     }
 
-    /// Products a retailer has marked down on its own site, biggest discount first. Ignores the simulated history.
+    /// Products discounted on the retailers' own sites, biggest discount first. Ignores the simulated history.
     static var priceDrops: [(product: Product, previousPrice: Double)] {
         all.compactMap { product -> (product: Product, previousPrice: Double)? in
             guard product.isSold else { return nil }
@@ -48,7 +48,7 @@ enum ProductCatalog {
     }
 }
 
-/// Celltronics, Abans and Singer stores from the retailers' websites.
+/// Store branches listed on the retailers' websites.
 enum StoreBranches {
     static var all: [StoreBranch] { CatalogStore.shared.branches }
 

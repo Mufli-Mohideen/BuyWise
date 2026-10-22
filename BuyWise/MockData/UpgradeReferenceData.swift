@@ -2,7 +2,7 @@ import Foundation
 
 // MARK: - Older reference products
 
-/// Older models a user may own. No retailer sells them, so they only appear as the current product in Upgrade Analysis.
+/// Older devices users may own when comparing upgrade options.
 extension ProductCatalog {
     static let iPhone13 = Product(
         id: UUID(), name: "iPhone 13", brand: "Apple", category: .smartphones,
@@ -76,18 +76,18 @@ extension ProductCatalog {
 
     static let referenceProducts = [iPhone13, galaxyS23, macBookAirM1, sonyWH1000XM4, boseQC45]
 
-    /// Everything a user might own: current catalogue plus older reference models.
+    /// Includes older devices that aren't in the current catalogue.
     static var ownableProducts: [Product] { all + referenceProducts }
 }
 
 // MARK: - Upgrade metadata
 
-/// Benchmark scores and feature lists for the reference devices, which the spec sheets don't include.
+/// Extra details used to compare older devices with newer models.
 enum UpgradeReferenceData {
     struct Entry {
         var performanceScore: Double? = nil
         var cameraScore: Double? = nil
-        /// Plain features, compared as present / absent.
+        /// Features compared as either present or absent.
         var features: [String] = []
         /// Features with a version or value, compared as changed when the value differs.
         var versioned: [String: String] = [:]

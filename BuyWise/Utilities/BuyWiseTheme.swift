@@ -42,12 +42,12 @@ private struct BWCardModifier: ViewModifier {
 }
 
 extension View {
-    /// The standard BuyWise white/dark card surface with a thin border and soft shadow.
+    /// Standard light/dark card background with a thin border and soft shadow.
     func bwCard(radius: CGFloat = BuyWiseTheme.cardRadius) -> some View {
         modifier(BWCardModifier(radius: radius))
     }
 
-    /// A recessed secondary surface (no border, flat) used for nested rows inside a card.
+    /// Flat secondary background with no border, for rows nested inside a card.
     func bwSecondarySurface(radius: CGFloat = BuyWiseTheme.smallRadius) -> some View {
         modifier(BWCardModifier(radius: radius, fill: BuyWiseColors.surfaceSecondary, bordered: false))
     }

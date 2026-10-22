@@ -3,7 +3,7 @@ import CoreLocation
 import Observation
 import Supabase
 
-/// The live catalogue from Supabase. Offers and price history refresh per product so open screens update in place.
+/// Loads products, offers, price history, and store branches from Supabase.
 @Observable
 final class CatalogStore {
     static let shared = CatalogStore()
@@ -16,7 +16,8 @@ final class CatalogStore {
     private(set) var state: LoadState = .idle
     private(set) var products: [Product] = []
     private(set) var branches: [StoreBranch] = []
-    /// Bumped whenever prices change, so cached value scores know to recompute.
+    
+    /// Recalculates cached scores when prices change.
     private(set) var revision = 0
 
     private var productsByID: [UUID: Product] = [:]
@@ -61,7 +62,7 @@ final class CatalogStore {
         }
     }
 
-    /// Re-reads one product's offers and history, e.g. after a simulated price drop.
+    /// Refreshes a product's offers and price history.
     func refresh(productID: UUID) async {
         do {
             let offers: [OfferRow] = try await supabase.from("product_offers")
@@ -72,11 +73,11 @@ final class CatalogStore {
             historyByProduct[productID] = history.map(Self.point)
             revision += 1
         } catch {
-            // Keep showing the last known prices; the next full load will catch up.
+            // Keep the last known prices if the refresh fails.
         }
     }
 
-    // PostgREST returns at most 1,000 rows per request, so fetch the remaining pages in parallel.
+    // Fetch the remaining rows in parallel if there are more than 1,000.
     private func fetchAll<Row: Decodable & Sendable>(_ table: String, orderedBy columns: [String]) async throws -> [Row] {
         let pageSize = 1000
         let first: PostgrestResponse<[Row]> = try await page(table, columns, from: 0, size: pageSize, counted: true).execute()

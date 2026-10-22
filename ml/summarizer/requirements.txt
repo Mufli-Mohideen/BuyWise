@@ -1,4 +1,0 @@
-torch==2.7.0
-transformers
-sentencepiece
-coremltools

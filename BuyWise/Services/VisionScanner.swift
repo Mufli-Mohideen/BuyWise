@@ -24,7 +24,7 @@ enum VisionScanner {
             let observations = try await request.perform(on: cgImage, orientation: image.cgOrientation)
             payloads = observations.compactMap(\.payloadString)
         } catch {
-            // The new detector isn't available everywhere (e.g. the Simulator), so use the old one.
+            // Fall back to the old detector where the new one isn't available (e.g. the Simulator).
             payloads = try legacyBarcodes(in: cgImage, orientation: image.cgOrientation)
         }
         guard !payloads.isEmpty else { throw IdentificationError.noBarcodeFound }

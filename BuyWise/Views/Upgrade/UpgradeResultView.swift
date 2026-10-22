@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Step 2: the evidence. Presents numbers and changes only, with no verdict.
+/// Step 2: shows the numbers and changes only, without a verdict.
 struct UpgradeResultView: View {
     let analysis: UpgradeAnalysis
     @State private var showUnchangedFeatures = false

@@ -91,7 +91,7 @@ struct AppRootView: View {
         }
     }
 
-    /// Runs during the splash animation: load the catalogue and restore a saved session.
+    /// Loads the catalogue and restores the saved session while the splash animation plays.
     private func prepareLaunch() async {
         async let catalogLoad: Void = catalog.loadIfNeeded()
         var next: AppPhase

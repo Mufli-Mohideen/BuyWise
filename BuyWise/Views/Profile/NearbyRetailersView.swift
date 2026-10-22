@@ -178,7 +178,7 @@ struct NearbyRetailersView: View {
                 position = .rect(bounds.insetBy(dx: -bounds.width * 0.35, dy: -bounds.height * 0.35))
             }
         } catch {
-            // Routing unavailable here; the card shows an estimate instead.
+            // Routing isn't available here, so the card shows an estimate instead.
         }
     }
 

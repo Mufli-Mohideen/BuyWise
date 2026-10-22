@@ -1,6 +1,6 @@
 import Foundation
 
-// Row types for the Supabase tables and views. `nonisolated` so the Supabase client can decode them off the main actor.
+// Supabase table and view models that can be decoded outside the main thread.
 
 nonisolated struct SpecRow: Codable, Sendable {
     let label: String

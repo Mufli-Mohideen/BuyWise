@@ -1,6 +1,6 @@
 import Foundation
 
-/// Builds the model's input. Keep it free of app types: ml/summarizer compiles this file to make training data.
+/// Builds the model's input. Don't use app types here: the training script compiles this file to generate training data.
 nonisolated enum SpecComparison {
     struct Fact: Codable, Equatable, Sendable {
         let label: String
