@@ -2,7 +2,6 @@ import SwiftUI
 
 struct SecurityView: View {
     @EnvironmentObject private var appState: AppState
-    @State private var twoFactorEnabled = false
     @State private var showChangePassword = false
     @State private var newPassword = ""
     @State private var confirmPassword = ""
@@ -27,26 +26,6 @@ struct SecurityView: View {
                         settingsRow(title: "Change Password", symbol: "key")
                     }
                     .buttonStyle(.plain)
-
-                    Divider().overlay(BuyWiseColors.border).padding(.leading, 58)
-
-                    HStack(spacing: 12) {
-                        iconTile("lock.rotation")
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text("Two-Factor Authentication")
-                                .font(BuyWiseTypography.body)
-                                .foregroundStyle(BuyWiseColors.textPrimary)
-                            Text("Adds an extra layer of security at sign in.")
-                                .font(BuyWiseTypography.caption)
-                                .foregroundStyle(BuyWiseColors.textSecondary)
-                        }
-                        Spacer()
-                        Toggle("", isOn: $twoFactorEnabled)
-                            .labelsHidden()
-                            .tint(BuyWiseColors.brand)
-                    }
-                    .padding(.vertical, 12)
-                    .padding(.horizontal, 14)
                 }
                 .bwCard()
             }

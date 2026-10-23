@@ -42,7 +42,7 @@ struct SelectProductIntent: WidgetConfigurationIntent {
 struct PriceWatchEntry: TimelineEntry {
     let date: Date
     let product: ProductSnapshot?
-    var failed = false
+    var loadFailed = false
 }
 
 struct PriceWatchProvider: AppIntentTimelineProvider {
@@ -56,8 +56,8 @@ struct PriceWatchProvider: AppIntentTimelineProvider {
 
     func timeline(for configuration: SelectProductIntent, in context: Context) async -> Timeline<PriceWatchEntry> {
         let entry = await entry(for: configuration)
-        let next = Calendar.current.date(byAdding: .minute, value: entry.failed ? 15 : 120, to: .now)!
-        return Timeline(entries: [entry], policy: .after(next))
+        let nextRefresh = Calendar.current.date(byAdding: .minute, value: entry.loadFailed ? 15 : 120, to: .now)!
+        return Timeline(entries: [entry], policy: .after(nextRefresh))
     }
 
     private func entry(for configuration: SelectProductIntent) async -> PriceWatchEntry {
@@ -67,7 +67,7 @@ struct PriceWatchProvider: AppIntentTimelineProvider {
             guard let id else { return PriceWatchEntry(date: .now, product: nil) }
             return PriceWatchEntry(date: .now, product: try await WidgetCatalog.product(id: id))
         } catch {
-            return PriceWatchEntry(date: .now, product: nil, failed: true)
+            return PriceWatchEntry(date: .now, product: nil, loadFailed: true)
         }
     }
 }
@@ -125,11 +125,11 @@ struct PriceWatchView: View {
                 PriceSummary(product: product)
             }
         } else if family == .accessoryInline || family == .accessoryRectangular {
-            Text(entry.failed ? "BuyWise: offline" : "BuyWise")
+            Text(entry.loadFailed ? "BuyWise: offline" : "BuyWise")
         } else {
             WidgetMessage(
-                symbol: entry.failed ? "wifi.exclamationmark" : "magnifyingglass",
-                text: entry.failed ? "Couldn't load prices right now." : "Edit the widget to pick a product."
+                symbol: entry.loadFailed ? "wifi.exclamationmark" : "magnifyingglass",
+                text: entry.loadFailed ? "Couldn't load prices right now." : "Edit the widget to pick a product."
             )
         }
     }

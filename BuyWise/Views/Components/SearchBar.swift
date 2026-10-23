@@ -6,6 +6,9 @@ struct SearchBar: View {
     var onSubmit: (() -> Void)? = nil
     var isButton: Bool = false
     var onTap: (() -> Void)? = nil
+    /// Shows a mic button when set.
+    var onVoiceSearch: (() -> Void)? = nil
+    var isListening: Bool = false
 
     var body: some View {
         if isButton {
@@ -44,6 +47,19 @@ struct SearchBar: View {
                         Image(systemName: "xmark.circle.fill")
                             .foregroundStyle(BuyWiseColors.textSecondary)
                     }
+                }
+
+                if let onVoiceSearch {
+                    Button(action: onVoiceSearch) {
+                        Image(systemName: isListening ? "mic.fill" : "mic")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundStyle(isListening ? BuyWiseColors.textOnBrand : BuyWiseColors.brand)
+                            .symbolEffect(.pulse, isActive: isListening)
+                            .frame(width: 30, height: 30)
+                            .background(Circle().fill(isListening ? BuyWiseColors.brand : BuyWiseColors.brandSoft))
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel(isListening ? "Stop voice search" : "Search by voice")
                 }
             }
         }

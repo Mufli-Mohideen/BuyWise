@@ -21,7 +21,7 @@ nonisolated final class T5Summarizer: @unchecked Sendable {
         }
         let configuration = MLModelConfiguration()
         // The models compute in float32 (T5 can overflow in float16), which the GPU and CPU handle.
-        configuration.computeUnits = .cpuAndGPU
+        configuration.computeUnits = .cpuAndGPU 
         encoder = try MLModel(contentsOf: resource("SummaryEncoder", "mlmodelc"), configuration: configuration)
         decoder = try MLModel(contentsOf: resource("SummaryDecoder", "mlmodelc"), configuration: configuration)
         tokenizer = try UnigramTokenizer(vocabulary: resource("SummaryVocab", "json"))

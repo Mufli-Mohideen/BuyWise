@@ -24,7 +24,7 @@ struct ProductSnapshot: Identifiable {
         return (regularPrice - price) / regularPrice
     }
 
-    /// Price change across the recorded history, e.g. -0.05 when it's 5% cheaper than the first point.
+    /// Change since the first recorded price, Ex: -0.05 means 5% cheaper.
     var historyChange: Double? {
         guard let first = history.first?.price, history.count > 1, first > 0 else { return nil }
         return (price - first) / first
@@ -33,8 +33,8 @@ struct ProductSnapshot: Identifiable {
     var deepLink: URL { URL(string: "buywise://product/\(id.uuidString)")! }
 }
 
-/// Reads the public catalogue straight from Supabase. The widget can't share the app's data
-/// without an App Group, which free developer accounts don't support.
+/// Reads the public catalogue directly from Supabase. Sharing the app's data would need an
+/// App Group, which free developer accounts can't use.
 enum WidgetCatalog {
     private static let baseURL = URL(string: "https://zjrcucrduuwjztwaypcn.supabase.co/rest/v1")!
     private static let anonKey = "sb_publishable_xBk5BN2sP0Rx0gfVwg0TiQ_C0oAkwLE"
@@ -93,7 +93,7 @@ enum WidgetCatalog {
         if let ids {
             query.append(URLQueryItem(name: "id", value: "in.(\(ids.map(\.uuidString).joined(separator: ",")))"))
         }
-        // Strip characters PostgREST uses for its own syntax.
+        // Remove characters that would break the PostgREST filter.
         let term = (text ?? "").filter { !",()*%".contains($0) }.trimmingCharacters(in: .whitespaces)
         if !term.isEmpty {
             query.append(URLQueryItem(name: "or", value: "(name.ilike.*\(term)*,brand.ilike.*\(term)*)"))
@@ -104,7 +104,7 @@ enum WidgetCatalog {
 
     // MARK: Helpers
 
-    /// Matches the app: the lowest price wins, and it's a deal when that listing is in stock below its regular price.
+    /// Same rule as the app: use the cheapest listing, and count it as a deal if it's in stock below its regular price.
     private static func snapshot(_ row: ProductRow) -> ProductSnapshot? {
         let offers = row.productOffers ?? []
         guard let lowest = offers.min(by: { $0.price < $1.price }) else { return nil }
@@ -132,10 +132,10 @@ enum WidgetCatalog {
     }
 
     private static func withImages(_ products: [ProductSnapshot], from rows: [ProductRow]) async -> [ProductSnapshot] {
-        let urls = Dictionary(uniqueKeysWithValues: rows.map { ($0.id, $0.imageUrl) })
+        let imageURLs = Dictionary(uniqueKeysWithValues: rows.map { ($0.id, $0.imageUrl) })
         return await withTaskGroup(of: (Int, UIImage?).self) { group in
             for (index, product) in products.enumerated() {
-                group.addTask { (index, await thumbnail(urls[product.id] ?? nil)) }
+                group.addTask { (index, await thumbnail(imageURLs[product.id] ?? nil)) }
             }
             var result = products
             for await (index, image) in group { result[index].image = image }
@@ -143,7 +143,7 @@ enum WidgetCatalog {
         }
     }
 
-    /// Widgets have a tight memory limit, so decode a small thumbnail instead of the full photo.
+    /// Widgets have little memory, so load a small thumbnail instead of the full photo.
     private static func thumbnail(_ string: String?, maxPixels: Int = 240) async -> UIImage? {
         guard let string, let url = URL(string: string),
               let (data, _) = try? await URLSession.shared.data(from: url),

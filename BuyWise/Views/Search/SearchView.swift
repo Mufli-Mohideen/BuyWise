@@ -15,6 +15,7 @@ struct SearchView: View {
     @State private var selectedCategory: ProductCategory?
     @State private var sortOption: SortOption = .relevance
     @FocusState private var isSearchFocused: Bool
+    @State private var voiceSearch = VoiceSearch()
 
     private var isSearching: Bool { !searchText.trimmingCharacters(in: .whitespaces).isEmpty }
 
@@ -44,11 +45,22 @@ struct SearchView: View {
                     .padding(.horizontal, 20)
                     .padding(.top, 8)
 
-                SearchBar(placeholder: "iPhone, MacBook, headphones...", text: $searchText, onSubmit: {
-                    appState.addRecentSearch(searchText)
-                })
+                SearchBar(
+                    placeholder: "iPhone, MacBook, headphones...",
+                    text: $searchText,
+                    onSubmit: { appState.addRecentSearch(searchText) },
+                    onVoiceSearch: {
+                        isSearchFocused = false
+                        Task { await voiceSearch.toggle() }
+                    },
+                    isListening: voiceSearch.isListening
+                )
                 .focused($isSearchFocused)
                 .padding(.horizontal, 20)
+
+                if voiceSearch.isListening {
+                    listeningBanner
+                }
 
                 if isSearching || selectedCategory != nil {
                     filterBar
@@ -65,6 +77,43 @@ struct SearchView: View {
         .onAppear {
             if let initialCategory, selectedCategory == nil { selectedCategory = initialCategory }
         }
+        .onDisappear { voiceSearch.stop() }
+        .onChange(of: voiceSearch.transcript) { _, text in
+            if !text.isEmpty { searchText = text }
+        }
+        .onChange(of: voiceSearch.isListening) { _, isListening in
+            if !isListening, isSearching { appState.addRecentSearch(searchText) }
+        }
+        .animation(.easeInOut(duration: 0.2), value: voiceSearch.isListening)
+        .alert("Voice search", isPresented: Binding(get: { voiceSearch.errorMessage != nil }, set: { if !$0 { voiceSearch.errorMessage = nil } })) {
+            Button("Open Settings") {
+                if let url = URL(string: UIApplication.openSettingsURLString) { UIApplication.shared.open(url) }
+            }
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(voiceSearch.errorMessage ?? "")
+        }
+    }
+
+    private var listeningBanner: some View {
+        HStack(spacing: 10) {
+            Image(systemName: "waveform")
+                .foregroundStyle(BuyWiseColors.brand)
+                .symbolEffect(.variableColor.iterative, isActive: true)
+            Text(voiceSearch.transcript.isEmpty ? "Listening… say a product name" : voiceSearch.transcript)
+                .font(BuyWiseTypography.subheadline)
+                .foregroundStyle(BuyWiseColors.textPrimary)
+                .lineLimit(1)
+            Spacer()
+            Button("Done") { voiceSearch.stop() }
+                .font(BuyWiseTypography.subheadline.weight(.semibold))
+                .foregroundStyle(BuyWiseColors.brand)
+        }
+        .padding(.horizontal, 14)
+        .padding(.vertical, 10)
+        .background(RoundedRectangle(cornerRadius: BuyWiseTheme.controlRadius, style: .continuous).fill(BuyWiseColors.brandSoft))
+        .padding(.horizontal, 20)
+        .transition(.move(edge: .top).combined(with: .opacity))
     }
 
     private var filterBar: some View {

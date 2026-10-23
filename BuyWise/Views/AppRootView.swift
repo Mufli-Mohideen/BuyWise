@@ -99,7 +99,7 @@ struct AppRootView: View {
         }
     }
 
-    /// The product in a widget link, e.g. buywise://product/<id>.
+    /// The product ID from a widget link, Ex: buywise://product/<id>.
     private func widgetProductID(_ url: URL) -> UUID? {
         guard url.scheme == "buywise", url.host() == "product" else { return nil }
         return UUID(uuidString: url.lastPathComponent)

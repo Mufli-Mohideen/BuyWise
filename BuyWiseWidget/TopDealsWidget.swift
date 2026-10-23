@@ -4,7 +4,7 @@ import WidgetKit
 struct TopDealsEntry: TimelineEntry {
     let date: Date
     let deals: [ProductSnapshot]
-    var failed = false
+    var loadFailed = false
 }
 
 struct TopDealsProvider: TimelineProvider {
@@ -23,9 +23,9 @@ struct TopDealsProvider: TimelineProvider {
     func getTimeline(in context: Context, completion: @escaping (Timeline<TopDealsEntry>) -> Void) {
         Task {
             let entry = await entry(for: context.family)
-            // Retry sooner after a failed load; prices only change a few times a day.
-            let next = Calendar.current.date(byAdding: .minute, value: entry.failed ? 15 : 120, to: .now)!
-            completion(Timeline(entries: [entry], policy: .after(next)))
+            // Prices rarely change, so refresh every 2 hours, or sooner if loading failed.
+            let nextRefresh = Calendar.current.date(byAdding: .minute, value: entry.loadFailed ? 15 : 120, to: .now)!
+            completion(Timeline(entries: [entry], policy: .after(nextRefresh)))
         }
     }
 
@@ -38,7 +38,7 @@ struct TopDealsProvider: TimelineProvider {
         do {
             return TopDealsEntry(date: .now, deals: try await WidgetCatalog.deals(limit: limit))
         } catch {
-            return TopDealsEntry(date: .now, deals: [], failed: true)
+            return TopDealsEntry(date: .now, deals: [], loadFailed: true)
         }
     }
 }
@@ -62,8 +62,8 @@ struct TopDealsView: View {
         Group {
             if entry.deals.isEmpty {
                 WidgetMessage(
-                    symbol: entry.failed ? "wifi.exclamationmark" : "tag",
-                    text: entry.failed ? "Couldn't load deals right now." : "No deals right now."
+                    symbol: entry.loadFailed ? "wifi.exclamationmark" : "tag",
+                    text: entry.loadFailed ? "Couldn't load deals right now." : "No deals right now."
                 )
             } else if family == .systemSmall, let deal = entry.deals.first {
                 SmallDealView(deal: deal)
