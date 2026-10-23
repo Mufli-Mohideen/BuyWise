@@ -12,6 +12,12 @@ enum ProductCatalog {
         CatalogStore.shared.product(id: id) ?? referenceProducts.first { $0.id == id }
     }
 
+    /// True when every word of the query appears in the product's name or category.
+    static func matches(_ product: Product, query: String) -> Bool {
+        let haystack = "\(product.fullName) \(product.category.rawValue)"
+        return query.split(separator: " ").allSatisfy { haystack.localizedCaseInsensitiveContains($0) }
+    }
+
     /// Best-value products sold by more than one retailer. Used wherever the app needs an example product.
     static func featured(_ category: ProductCategory, count: Int = 1) -> [Product] {
         let sold = products(in: category).filter(\.isSold)

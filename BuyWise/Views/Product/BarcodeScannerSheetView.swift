@@ -10,6 +10,8 @@ struct BarcodeScannerSheetView: View {
         case scanning
         case reading(UIImage?)
         case identified(IdentificationResult, UIImage?)
+        /// The barcode was read but isn't in the catalogue.
+        case notFound(String)
         case failed(String)
     }
 
@@ -17,6 +19,13 @@ struct BarcodeScannerSheetView: View {
     @State private var phase: Phase = .scanning
     @State private var photoItem: PhotosPickerItem?
     @State private var scanLineOffset: CGFloat = -70
+    @State private var nameQuery = ""
+
+    private var nameMatches: [Product] {
+        let query = nameQuery.trimmingCharacters(in: .whitespaces)
+        guard !query.isEmpty else { return [] }
+        return Array(ProductCatalog.all.filter { ProductCatalog.matches($0, query: query) }.prefix(6))
+    }
 
     /// Featured products whose barcode (EAN or retailer item code) is on file.
     private var samples: [Product] {
@@ -73,6 +82,8 @@ struct BarcodeScannerSheetView: View {
                     .padding(20)
                     .padding(.top, 20)
             }
+        case .notFound(let code):
+            notFoundView(code: code)
         case .failed(let message):
             VStack(spacing: 16) {
                 Spacer()
@@ -162,6 +173,69 @@ struct BarcodeScannerSheetView: View {
         }
     }
 
+    private func notFoundView(code: String) -> some View {
+        ScrollView {
+            VStack(spacing: 16) {
+                Image(systemName: "barcode.viewfinder").font(.system(size: 44)).foregroundStyle(BuyWiseColors.warning)
+                Text("No match for this barcode").font(BuyWiseTypography.title).foregroundStyle(.white)
+                Text(code)
+                    .font(.system(.body, design: .monospaced).weight(.semibold))
+                    .foregroundStyle(.white)
+                    .textSelection(.enabled)
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 8)
+                    .background(Capsule().fill(Color.white.opacity(0.14)))
+                Text("It isn't in the Celltronics, Abans or Singer catalogue yet. Search by name instead.")
+                    .font(BuyWiseTypography.body)
+                    .foregroundStyle(.white.opacity(0.7))
+                    .multilineTextAlignment(.center)
+
+                SearchBar(placeholder: "Product name, e.g. Galaxy A36", text: $nameQuery)
+
+                VStack(spacing: 8) {
+                    ForEach(nameMatches) { product in
+                        Button { onProductIdentified(product) } label: { nameMatchRow(product) }
+                            .buttonStyle(PressableButtonStyle())
+                    }
+                }
+                if !nameQuery.trimmingCharacters(in: .whitespaces).isEmpty && nameMatches.isEmpty {
+                    Text("No products match “\(nameQuery)”.")
+                        .font(BuyWiseTypography.caption)
+                        .foregroundStyle(.white.opacity(0.7))
+                }
+
+                SecondaryButton(title: "Scan again", symbolName: "arrow.counterclockwise") {
+                    withAnimation { phase = .scanning }
+                }
+                .padding(.top, 8)
+            }
+            .padding(24)
+        }
+        .scrollDismissesKeyboard(.interactively)
+    }
+
+    private func nameMatchRow(_ product: Product) -> some View {
+        HStack(spacing: 12) {
+            ProductImageView(product: product, cornerRadius: 10)
+                .frame(width: 44, height: 44)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(product.fullName)
+                    .font(BuyWiseTypography.headline)
+                    .foregroundStyle(BuyWiseColors.textPrimary)
+                    .lineLimit(2)
+                Text(PriceFormatter.lkr(product.startingPrice))
+                    .font(BuyWiseTypography.caption)
+                    .foregroundStyle(BuyWiseColors.textSecondary)
+            }
+            Spacer()
+            Image(systemName: "chevron.right")
+                .font(.system(size: 12, weight: .semibold))
+                .foregroundStyle(BuyWiseColors.textSecondary)
+        }
+        .padding(12)
+        .bwCard(radius: BuyWiseTheme.controlRadius)
+    }
+
     private func read(_ image: UIImage) async {
         withAnimation { phase = .reading(image) }
         do {
@@ -180,7 +254,8 @@ struct BarcodeScannerSheetView: View {
         } catch IdentificationError.offline {
             withAnimation { phase = .failed(IdentificationError.offline.errorDescription ?? "") }
         } catch {
-            withAnimation { phase = .failed("Barcode \(payload) isn't in the Celltronics, Abans or Singer catalogue yet.") }
+            nameQuery = ""
+            withAnimation { phase = .notFound(payload) }
         }
     }
 }

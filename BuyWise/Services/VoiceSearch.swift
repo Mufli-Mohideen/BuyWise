@@ -66,8 +66,9 @@ final class VoiceSearch {
         silenceTimer = nil
         if audioEngine.isRunning {
             audioEngine.stop()
-            audioEngine.inputNode.removeTap(onBus: 0)
         }
+        // Remove the tap even if the engine never started, or the next installTap would crash.
+        audioEngine.inputNode.removeTap(onBus: 0)
         request?.endAudio()
         request = nil
         recognitionTask?.finish()
