@@ -12,6 +12,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		BB10000000000000000000B1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9630559B306439B500B44774 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 963055A2306439B500B44774;
+			remoteInfo = BuyWise;
+		};
 		AA10000000000000000000A3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9630559B306439B500B44774 /* Project object */;
@@ -36,11 +43,17 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		BB10000000000000000000B2 /* BuyWiseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BuyWiseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		963055A3306439B500B44774 /* BuyWise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BuyWise.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA10000000000000000000A1 /* BuyWiseWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BuyWiseWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		BB10000000000000000000B3 /* BuyWiseTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = BuyWiseTests;
+			sourceTree = "<group>";
+		};
 		963055A5306439B500B44774 /* BuyWise */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = BuyWise;
@@ -54,6 +67,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		BB10000000000000000000B4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AA10000000000000000000A6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -77,6 +97,7 @@
 			children = (
 				963055A5306439B500B44774 /* BuyWise */,
 				AA10000000000000000000A5 /* BuyWiseWidget */,
+				BB10000000000000000000B3 /* BuyWiseTests */,
 				963055A4306439B500B44774 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -86,6 +107,7 @@
 			children = (
 				963055A3306439B500B44774 /* BuyWise.app */,
 				AA10000000000000000000A1 /* BuyWiseWidgetExtension.appex */,
+				BB10000000000000000000B2 /* BuyWiseTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -93,6 +115,27 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		BB10000000000000000000B7 /* BuyWiseTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BB10000000000000000000BA /* Build configuration list for PBXNativeTarget "BuyWiseTests" */;
+			buildPhases = (
+				BB10000000000000000000B5 /* Sources */,
+				BB10000000000000000000B4 /* Frameworks */,
+				BB10000000000000000000B6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BB10000000000000000000B8 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				BB10000000000000000000B3 /* BuyWiseTests */,
+			);
+			name = BuyWiseTests;
+			productName = BuyWiseTests;
+			productReference = BB10000000000000000000B2 /* BuyWiseTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		963055A2306439B500B44774 /* BuyWise */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 963055C4306439B600B44774 /* Build configuration list for PBXNativeTarget "BuyWise" */;
@@ -154,6 +197,10 @@
 					AA10000000000000000000A9 = {
 						CreatedOnToolsVersion = 26.5;
 					};
+					BB10000000000000000000B7 = {
+						CreatedOnToolsVersion = 26.5;
+						TestTargetID = 963055A2306439B500B44774;
+					};
 				};
 			};
 			buildConfigurationList = 9630559E306439B500B44774 /* Build configuration list for PBXProject "BuyWise" */;
@@ -175,11 +222,19 @@
 			targets = (
 				963055A2306439B500B44774 /* BuyWise */,
 				AA10000000000000000000A9 /* BuyWiseWidgetExtension */,
+				BB10000000000000000000B7 /* BuyWiseTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		BB10000000000000000000B6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AA10000000000000000000A8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -197,6 +252,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		BB10000000000000000000B5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AA10000000000000000000A7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -214,6 +276,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		BB10000000000000000000B8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 963055A2306439B500B44774 /* BuyWise */;
+			targetProxy = BB10000000000000000000B1 /* PBXContainerItemProxy */;
+		};
 		AA10000000000000000000AA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = AA10000000000000000000A9 /* BuyWiseWidgetExtension */;
@@ -222,6 +289,50 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		BB10000000000000000000BB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 62RG6L84JH;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nibm.BuyWiseTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BuyWise.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BuyWise";
+			};
+			name = Debug;
+		};
+		BB10000000000000000000BC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 62RG6L84JH;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nibm.BuyWiseTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BuyWise.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BuyWise";
+			};
+			name = Release;
+		};
 		AA10000000000000000000AC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -476,6 +587,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		BB10000000000000000000BA /* Build configuration list for PBXNativeTarget "BuyWiseTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BB10000000000000000000BB /* Debug */,
+				BB10000000000000000000BC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		AA10000000000000000000AB /* Build configuration list for PBXNativeTarget "BuyWiseWidgetExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
